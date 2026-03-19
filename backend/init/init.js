@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import sampleListing from "./data.js";
 import Product from "../models/product.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/ecom";
+const MONGO_URL = process.env.MONGO_URL;
 
 main()
     .then(()=>{
