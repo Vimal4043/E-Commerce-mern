@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 import sampleListing from "./data.js";
 import Product from "../models/product.js";
 import dotenv from "dotenv";
-dotenv.config();
+
+dotenv.config({ path: "../.env" });
 
 const MONGO_URL = process.env.MONGO_URL;
 
