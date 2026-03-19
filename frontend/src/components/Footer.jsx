@@ -11,7 +11,7 @@ const Footer = () => {
                 <div>
                     <h2 className="text-2xl font-bold text-white mb-4">Shopverse</h2>
                     <p className="text-sm mb-4">
-                        A modern platform to explore, shop, and manage your favorite products with ease.
+                        A modern platform to explore, shop and manage your favorite products with ease.
                     </p>
 
                     <div className="flex gap-4 text-lg">
@@ -48,7 +48,7 @@ const Footer = () => {
                 <div>
                     <h3 className="text-white font-semibold mb-4">Get in Touch</h3>
                     <p className="text-sm mb-2">support@shopverse.com</p>
-                    <p className="text-sm mb-4">+91 98765 43210</p>
+                    <p className="text-sm mb-4">+91 12345 67890</p>
 
                     <div className="flex flex-col gap-3">
                         <button className="flex items-center justify-center gap-2 border border-gray-600 rounded-lg px-4 py-3 text-sm hover:bg-gray-800 transition">
