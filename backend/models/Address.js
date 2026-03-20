@@ -11,7 +11,7 @@ const addressSchema = new mongoose.Schema({
         type: String,
         match: [/^\d{10}$/, "Phone number must be exactly 10 digits"]
     },
-    adressLine: String,
+    addressLine: String,
     city: String,
     state: String,
     pincode: String,
