@@ -104,7 +104,7 @@ export default function Cart() {
                   className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition"
                 >
                   {/* Left: Image + Info */}
-                  <div className="flex items-center gap-4 w-1/2">
+                  <div className="flex items-center gap-4 md:w-1/2">
                     <img
                       src={item.productId.image}
                       alt={item.productId.title}
@@ -121,7 +121,7 @@ export default function Cart() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between w-1/2">
+                  <div className="md:flex items-center justify-between md:w-1/2">
                     {/* Middle: Quantity */}
                     <div className="flex items-center gap-2">
                       <button
