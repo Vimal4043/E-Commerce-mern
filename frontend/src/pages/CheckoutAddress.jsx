@@ -15,7 +15,29 @@ export default function CheckoutAddress() {
         pincode: ""
     });
 
+    const [errors, setErrors] = useState({});
+
+    const formTypes = {
+        fullName: "text",
+        phone: "tel",
+        addressLine: "text",
+        city: "text",
+        state: "text",
+        pincode: "text"
+    };
+
     const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        // Name, City, State → only letters + space
+        if (["fullName", "city", "state"].includes(name)) {
+            if (!/^[A-Za-z ]*$/.test(value)) return;
+        }
+
+        // Phone → only numbers
+        if (name === "phone" || name === "pincode") {
+            if (!/^[0-9]*$/.test(value)) return;
+        }
         setForm({
             ...form,
             [e.target.name]: e.target.value
@@ -24,17 +46,36 @@ export default function CheckoutAddress() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const newErrors = {};
+
+        // Phone validation
+        if (!/^[0-9]{10}$/.test(form.phone)) {
+            newErrors.phone = "Phone number must be 10 digits";
+        }
+
+        // Pincode validation
+        if (!/^[0-9]{6}$/.test(form.pincode)) {
+            newErrors.pincode = "Pincode must be 6 digits";
+        }
+
+        // set errors
+        setErrors(newErrors);
+
+        // stop if errors exist
+        if (Object.keys(newErrors).length > 0) return;
+
         try {
             await api.post("/address/add", {
                 ...form,
                 userId,
             });
+
             navigate("/checkout");
         } catch (error) {
             console.log(error.response?.data);
-            alert(error.response?.data?.message || "Error saving address");
         }
-    }
+    };
 
     return (
         <div className="max-w-3xl mx-auto mt-10 p-6">
@@ -63,10 +104,19 @@ export default function CheckoutAddress() {
                                 <input
                                     name={key}
                                     placeholder={`Enter ${key}`}
+                                    value={form[key]}
                                     onChange={handleChange}
-                                    className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className={`p-3 border rounded-lg focus:outline-none focus:ring-2 ${errors[key] ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
+                                        }`}
                                     required
                                 />
+
+                                {/* 🔥 Error message */}
+                                {errors[key] && (
+                                    <p className="text-red-500 text-sm mt-1">
+                                        {errors[key]}
+                                    </p>
+                                )}
 
                             </div>
                         ))}

@@ -14,6 +14,10 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleChange = (e)=>{
+    if(e.target.name === "name"){
+      //Only allow letters and space in name
+      if(!/^[A-Za-z ]*$/.test(e.target.value)) return;
+    }
     setForm({
       ...form,
       [e.target.name]: e.target.value

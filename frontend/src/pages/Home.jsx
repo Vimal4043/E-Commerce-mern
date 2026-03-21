@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import { Link } from "react-router";
+import ProductCard from "../components/ProductCard";
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(null);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
 
@@ -18,23 +18,12 @@ export default function Home() {
     loadProducts();
   }, [search, category]);
 
-  const addToCart = async (productId) => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      alert("Please log in to add items to your cart.");
-      return;
-    }
-
-    const res = await api.post(`/cart/add`, { userId, productId });
-
-    const total = res.data.cart.items.reduce(
-      (sum, item) => sum + item.productId.price * item.quantity,
-      0
-    );
-
-    localStorage.setItem("cartCount", total);
-    window.dispatchEvent(new Event("cartUpdated"));
-  };
+  if (!products) {
+    return <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3">
+      <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>
+      <p className="text-gray-600">Loading...</p>
+    </div>
+  }
 
   return (
     <div className="bg-linear-to-b from-gray-50 to-gray-100 min-h-screen px-6 py-4">
@@ -71,32 +60,9 @@ export default function Home() {
 
       {/* Products Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-5">
+        {/* products cards */}
         {products.map((product) => (
-          <div
-            key={product._id}
-            className="bg-white rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden"
-          >
-            <Link to={`/product/${product._id}`}>
-              <img
-                src={product.image}
-                alt={product.title}
-                className="w-full h-48 object-cover"
-              />
-              <h2 className="mt-2 px-3 font-semibold text-lg line-clamp-1">{product.title}</h2>
-            </Link>
-
-            {/* Price + Add to Cart (same line) */}
-            <div className="m-3 flex items-center justify-between bg-linear-to-r from-pink-500 to-purple-500 text-white px-3 py-2 rounded-lg">
-              <p className="font-bold">₹{product.price}</p>
-
-              <button
-                onClick={() => addToCart(product._id)}
-                className="bg-blue-600 hover:bg-blue-700 active:scale-70 transition px-3 py-1 rounded-md text-sm"
-              >
-                Add
-              </button>
-            </div>
-          </div>
+          <ProductCard product={product} />
         ))}
       </div>
     </div>

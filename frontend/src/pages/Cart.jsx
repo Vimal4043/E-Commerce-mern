@@ -70,7 +70,10 @@ export default function Cart() {
   }
 
   if (!cart) {
-    return <div>Loading...</div>;
+    return <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3">
+      <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>
+      <p className="text-gray-600">Loading...</p>
+    </div>
   }
 
   const total = cart.items.reduce(
