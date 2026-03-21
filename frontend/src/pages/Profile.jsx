@@ -26,6 +26,10 @@ const Profile = () => {
   }
 
   useEffect(() => {
+    if (!userId) {
+      navigate("/login");
+      return;
+    }
     const fetchData = async () => {
       await loadUser();
       await loadAddress();
@@ -51,11 +55,6 @@ const Profile = () => {
     }
   };
 
-  if (!userId) {
-    navigate("/login");
-    return null;
-  }
-
   if (loading) {
     return <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3">
       <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>
@@ -65,7 +64,7 @@ const Profile = () => {
 
   const logout = () => {
     localStorage.clear();
-    setCartCount(0);
+    setUser(null);
     navigate("/login");
   }
 
@@ -104,7 +103,7 @@ const Profile = () => {
             Edit Profile
           </button>
 
-          <button onClick={() => navigate("/orders")} className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg transition">
+          <button className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg transition">
             My Orders
           </button>
 

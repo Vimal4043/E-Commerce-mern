@@ -11,7 +11,7 @@ const NavLinks = ({ logout, closeMenu }) => {
         Profile
       </Link>
 
-      <Link to="/orders" onClick={closeMenu} className="block w-full text-left px-4 py-2 hover:bg-gray-100">
+      <Link to="/" onClick={closeMenu} className="block w-full text-left px-4 py-2 text-gray-500 cursor-not-allowed">
         Orders
       </Link>
 
