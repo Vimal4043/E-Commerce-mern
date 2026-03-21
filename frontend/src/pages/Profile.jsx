@@ -13,7 +13,7 @@ const Profile = () => {
   //Load user data
   const loadUser = async () => {
     if (!userId) return;
-    const res = await api.get(`/users/${userId}`);
+    const res = await api.get(`/user/${userId}`);
     setUser(res.data);
   };
 

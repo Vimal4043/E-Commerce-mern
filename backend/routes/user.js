@@ -15,3 +15,5 @@ router.get("/:id", getUserById);
 
 //Route to update user profile
 router.put("/:id", updateUserProfile);
+
+export default router;

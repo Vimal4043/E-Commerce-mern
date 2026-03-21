@@ -7,6 +7,7 @@ import productRoutes from "./routes/productsRoutes.js";
 import cartRoutes from "./routes/cart.js";
 import addressRoutes from "./routes/address.js";
 import orderRoutes from "./routes/order.js";
+import userRoutes from "./routes/user.js";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use("/api/products", productRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/address', addressRoutes);
 app.use('/api/order', orderRoutes);
+app.use('/api/user', userRoutes);   
 
 app.get("/", (req, res)=>{
     res.send("API is running");
