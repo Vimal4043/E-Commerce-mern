@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useNavigate, useParams } from "react-router";
+import ProductSkeleton from "../loadingSkeleton/ProductSkeleton";
 
 export default function ProductDetails() {
   const navidate = useNavigate();
@@ -44,10 +45,7 @@ export default function ProductDetails() {
   }
 
   if (!product) {
-    return <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3">
-      <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>
-      <p className="text-gray-600">Loading...</p>
-    </div>
+    return <ProductSkeleton />;
   }
 
   return (

@@ -5,17 +5,17 @@ const router = express.Router();
 
 //Get all users
 export const getAllUsers = async (req, res) => {
-    try{
+    try {
         const users = await User.find();
         res.json(users);
     } catch (error) {
         res.status(500).json({ message: error.message });
-    }   
+    }
 }
 
 //Get user by ID
 export const getUserById = async (req, res) => {
-    try{
+    try {
         const user = await User.findById(req.params.id);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
@@ -28,12 +28,15 @@ export const getUserById = async (req, res) => {
 
 //Update user profile
 export const updateUserProfile = async (req, res) => {
-    try{
+    try {
         const user = await User.findById(req.params.id);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        Object.assign(user, req.body);
+        const { name } = req.body;
+
+        if (name) user.name = name;
+
         const updatedUser = await user.save();
         res.json(updatedUser);
     } catch (error) {

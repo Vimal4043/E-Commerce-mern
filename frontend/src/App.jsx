@@ -13,6 +13,7 @@ import Checkout from "./pages/Checkout";
 import OrderSuccess from "./pages/OrderSuccess";
 import Profile from "./pages/Profile";
 import AddAddress from "./pages/AddAddress";
+import EditProfile from "./pages/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
 
       { path: "/profile", element: <Profile /> },
       { path: "/add-address", element: <AddAddress /> },
+      { path: "/edit-profile", element: <EditProfile /> },
 
       { path: "/product/:id", element: <ProductDetails /> },
       { path : "/cart", element: <Cart/>},

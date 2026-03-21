@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import ProductCard from "../components/ProductCard";
+import ProductListSkeleton from "../loadingSkeleton/ProductListSkeleton";
 
 export default function Home() {
   const [products, setProducts] = useState(null);
@@ -19,10 +20,7 @@ export default function Home() {
   }, [search, category]);
 
   if (!products) {
-    return <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3">
-      <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>
-      <p className="text-gray-600">Loading...</p>
-    </div>
+    return <ProductListSkeleton />;
   }
 
   return (
@@ -62,7 +60,7 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-5">
         {/* products cards */}
         {products.map((product) => (
-          <ProductCard product={product} />
+          <ProductCard product={product} key={product._id} />
         ))}
       </div>
     </div>

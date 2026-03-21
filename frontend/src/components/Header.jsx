@@ -7,9 +7,17 @@ export default function Header() {
     const navigate = useNavigate();
     const [cartCount, setCartCount] = useState(0);
     const userId = localStorage.getItem("userId");
-    const username = localStorage.getItem("username");
+    const [user, setUser] = useState(null);
+
+    const loadUser = async () => {
+        if (!userId) return;
+        const res = await api.get(`/user/${userId}`);
+        setUser(res.data);
+    };
+
 
     useEffect(() => {
+        loadUser();
         const loadCart = async () => {
             if (!userId) return setCartCount(0);
 
@@ -27,6 +35,16 @@ export default function Header() {
             window.removeEventListener("cartUpdated", loadCart);
         }
     }, [userId]);
+
+    const formatName = (name) => {
+        return name
+            ?.trim()
+            .split(/\s+/)
+            .map(word =>
+                word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+            )
+            .join(" ");
+    };
 
     const logout = () => {
         localStorage.clear();
@@ -72,7 +90,7 @@ export default function Header() {
                             className="bg-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition shadow-sm"
                         >
                             <span className="text-gray-600 text-sm">
-                                Hi, <span className="font-semibold text-black">{username}</span>
+                                Hi, <span className="font-semibold text-black">{formatName(user?.name)}</span>
                             </span>
                         </Link>
                         <Nav logout={logout} />
