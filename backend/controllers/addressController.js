@@ -39,3 +39,41 @@ export const getAddresses = async (req, res) => {
         res.status(500).json({ message: "Error fetching addresses", error });
     }
 };
+
+//Update Address
+export const updateAddress = async (req, res) => {
+    try{
+        const addressId = req.params.id;
+        const { addressLine, city, state, pincode } = req.body;
+
+        const updatedAddress = await Address.findByIdAndUpdate(
+            addressId,
+            { addressLine, city, state, pincode },
+            { new: true }
+        );
+
+        if (!updatedAddress) {
+            return res.status(404).json({ message: "Address not found" });
+        }
+
+        res.json({ message: "Address updated successfully", address: updatedAddress });
+    } catch (error) {
+        res.status(500).json({ message: "Error updating address", error });
+    }
+};
+
+//Delete Address
+export const deleteAddress = async (req, res) => {
+    try{
+        const addressId = req.params.id;
+        const deletedAddress = await Address.findByIdAndDelete(addressId);
+
+        if (!deletedAddress) {
+            return res.status(404).json({ message: "Address not found" });
+        }
+
+        res.json({ message: "Address deleted successfully", address: deletedAddress });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting address", error });
+    }
+};
