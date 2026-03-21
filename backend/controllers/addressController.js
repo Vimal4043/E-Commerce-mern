@@ -33,7 +33,7 @@ export const getAddresses = async (req, res) => {
     try{
         const addresses = await Address.find({
             userId: req.params.userId
-        })
+        }).sort({ createdAt: -1 });
         res.json(addresses);
     } catch (error) {
         res.status(500).json({ message: "Error fetching addresses", error });
