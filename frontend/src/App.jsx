@@ -14,6 +14,7 @@ import OrderSuccess from "./pages/OrderSuccess";
 import Profile from "./pages/Profile";
 import AddAddress from "./pages/AddAddress";
 import EditProfile from "./pages/EditProfile";
+import Orders from "./pages/Orders";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile /> },
       { path: "/add-address", element: <AddAddress /> },
       { path: "/edit-profile", element: <EditProfile /> },
+      { path: "/orders", element: <Orders /> },
 
       { path: "/product/:id", element: <ProductDetails /> },
       { path : "/cart", element: <Cart/>},

@@ -101,7 +101,7 @@ const Profile = () => {
             Edit Profile
           </button>
 
-          <button className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg transition">
+          <button onClick={() => navigate("/orders")} className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg transition">
             My Orders
           </button>
 
