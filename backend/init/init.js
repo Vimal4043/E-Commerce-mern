@@ -20,7 +20,7 @@ async function main() {
 }
 
 const initDB = async()=>{
-    await Product.deleteMany({});
+    // await Product.deleteMany({});
     await Product.insertMany(sampleListing);
     console.log("data was initialized");
 };
