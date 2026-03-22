@@ -22,7 +22,6 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/address', addressRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api/user', userRoutes);
-app.use('/api/orders', orderRoutes);
 
 app.get("/", (req, res)=>{
     res.send("API is running");

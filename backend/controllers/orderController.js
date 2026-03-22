@@ -57,29 +57,29 @@ export const getUserOrders = async (req, res) => {
 }
 
 //Get All Orders (Admin)
-export const getAllOrders = async (req, res) => {
-    try {
-        const orders = await Order.find().populate('items.productId').populate('userId', 'name email');
-        res.status(200).json(orders);
-    } catch (error) {
-        res.status(500).json({ message: "Internal server error" });
-    }
-}
+// export const getAllOrders = async (req, res) => {
+//     try {
+//         const orders = await Order.find().populate('items.productId').populate('userId', 'name email');
+//         res.status(200).json(orders);
+//     } catch (error) {
+//         res.status(500).json({ message: "Internal server error" });
+//     }
+// }
 
 //Update Order Status (Admin)
-export const updateOrderStatus = async (req, res) => {
-    try {
-        const { orderId } = req.params;
-        const { status } = req.body;
+// export const updateOrderStatus = async (req, res) => {
+//     try {
+//         const { orderId } = req.params;
+//         const { status } = req.body;
 
-        const order = await Order.findById(orderId);
-        if (!order) {
-            return res.status(404).json({ message: "Order not found" });
-        }
-        order.status = status;
-        await order.save();
-        res.status(200).json({ message: "Order status updated successfully" });
-    } catch (error) {
-        res.status(500).json({ message: "Internal server error" });
-    }
-}
+//         const order = await Order.findById(orderId);
+//         if (!order) {
+//             return res.status(404).json({ message: "Order not found" });
+//         }
+//         order.status = status;
+//         await order.save();
+//         res.status(200).json({ message: "Order status updated successfully" });
+//     } catch (error) {
+//         res.status(500).json({ message: "Internal server error" });
+//     }
+// }
