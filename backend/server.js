@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
-import productRoutes from "./routes/productsRoutes.js";
+import productRoutes from "./routes/products.js";
 import cartRoutes from "./routes/cart.js";
 import addressRoutes from "./routes/address.js";
 import orderRoutes from "./routes/order.js";
@@ -21,7 +21,8 @@ app.use("/api/products", productRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/address', addressRoutes);
 app.use('/api/order', orderRoutes);
-app.use('/api/user', userRoutes);   
+app.use('/api/user', userRoutes);
+app.use('/api/orders', orderRoutes);
 
 app.get("/", (req, res)=>{
     res.send("API is running");
