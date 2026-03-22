@@ -6,13 +6,21 @@ import CartSkeleton from "../loadingSkeleton/CartSkeleton";
 export default function Cart() {
   const userId = localStorage.getItem("userId");
   const [cart, setCart] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   //Load cart data
   const loadCart = async () => {
     if (!userId) return;
-    const res = await api.get(`/cart/${userId}`);
-    setCart(res.data);
+
+    try {
+      const res = await api.get(`/cart/${userId}`);
+      setCart(res.data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false); // 🔥 IMPORTANT
+    }
   };
 
   useEffect(() => {
@@ -36,6 +44,10 @@ export default function Cart() {
     loadCart();
     window.dispatchEvent(new Event("cartUpdated"));
   };
+
+  if (!cart) {
+    return <CartSkeleton />;
+  }
 
   if (!userId) {
     return (
@@ -68,10 +80,6 @@ export default function Cart() {
         </div>
       </div>
     );
-  }
-
-  if (!cart) {
-    return <CartSkeleton />;
   }
 
   const total = cart.items.reduce(
