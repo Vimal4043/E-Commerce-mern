@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import sampleListing from "./data.js";
-import Product from "../models/product.js";
+import Product from "../models/Product.js";
 import dotenv from "dotenv";
 
 dotenv.config({ path: "../.env" });

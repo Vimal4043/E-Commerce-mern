@@ -1,7 +1,4 @@
-import express from 'express';
 import User from '../models/User.js';
-
-const router = express.Router();
 
 //Get all users
 export const getAllUsers = async (req, res) => {

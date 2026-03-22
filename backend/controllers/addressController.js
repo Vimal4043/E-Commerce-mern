@@ -3,12 +3,12 @@ import Address from "../models/Address.js";
 //Save Address
 export const saveAddress = async (req, res) => {
     try{
-        const userId = req.userId;
+        const userId = req.body.userId;
         const { addressLine, city, state, pincode } = req.body;
 
         //check if address already exists
         const existingAddress = await Address.findOne({
-            user: userId,
+            userId: userId,
             addressLine,
             city,
             state,
