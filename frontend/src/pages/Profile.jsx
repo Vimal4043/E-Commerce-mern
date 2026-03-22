@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 import api from '../api/axios';
 import AddressList from '../components/AddressList';
+import ProfileSkeleton from '../loadingSkeleton/ProfileSkeleton';
 
 const Profile = () => {
 
@@ -56,10 +57,7 @@ const Profile = () => {
   };
 
   if (loading) {
-    return <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3">
-      <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>
-      <p className="text-gray-600">Loading profile...</p>
-    </div>
+    return <ProfileSkeleton />;
   }
 
   const logout = () => {
