@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import ProductSkeleton from "../loadingSkeleton/ProductSkeleton";
 
 export default function ProductDetails() {
-  const navidate = useNavigate();
+  const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
 
@@ -41,7 +41,7 @@ export default function ProductDetails() {
 
   const buy = () => {
     addToCart();
-    navidate("/cart");
+    navigate("/cart");
   }
 
   if (!product) {

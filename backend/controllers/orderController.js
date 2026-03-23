@@ -44,3 +44,14 @@ export const placeOrder = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 }
+
+//Get User Orders
+export const getUserOrders = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const orders = await Order.find({ userId }).sort({ createdAt: -1 });
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
