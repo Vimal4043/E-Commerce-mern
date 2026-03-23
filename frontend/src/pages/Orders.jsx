@@ -13,7 +13,7 @@ const Orders = () => {
 
     const loadOrders = async () => {
         try {
-            const res = await api.get(`/order/${userId}`);
+            const res = await api.get(`/orders/${userId}`);
             setOrders(res.data);
         } catch (error) {
             console.error("Error loading orders:", error);

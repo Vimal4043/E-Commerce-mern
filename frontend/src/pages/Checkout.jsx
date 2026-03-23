@@ -36,7 +36,7 @@ export default function Checkout() {
       return;
     }
 
-    const res = await api.post("/order/place", {
+    const res = await api.post("/orders/place", {
       userId,
       address: selectedAddress,
     });
