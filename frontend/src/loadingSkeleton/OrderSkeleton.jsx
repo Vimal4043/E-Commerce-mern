@@ -40,7 +40,7 @@ const OrderSkeleton = () => {
             </div>
 
             {/* Divider */}
-            <div className="my-5 h-[1px] bg-gray-200"></div>
+            <div className="my-5 h-px bg-gray-200"></div>
 
             {/* Bottom Section */}
             <div className="flex justify-between items-center">

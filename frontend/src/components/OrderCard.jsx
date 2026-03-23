@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 
 const OrderCard = ({ order }) => {
     const navigate = useNavigate();
+    console.log(order._id);
 
     return (
         <div className="border border-gray-200 rounded-2xl shadow-sm p-5 hover:shadow-md transition bg-white">
@@ -61,7 +62,7 @@ const OrderCard = ({ order }) => {
 
                 <button
                     className="text-blue-600 font-medium hover:underline"
-                    onClick={() => navigate(`/order/${order._id}`)}
+                    onClick={() => navigate(`/orders/${order._id}`)}
                 >
                     View Details →
                 </button>

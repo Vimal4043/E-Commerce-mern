@@ -12,6 +12,7 @@ const OrderDetails = () => {
     const loadOrderDetails = async () => {
         try {
             const res = await api.get(`/orders/${orderId}`);
+            console.log("Order details:", res.data);
             setorder(res.data);
         } catch (error) {
             console.error("Error fetching order details:", error);
