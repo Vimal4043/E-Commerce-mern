@@ -4,7 +4,7 @@ import { placeOrder, getUserOrders, getOrderDetails } from '../controllers/order
 const router = express.Router();
 
 router.post('/place', placeOrder);
-router.get('/:userId', getUserOrders);
+router.get('/user/:userId', getUserOrders);
 router.get('/:orderId', getOrderDetails);
 
 export default router;
