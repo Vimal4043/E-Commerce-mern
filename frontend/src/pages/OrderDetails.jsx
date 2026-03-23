@@ -31,6 +31,12 @@ const OrderDetails = () => {
         return <OrderDetailsSkeleton />;
     }
 
+    const totalItems = order.items.reduce(
+        (acc, item) => acc + item.quantity,
+        0
+    );
+    console.log("Total items in order:", totalItems);
+
     return (
         <div className="bg-gray-50 min-h-screen py-6">
             <div className="max-w-6xl mx-auto px-4">
@@ -60,13 +66,9 @@ const OrderDetails = () => {
                             })}
                         </p>
                     </div>
-
-                    {/* <span className="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-full">
-                        {order.status || "Placed"}
-                    </span> */}
                 </div>
 
-                {/* 🔥 GRID (Adjusted Width Ratio) */}
+                {/* GRID (Adjusted Width Ratio) */}
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
 
                     {/* 🔹 LEFT (Shorter Width) */}
@@ -74,7 +76,10 @@ const OrderDetails = () => {
 
                         {/* 🛒 Items */}
                         <div className="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
-                            <h2 className="font-semibold text-lg mb-4">Items</h2>
+                            <h2 className="font-semibold text-lg">Items</h2>
+                            <span className="text-sm text-gray-500 mb-4 block">
+                                {totalItems} item{totalItems > 1 ? "s" : ""}
+                            </span>
 
                             <div className="space-y-4">
                                 {order.items.map((item, i) => (
@@ -98,7 +103,7 @@ const OrderDetails = () => {
                                         </div>
 
                                         <p className="font-semibold text-right">
-                                            ₹ {item.price}
+                                            ₹ {item.price * item.quantity}
                                         </p>
                                     </div>
                                 ))}

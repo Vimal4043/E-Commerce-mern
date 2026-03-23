@@ -58,7 +58,6 @@ const OrderCard = ({ order }) => {
             {/* 🔹 Divider */}
             <div className="my-4 h-px bg-gray-200"></div>
 
-            {/* 🔹 Bottom */}
             {/* ◆ Bottom */}
             <div className="flex justify-between items-center">
 

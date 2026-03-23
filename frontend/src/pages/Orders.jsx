@@ -28,7 +28,7 @@ const Orders = () => {
 
     if (loading) {
         return (
-            <div className="max-w-5xl mx-auto px-4 py-5">
+            <div className="max-w-4xl mx-auto px-4 py-5">
                 {/* Title */}
                 <div className="h-7 w-40 bg-gray-200 rounded animate-pulse mb-6"></div>
                 {[1, 2, 3].map((_, i) => (
@@ -48,7 +48,7 @@ const Orders = () => {
     }
 
     return (
-        <div className="p-5 max-w-5xl mx-auto">
+        <div className="p-5 max-w-4xl mx-auto">
             <h1 className="text-2xl font-bold mb-6">My Orders</h1>
 
             <div className="space-y-5">

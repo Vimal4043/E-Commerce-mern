@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from "react-router";
-import { FaInstagram, FaGithub, FaTwitter, FaFacebook, FaLinkedin, FaAndroid, FaApple } from "react-icons/fa";
+import { FaInstagram, FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
     return (
         <footer className="bg-gray-900 text-gray-300">
-            <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+            <div className="max-w-9xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
 
                 {/* BRAND */}
                 <div>
@@ -88,16 +88,16 @@ const Footer = () => {
                     <p className="text-sm mb-2">support@shopverse.com</p>
                     <p className="text-sm mb-4">+91 12345 67890</p>
 
-                    <div className="flex flex-col gap-3">
-                        <button className="flex items-center justify-center gap-2 border border-gray-600 rounded-lg px-4 py-3 text-sm hover:bg-gray-800 transition">
-                            <FaAndroid className="text-xl" />
-                            <span>Get it on Android</span>
-                        </button>
-
-                        <button className="flex items-center justify-center gap-2 border border-gray-600 rounded-lg px-4 py-3 text-sm hover:bg-gray-800 transition">
-                            <FaApple className="text-xl" />
-                            <span>Download on iOS</span>
-                        </button>
+                    <div className="gap-3">
+                        <a
+                            href="https://github.com/Vimal4043/E-Commerce-mern"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 border border-gray-500 text-gray-200 rounded-lg hover:bg-gray-800 transition"
+                        >
+                            <FaGithub className='h-5 w-5' />
+                            View Code
+                        </a>
                     </div>
                 </div>
 
