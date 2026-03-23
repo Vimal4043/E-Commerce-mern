@@ -1,75 +1,69 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const OrderCard = ({ order }) => {
-    return (
-        <div className="border rounded-2xl p-4 shadow-sm hover:shadow-md transition">
+    const navigate = useNavigate();
 
-            {/* Header */}
-            <div className="flex justify-between items-start mb-3">
+    return (
+        <div className="border border-gray-200 rounded-2xl shadow-sm p-5 hover:shadow-md transition bg-white">
+
+            {/* 🔹 Top */}
+            <div className="flex justify-between items-start">
                 <div>
                     <p className="text-sm text-gray-500">
-                        Order ID: {order._id.slice(-6).toUpperCase()}
+                        Order #{order._id.slice(-6).toUpperCase()}
                     </p>
                     <p className="text-sm text-gray-500">
-                        {new Date(order.createdAt).toLocaleDateString()}
+                        {new Date(order.createdAt).toDateString()}
                     </p>
                 </div>
 
-                <span
-                    className={`text-sm font-semibold px-2 py-1 rounded-full ${order.status === "Delivered"
-                            ? "bg-green-100 text-green-600"
-                            : order.status === "Cancelled"
-                                ? "bg-red-100 text-red-600"
-                                : "bg-yellow-100 text-yellow-600"
-                        }`}
-                >
-                    {order.status}
+                <span className="px-3 py-1 text-sm rounded-full bg-yellow-100 text-yellow-700 font-medium">
+                    {order.status || "Placed"}
                 </span>
             </div>
 
-            {/* Items */}
-            <div className="space-y-3">
-                {order.items.map((item, index) => (
-                    <div key={index} className="flex justify-between text-sm">
+            {/* 🔹 Products with price */}
+            <div className="mt-4 space-y-3">
+                {order.items.map((item, i) => (
+                    <div key={i} className="flex justify-between items-center">
+
+                        {/* LEFT */}
                         <div>
-                            <p className="font-medium">
-                                Product ID: {item.productId?.slice(-5)}
-                            </p>
-                            <p className="text-gray-500">
-                                Qty: {item.quantity}
+                            <p className="font-medium text-sm">
+                                <span className="bg-gray-200 pl-1 mr-1 rounded">{item.quantity}× </span>
+                                {item.productId?.title || "Product"}
                             </p>
                         </div>
 
-                        <p className="font-semibold">₹{item.price}</p>
+                        {/* RIGHT */}
+                        <p className="text-sm font-medium">
+                            <span className="m-1">₹</span>{item.price * item.quantity}
+                        </p>
                     </div>
                 ))}
             </div>
 
-            {/* Address */}
-            <div className="mt-4 text-sm text-gray-600">
-                <p className="font-medium">{order.address.fullName}</p>
-                <p>
-                    {order.address.addressLine}, {order.address.city}
-                </p>
-                <p>
-                    {order.address.state} - {order.address.pincode}
-                </p>
-                <p>📞 {order.address.phone}</p>
-            </div>
+            {/* 🔹 Divider */}
+            <div className="my-4 h-px bg-gray-200"></div>
 
-            {/* Footer */}
-            <div className="flex justify-between items-center mt-4 pt-3 border-t">
+            {/* 🔹 Bottom */}
+            <div className="flex justify-between items-center">
+
                 <div>
                     <p className="text-sm text-gray-500">
-                        Payment: {order.paymentMethod}
+                        Payment: {order.paymentMethod || "COD"}
                     </p>
-                    <p className="font-bold text-lg">
-                        ₹{order.totalAmount}
+                    <p className="text-lg font-semibold">
+                        <span className="m-1">₹</span>{order.totalAmount}
                     </p>
                 </div>
 
-                <button className="text-blue-600 hover:underline text-sm">
-                    View Details
+                <button
+                    className="text-blue-600 font-medium hover:underline"
+                    onClick={() => navigate(`/order/${order._id}`)}
+                >
+                    View Details →
                 </button>
             </div>
         </div>

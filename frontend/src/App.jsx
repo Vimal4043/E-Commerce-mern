@@ -15,6 +15,8 @@ import Profile from "./pages/Profile";
 import AddAddress from "./pages/AddAddress";
 import EditProfile from "./pages/EditProfile";
 import Orders from "./pages/Orders";
+import OrderDetails from "./pages/OrderDetails";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,7 @@ const router = createBrowserRouter([
       { path: "/add-address", element: <AddAddress /> },
       { path: "/edit-profile", element: <EditProfile /> },
       { path: "/orders", element: <Orders /> },
+      { path: "/orders/:orderId", element: <OrderDetails /> },
 
       { path: "/product/:id", element: <ProductDetails /> },
       { path : "/cart", element: <Cart/>},
@@ -39,7 +42,9 @@ const router = createBrowserRouter([
 
       { path: "/checkout-address", element: <CheckoutAddress /> },
       { path: "/checkout", element: <Checkout /> },
-      { path: "/order-success/:id", element:<OrderSuccess /> }
+      { path: "/order-success/:id", element:<OrderSuccess /> },
+
+      { path: "*", element: <NotFound /> }
     ]
   }
 ]);
