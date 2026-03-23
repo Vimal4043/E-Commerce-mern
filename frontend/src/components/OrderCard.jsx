@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { formatDistanceToNow } from "date-fns";
 
 const OrderCard = ({ order }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="border border-gray-200 rounded-2xl shadow-sm p-5 hover:shadow-md transition bg-white">
+        <div className="border border-gray-200 rounded-2xl shadow-sm p-5 hover:shadow-lg transition duration-200 bg-white">
 
             {/* 🔹 Top */}
             <div className="flex justify-between items-start">
@@ -14,7 +15,15 @@ const OrderCard = ({ order }) => {
                         Order #{order._id.slice(-6).toUpperCase()}
                     </p>
                     <p className="text-sm text-gray-500">
-                        {new Date(order.createdAt).toDateString()}
+                        {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                        })}
+                        {" • "}
+                        {formatDistanceToNow(new Date(order.createdAt), {
+                            addSuffix: true,
+                        })}
                     </p>
                 </div>
 
@@ -22,6 +31,8 @@ const OrderCard = ({ order }) => {
                     {order.status || "Placed"}
                 </span>
             </div>
+
+            <div className="my-4 h-px bg-gray-200"></div>
 
             {/* 🔹 Products with price */}
             <div className="mt-4 space-y-3">
@@ -31,7 +42,7 @@ const OrderCard = ({ order }) => {
                         {/* LEFT */}
                         <div>
                             <p className="font-medium text-sm">
-                                <span className="bg-gray-200 pl-1 mr-1 rounded">{item.quantity}× </span>
+                                <span className="bg-gray-200 pl-1 mr-2 rounded">{item.quantity}× </span>
                                 {item.productId?.title || "Product"}
                             </p>
                         </div>
@@ -48,23 +59,31 @@ const OrderCard = ({ order }) => {
             <div className="my-4 h-px bg-gray-200"></div>
 
             {/* 🔹 Bottom */}
+            {/* ◆ Bottom */}
             <div className="flex justify-between items-center">
 
+                {/* Left Side */}
                 <div>
                     <p className="text-sm text-gray-500">
                         Payment: {order.paymentMethod || "COD"}
                     </p>
-                    <p className="text-lg font-semibold">
-                        <span className="m-1">₹</span>{order.totalAmount}
-                    </p>
                 </div>
 
-                <button
-                    className="text-blue-600 font-medium hover:underline"
-                    onClick={() => navigate(`/orders/${order._id}`)}
-                >
-                    View Details →
-                </button>
+                {/* Right Side */}
+                <div className="text-right">
+                    <p className="text-lg font-semibold">
+                        <span className="mr-1">₹</span>
+                        {order.totalAmount}
+                    </p>
+
+                    <button
+                        className="text-blue-600 text-sm font-medium hover:underline mt-1"
+                        onClick={() => navigate(`/orders/${order._id}`)}
+                    >
+                        View Details →
+                    </button>
+                </div>
+
             </div>
         </div>
     );
