@@ -33,6 +33,15 @@ const Orders = () => {
         );
     }
 
+    if (loading) {
+        return (
+            <div className="h-[60vh] flex justify-center items-center">
+                <p className="text-gray-500">Loading orders...</p>
+            </div>
+        );
+    }
+
+
     return (
         <div className="p-5 max-w-5xl mx-auto">
             <h1 className="text-2xl font-bold mb-6">My Orders</h1>
