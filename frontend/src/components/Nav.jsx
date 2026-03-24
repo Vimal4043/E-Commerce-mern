@@ -1,13 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import NavLinks from "./NavLinks";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import { useLocation } from "react-router";
 
 const Nav = ({ logout }) => {
   const [open, setOpen] = useState(false);
   const toggler = () => setOpen(!open);
+  const menuRef = useRef();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
 
       {/* 3 dots */}
       <button
