@@ -15,6 +15,16 @@ export default function AddProduct() {
     const navigate = useNavigate();
 
     const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        if (name === "category") {
+            if (!/^[A-Za-z ]*$/.test(value)) return;
+        }
+
+        if (name === "price" || name === "stock") {
+            if (!/^[0-9]*$/.test(value)) return;
+        }
+
         setForm({
             ...form,
             [e.target.name]: e.target.value,
