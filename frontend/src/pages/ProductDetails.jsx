@@ -9,9 +9,8 @@ export default function ProductDetails() {
   const [product, setProduct] = useState(null);
 
   const loadProduct = async () => {
-    const res = await api.get("/products");
-    const p = res.data.find((item) => item._id === id);
-    setProduct(p);
+    const res = await api.get(`/products/${id}`);
+    setProduct(res.data);
   };
 
   useEffect(() => {
@@ -22,27 +21,36 @@ export default function ProductDetails() {
     const userId = localStorage.getItem("userId");
     if (!userId) {
       alert("Please login first");
-      return;
+      return false;
     }
 
-    const res = await api.post("/cart/add", {
-      userId,
-      productId: product._id,
-    });
+    try {
+      const res = await api.post("/cart/add", {
+        userId,
+        productId: product._id,
+      });
 
-    const total = res.data.cart.items.reduce(
-      (sum, item) => sum + item.quantity,
-      0
-    );
+      const total = res.data.cart.items.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+      );
 
-    localStorage.setItem("cartCount", total);
-    window.dispatchEvent(new Event("cartUpdated"));
+      localStorage.setItem("cartCount", total);
+      window.dispatchEvent(new Event("cartUpdated"));
+      return true;
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+      alert(error.response?.data?.message || "Unable to add item to cart");
+      return false;
+    }
   };
 
-  const buy = () => {
-    addToCart();
-    navigate("/cart");
-  }
+  const buy = async () => {
+    const added = await addToCart();
+    if (added) {
+      navigate("/cart");
+    }
+  };
 
   if (!product) {
     return <ProductSkeleton />;

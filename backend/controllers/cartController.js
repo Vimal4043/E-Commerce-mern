@@ -3,7 +3,8 @@ import Cart from "../models/Cart.js";
 // Add item to cart
 export const addToCart = async (req, res) => {
   try {
-    const { userId, productId } = req.body;
+    const userId = req.user.id;   // from JWT (secure)
+    const { productId } = req.body;
 
     let cart = await Cart.findOne({ userId });
 
@@ -31,7 +32,8 @@ export const addToCart = async (req, res) => {
 // Remove item from cart
 export const removeItem = async (req, res) => {
   try {
-    const { userId, productId } = req.body;
+    const userId = req.user.id;   // from JWT (secure)
+    const { productId } = req.body;
 
     const cart = await Cart.findOne({ userId });
     if (!cart) {
@@ -54,7 +56,8 @@ export const removeItem = async (req, res) => {
 
 export const updateQuantity = async (req, res) => {
   try {
-    const { userId, productId, quantity } = req.body;
+    const userId = req.user.id;   // from JWT (secure)
+    const { productId, quantity } = req.body;
 
     const cart = await Cart.findOne({ userId });
     if (!cart) {
@@ -82,9 +85,17 @@ export const updateQuantity = async (req, res) => {
 // Get cart by user ID
 export const getCart = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.user.id;   // from JWT (secure)
+    const { userId: paramsUserId } = req.params;
 
     const cart = await Cart.findOne({ userId }).populate("items.productId");
+
+    if (!cart) {
+      cart = {
+        userId,
+        items: []
+      };
+    }
 
     res.json(cart);
   } catch (error) {

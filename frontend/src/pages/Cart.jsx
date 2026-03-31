@@ -11,7 +11,10 @@ export default function Cart() {
 
   //Load cart data
   const loadCart = async () => {
-    if (!userId) return;
+    if (!userId) {
+      setLoading(false);
+      return;
+    }
 
     try {
       const res = await api.get(`/cart/${userId}`);
@@ -45,10 +48,6 @@ export default function Cart() {
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
-  if (!cart) {
-    return <CartSkeleton />;
-  }
-
   if (!userId) {
     return (
       <div className="bg-gray-50 min-h-screen flex items-center justify-center">
@@ -80,6 +79,10 @@ export default function Cart() {
         </div>
       </div>
     );
+  }
+
+  if (loading || !cart) {
+    return <CartSkeleton />;
   }
 
   const total = cart.items.reduce(
