@@ -18,9 +18,12 @@ export default function EditProduct() {
   const allowedFields = ["title", "price", "description", "category", "image", "stock"];
 
   const loadProduct = async () => {
-    const res = await api.get("/products");
-    const product = res.data.find((p) => p._id === id);
-    setForm(product);
+    try {
+      const res = await api.get(`/products/${id}`);
+      setForm(res.data);
+    } catch (error) {
+      console.error("Failed to load product", error);
+    }
   };
 
   useEffect(() => {
@@ -33,9 +36,13 @@ export default function EditProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await api.put(`/products/update/${id}`, form);
-    alert("Product updated!");
-    navigate("/admin/products");
+    try {
+      await api.put(`/products/update/${id}`, form);
+      alert("Product updated!");
+      navigate("/admin/products");
+    } catch (error) {
+      console.error("Failed to update product", error);
+    }
   };
 
   return (

@@ -29,6 +29,7 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.user.id);
       localStorage.setItem("username", res.data.user.name);
+      localStorage.setItem("isAdmin", res.data.user.isAdmin);
 
       setMsg(res.data.message);
       //Redirect to Home after 1 sec

@@ -25,7 +25,7 @@ export const signupUser = async (req, res)=>{
 
         //Generate JWT Token
         const token = jwt.sign(
-            {id: user._id},
+            {id: user._id, isAdmin: user.isAdmin},
             process.env.JWT_SECRET,
             {expiresIn: "7d"}
         );
@@ -36,7 +36,8 @@ export const signupUser = async (req, res)=>{
             user: {
                 id: user._id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                isAdmin: user.isAdmin
             }
         });
     }catch(error){
@@ -63,7 +64,7 @@ export const loginUser = async (req, res)=>{
 
         //Generate JWT Token
         const token = jwt.sign(
-            {id: user._id},
+            {id: user._id, isAdmin: user.isAdmin},
             process.env.JWT_SECRET,
             {expiresIn: "7d"}
         );
@@ -74,7 +75,8 @@ export const loginUser = async (req, res)=>{
             user: {
                 id: user._id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                isAdmin: user.isAdmin
             }
         })
     }catch(error){

@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -18,6 +18,15 @@ import Orders from "./pages/Orders";
 import OrderDetails from "./pages/OrderDetails";
 import NotFound from "./pages/NotFound";
 
+const requireAdmin = (element) => {
+  const token = localStorage.getItem("token");
+  const isAdmin = localStorage.getItem("isAdmin") === "true";
+
+  if (!token) return <Navigate to="/login" replace />;
+  if (!isAdmin) return <Navigate to="/" replace />;
+  return element;
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,15 +43,15 @@ const router = createBrowserRouter([
       { path: "/orders/:orderId", element: <OrderDetails /> },
 
       { path: "/product/:id", element: <ProductDetails /> },
-      { path : "/cart", element: <Cart/>},
+      { path: "/cart", element: <Cart /> },
 
-      { path: "/admin/products", element: <ProductList /> },
-      { path: "/admin/products/add", element: <AddProduct /> },
-      { path: "/admin/products/update/:id", element: <EditProduct /> },
+      { path: "/admin/products", element: requireAdmin(<ProductList />) },
+      { path: "/admin/products/add", element: requireAdmin(<AddProduct />) },
+      { path: "/admin/products/update/:id", element: requireAdmin(<EditProduct />) },
 
       { path: "/checkout-address", element: <CheckoutAddress /> },
       { path: "/checkout", element: <Checkout /> },
-      { path: "/order-success/:id", element:<OrderSuccess /> },
+      { path: "/order-success/:id", element: <OrderSuccess /> },
 
       { path: "*", element: <NotFound /> }
     ]

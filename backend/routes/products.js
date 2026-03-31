@@ -3,22 +3,27 @@ import express from "express";
 import {
   createProduct,
   getProducts,
+  getProductById,
   updateProduct,
   deleteProduct
 } from "../controllers/productController.js";
+import { protect, isAdmin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-//Route to create a new product
-router.post("/add", createProduct);
-
-//Route to get all product
+//get all products
 router.get("/", getProducts);
 
-//Route to update a product by id
-router.put("/update/:id", updateProduct);
+//get product by id
+router.get("/:id", getProductById);
 
-//Route to delete a product by id
-router.delete("/delete/:id", deleteProduct);
+//create product
+router.post("/add", protect, isAdmin, createProduct);
+
+//update product
+router.put("/update/:id", protect, isAdmin, updateProduct);
+
+//delete product
+router.delete("/delete/:id", protect, isAdmin, deleteProduct);
 
 export default router;
