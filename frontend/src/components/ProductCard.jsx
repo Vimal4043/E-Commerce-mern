@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
         const res = await api.post(`/cart/add`, { userId, productId });
 
         const total = res.data.cart.items.reduce(
-            (sum, item) => sum + item.productId.price * item.quantity,
+            (sum, item) => sum + item.quantity,
             0
         );
 

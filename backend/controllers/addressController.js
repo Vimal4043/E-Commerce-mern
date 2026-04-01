@@ -2,8 +2,8 @@ import Address from "../models/Address.js";
 
 //Save Address
 export const saveAddress = async (req, res) => {
-    try{
-        const userId = req.body.userId;
+    try {
+        const userId = req.user.id;
         const { addressLine, city, state, pincode } = req.body;
 
         //check if address already exists
@@ -21,18 +21,18 @@ export const saveAddress = async (req, res) => {
             });
         }
 
-        const address = await Address.create(req.body);
+        const address = await Address.create({ ...req.body, userId });
         res.json({ message: "Address saved successfully", address });
     } catch (error) {
-        res.status(500).json({ message: "Error saving address", error });   
+        res.status(500).json({ message: "Error saving address", error });
     }
 };
 
 //Get Addresses by User ID
 export const getAddresses = async (req, res) => {
-    try{
+    try {
         const addresses = await Address.find({
-            userId: req.params.userId
+            userId: req.user.id,
         }).sort({ createdAt: -1 });
         res.json(addresses);
     } catch (error) {
@@ -42,9 +42,20 @@ export const getAddresses = async (req, res) => {
 
 //Update Address
 export const updateAddress = async (req, res) => {
-    try{
+    try {
+        const userId = req.user.id;
         const addressId = req.params.id;
         const { addressLine, city, state, pincode } = req.body;
+
+        const address = await Address.findById(addressId);
+
+        if (!address) {
+            return res.status(404).json({ message: "Address not found" });
+        }
+
+        if (address.userId.toString() !== userId) {
+            return res.status(403).json({ message: "Not authorized" });
+        }
 
         const updatedAddress = await Address.findByIdAndUpdate(
             addressId,
@@ -64,8 +75,19 @@ export const updateAddress = async (req, res) => {
 
 //Delete Address
 export const deleteAddress = async (req, res) => {
-    try{
+    try {
+        const userId = req.user.id;
         const addressId = req.params.id;
+
+        const address = await Address.findById(addressId);
+        if (!address) {
+            return res.status(404).json({ message: "Address not found" });
+        }
+
+        if (address.userId.toString() !== userId) {
+            return res.status(403).json({ message: "Not authorized" });
+        }
+
         const deletedAddress = await Address.findByIdAndDelete(addressId);
 
         if (!deletedAddress) {

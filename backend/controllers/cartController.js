@@ -1,10 +1,22 @@
 import Cart from "../models/Cart.js";
+import Product from "../models/Product.js";
 
 // Add item to cart
 export const addToCart = async (req, res) => {
   try {
     const userId = req.user.id;   // from JWT (secure)
     const { productId } = req.body;
+
+    // Check product exists
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Check stock
+    if (product.stock < 1) {
+      return res.status(400).json({ message: "Product out of stock" });
+    }
 
     let cart = await Cart.findOne({ userId });
 
@@ -53,11 +65,16 @@ export const removeItem = async (req, res) => {
 };
 
 // Update item quantity in cart
-
 export const updateQuantity = async (req, res) => {
   try {
     const userId = req.user.id;   // from JWT (secure)
     const { productId, quantity } = req.body;
+
+    // Quantity validation
+    const qty = Number(quantity);
+    if (isNaN(qty) || qty < 1) {
+      return res.status(400).json({ message: "Invalid quantity" });
+    }
 
     const cart = await Cart.findOne({ userId });
     if (!cart) {
@@ -70,7 +87,19 @@ export const updateQuantity = async (req, res) => {
       return res.status(404).json({ message: "Item not found in cart" });
     }
 
-    item.quantity = quantity;
+    // Check product stock
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    if (qty > product.stock) {
+      return res.status(400).json({
+        message: "Quantity exceeds available stock"
+      });
+    }
+
+    item.quantity = qty;
 
     await cart.save();
     res.json({
@@ -86,15 +115,14 @@ export const updateQuantity = async (req, res) => {
 export const getCart = async (req, res) => {
   try {
     const userId = req.user.id;   // from JWT (secure)
-    const { userId: paramsUserId } = req.params;
 
-    const cart = await Cart.findOne({ userId }).populate("items.productId");
+    let cart = await Cart.findOne({ userId }).populate("items.productId");
 
     if (!cart) {
-      cart = {
+      cart = await Cart.create({
         userId,
         items: []
-      };
+      });
     }
 
     res.json(cart);

@@ -15,8 +15,8 @@ export default function Checkout() {
   useEffect(() => {
     if (!userId) return;
 
-    api.get(`/cart/${userId}`).then((res) => setCart(res.data));
-    api.get(`/address/${userId}`).then((res) => {
+    api.get(`/cart`).then((res) => setCart(res.data));
+    api.get(`/address`).then((res) => {
       setAddresses(res.data);
       setSelectedAddress(res.data[0]); // default select
     });

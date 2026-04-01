@@ -17,12 +17,13 @@ export default function Cart() {
     }
 
     try {
-      const res = await api.get(`/cart/${userId}`);
+      const res = await api.get(`/cart`);
       setCart(res.data);
     } catch (err) {
-      console.log(err);
+      console.error("Cart load error:", err);
+      setCart({ items: [] }); // Set to empty cart on error
     } finally {
-      setLoading(false); // 🔥 IMPORTANT
+      setLoading(false); // IMPORTANT
     }
   };
 
@@ -31,7 +32,7 @@ export default function Cart() {
   }, []);
 
   const removeItem = async (productId) => {
-    await api.post(`/cart/remove`, { userId, productId });
+    await api.post(`/cart/remove`, { productId });
     loadCart();
     window.dispatchEvent(new Event("cartUpdated"));
   };
@@ -43,7 +44,7 @@ export default function Cart() {
       return;
     }
 
-    await api.post(`/cart/update`, { userId, productId, quantity });
+    await api.post(`/cart/update`, { productId, quantity });
     loadCart();
     window.dispatchEvent(new Event("cartUpdated"));
   };
@@ -85,7 +86,11 @@ export default function Cart() {
     return <CartSkeleton />;
   }
 
-  const total = cart.items.reduce(
+  const validItems = (cart?.items || []).filter(
+    (i) => i?.productId?._id
+  );
+
+  const total = validItems.reduce(
     (sum, item) => sum + item.productId.price * item.quantity,
     0
   );
@@ -96,7 +101,7 @@ export default function Cart() {
 
         <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
 
-        {cart.items.length === 0 ? (
+        {validItems.length === 0 ? (
           <div className="bg-white p-8 rounded-xl shadow-md text-center">
             <p className="text-gray-500 mb-4">Your cart is empty 😔</p>
             <Link
@@ -110,7 +115,7 @@ export default function Cart() {
           <>
             {/* Cart Items */}
             <div className="space-y-4 mb-5">
-              {cart.items.map((item) => (
+              {validItems.map((item) => (
                 <div
                   key={item.productId._id}
                   className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition"

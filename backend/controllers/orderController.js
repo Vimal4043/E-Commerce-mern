@@ -4,17 +4,35 @@ import Product from '../models/Product.js';
 
 export const placeOrder = async (req, res) => {
     try {
-        const { userId, address } = req.body;
+        const userId = req.user.id;
+        const { address } = req.body;
 
         //Get Cart
         const cart = await Cart.findOne({ userId }).populate('items.productId');
+        // Validate cart + stock + product existence
         if (!cart || cart.items.length === 0) {
             return res.status(400).json({ message: "Cart is empty" });
         }
 
+        for (const item of cart.items) {
+            // product deleted
+            if (!item.productId) {
+                return res.status(400).json({
+                    message: "Cart has unavailable product(s)"
+                });
+            }
+
+            // insufficient stock
+            if (item.productId.stock < item.quantity) {
+                return res.status(400).json({
+                    message: `Insufficient stock for ${item.productId.name}`
+                });
+            }
+        }
+
         //Prepare Order Items
         const orderItems = cart.items.map(item => ({
-            productId: item.productId._id,
+            productId: item.productId?._id,
             quantity: item.quantity,
             price: item.productId.price,
         }));
@@ -23,8 +41,14 @@ export const placeOrder = async (req, res) => {
         const totalAmount = orderItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
         //Deduct stock from Products
-        for (let item of cart.items){
-            await Product.findByIdAndUpdate(item.productId._id, { $inc: { stock: -item.quantity } });
+        for (let item of cart.items) {
+            await Product.findByIdAndUpdate(
+                { 
+                    _id: item.productId._id,
+                    stock: { $gte: item.quantity }
+                 },
+                { $inc: { stock: -item.quantity } }
+            );
         }
 
         //Create Order

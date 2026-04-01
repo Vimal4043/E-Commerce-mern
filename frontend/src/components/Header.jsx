@@ -18,22 +18,42 @@ export default function Header() {
 
     useEffect(() => {
         loadUser();
-        const loadCart = async () => {
-            if (!userId) return setCartCount(0);
 
-            const res = await api.get(`/cart/${userId}`);
-            const items = res.data?.items || [];
-            const total = items.reduce(
-                (sum, item) => sum + item.quantity, 0
-            );
-            setCartCount(total);
-        }
+        const loadCart = async () => {
+            try {
+                if (!userId) {
+                    setCartCount(0);
+                    return;
+                }
+
+                const res = await api.get(`/cart`);
+
+                const items = res.data?.items || [];
+
+                const total = items.reduce(
+                    (sum, item) => sum + item.quantity,
+                    0
+                );
+
+                setCartCount(total);
+
+            } catch (error) {
+                console.error("Cart fetch error:", error);
+
+                // ✅ fallback (important)
+                setCartCount(0);
+
+            }
+        };
+
         loadCart();
+
         window.addEventListener("cartUpdated", loadCart);
 
         return () => {
             window.removeEventListener("cartUpdated", loadCart);
-        }
+        };
+
     }, [userId]);
 
     const formatName = (name) => {
