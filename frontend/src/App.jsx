@@ -22,8 +22,8 @@ const requireAdmin = (element) => {
   const token = localStorage.getItem("token");
   const isAdmin = localStorage.getItem("isAdmin") === "true";
 
-  if (!token) return <Navigate to="/login" replace />;
-  if (!isAdmin) return <Navigate to="/" replace />;
+  if (!token) return <Navigate to="/login"/>;
+  if (!isAdmin) return <Navigate to="/"/>;
   return element;
 };
 

@@ -4,6 +4,7 @@ import api from "../api/axios";
 import Nav from "./Nav";
 
 export default function Header() {
+    // console.log("BASE URL:", import.meta.env.VITE_API_URL);
     const navigate = useNavigate();
     const [cartCount, setCartCount] = useState(0);
     const userId = localStorage.getItem("userId");

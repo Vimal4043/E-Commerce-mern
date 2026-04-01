@@ -14,6 +14,15 @@ export default function EditProduct() {
     image: "",
     stock: "",
   });
+
+  const formTypes = {
+    title: "text",
+    description: "text",
+    price: "number",
+    category: "text",
+    image: "text",
+    stock: "number",
+  };
   
   const allowedFields = ["title", "price", "description", "category", "image", "stock"];
 
@@ -31,6 +40,16 @@ export default function EditProduct() {
   }, []);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "category") {
+      if (!/^[A-Za-z ]*$/.test(value)) return;
+    }
+
+    if (name === "price" || name === "stock") {
+      if (!/^[0-9]*$/.test(value)) return;
+    }
+
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -56,7 +75,9 @@ export default function EditProduct() {
             name={key}
             value={form[key]}
             onChange={handleChange}
+            type={formTypes[key]}
             placeholder={key}
+            required={key === "title" || key === "price" || key === "stock"}
             className="w-full border px-3 py-2 rounded"
           />
         ))}

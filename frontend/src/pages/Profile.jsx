@@ -5,7 +5,6 @@ import AddressList from '../components/AddressList';
 import ProfileSkeleton from '../loadingSkeleton/ProfileSkeleton';
 
 const Profile = () => {
-
   const userId = localStorage.getItem("userId");
   const [user, setUser] = useState(null);
   const [addresses, setAddresses] = useState([]);
@@ -22,7 +21,7 @@ const Profile = () => {
   //Load user addresses
   const loadAddress = async () => {
     if (!userId) return;
-    const addresses = await api.get(`/address/${userId}`);
+    const addresses = await api.get(`/address`);
     setAddresses(addresses.data);
   }
 

@@ -14,7 +14,7 @@ const OrderDetails = () => {
     const loadOrderDetails = async () => {
         try {
             const res = await api.get(`/orders/${orderId}`);
-            console.log("Order details:", res.data);
+            // console.log("Order details:", res.data);
             setorder(res.data);
         } catch (error) {
             console.error("Error fetching order details:", error);
@@ -35,7 +35,7 @@ const OrderDetails = () => {
         (acc, item) => acc + item.quantity,
         0
     );
-    console.log("Total items in order:", totalItems);
+    // console.log("Total items in order:", totalItems);
 
     return (
         <div className="bg-gray-50 min-h-screen py-6">

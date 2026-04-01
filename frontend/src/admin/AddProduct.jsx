@@ -12,6 +12,15 @@ export default function AddProduct() {
         stock: "",
     });
 
+    const formTypes = {
+        title: "text",
+        description: "text",
+        price: "number",
+        category: "text",
+        image: "text",
+        stock: "number",
+    };
+
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -27,7 +36,7 @@ export default function AddProduct() {
 
         setForm({
             ...form,
-            [e.target.name]: e.target.value,
+            [name]: value,
         });
     };
 
@@ -49,11 +58,13 @@ export default function AddProduct() {
                 {
                     Object.keys(form).map((key) => (
                         <input
+                            type={formTypes[key]}
                             key={key}
                             name = {key}
                             value={form[key]}
                             onChange={handleChange}
                             placeholder={key}
+                            required={key === "title" || key === "price" || key === "stock"}
                             className="w-full p-2 border border-gray-300 rounded"
                         />
                     ))

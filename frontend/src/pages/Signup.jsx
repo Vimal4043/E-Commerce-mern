@@ -29,7 +29,7 @@ const Signup = () => {
 
     try{
       const res = await api.post("/auth/signup", form);
-      console.log(res.data);
+      // console.log(res.data);
       //Save Token to localStorage
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.user.id);

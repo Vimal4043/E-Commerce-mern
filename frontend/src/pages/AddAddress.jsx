@@ -7,7 +7,7 @@ export default function AddAddress() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const existingAddress = location.state; // ✅ detect edit
+    const existingAddress = location.state; // detect edit
 
     const [form, setForm] = useState({
         fullName: "",
@@ -29,7 +29,7 @@ export default function AddAddress() {
         pincode: "text",
     };
 
-    // ✅ Prefill form in edit mode
+    // Prefill form in edit mode
     useEffect(() => {
         if (existingAddress) {
             setForm({
