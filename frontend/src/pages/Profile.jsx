@@ -26,10 +26,6 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    if (!userId) {
-      navigate("/login");
-      return;
-    }
     const fetchData = async () => {
       await loadUser();
       await loadAddress();

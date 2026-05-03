@@ -17,6 +17,7 @@ import EditProfile from "./pages/EditProfile";
 import Orders from "./pages/Orders";
 import OrderDetails from "./pages/OrderDetails";
 import NotFound from "./pages/NotFound";
+import { ProtectedRoute, PublicRoute } from "./components/RouteGuards";
 
 const requireAdmin = (element) => {
   const token = localStorage.getItem("token");
@@ -33,14 +34,14 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/login", element: <Login /> },
-      { path: "/signup", element: <Signup /> },
+      { path: "/login", element: <PublicRoute><Login /></PublicRoute> },
+      { path: "/signup", element: <PublicRoute><Signup /></PublicRoute> },
 
-      { path: "/profile", element: <Profile /> },
-      { path: "/add-address", element: <AddAddress /> },
-      { path: "/edit-profile", element: <EditProfile /> },
-      { path: "/orders", element: <Orders /> },
-      { path: "/orders/:orderId", element: <OrderDetails /> },
+      { path: "/profile", element: <ProtectedRoute><Profile /></ProtectedRoute> },
+      { path: "/add-address", element: <ProtectedRoute><AddAddress /></ProtectedRoute> },
+      { path: "/edit-profile", element: <ProtectedRoute><EditProfile /></ProtectedRoute> },
+      { path: "/orders", element: <ProtectedRoute><Orders /></ProtectedRoute> },
+      { path: "/orders/:orderId", element: <ProtectedRoute><OrderDetails /></ProtectedRoute> },
 
       { path: "/product/:id", element: <ProductDetails /> },
       { path: "/cart", element: <Cart /> },
@@ -49,9 +50,9 @@ const router = createBrowserRouter([
       { path: "/admin/products/add", element: requireAdmin(<AddProduct />) },
       { path: "/admin/products/update/:id", element: requireAdmin(<EditProduct />) },
 
-      { path: "/checkout-address", element: <CheckoutAddress /> },
-      { path: "/checkout", element: <Checkout /> },
-      { path: "/order-success/:id", element: <OrderSuccess /> },
+      { path: "/checkout-address", element: <ProtectedRoute><CheckoutAddress /></ProtectedRoute> },
+      { path: "/checkout", element: <ProtectedRoute><Checkout /></ProtectedRoute> },
+      { path: "/order-success/:id", element: <ProtectedRoute><OrderSuccess /></ProtectedRoute> },
 
       { path: "*", element: <NotFound /> }
     ]

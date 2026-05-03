@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import api from "../api/axios";
 import ProductCard from "../components/ProductCard";
 import ProductListSkeleton from "../loadingSkeleton/ProductListSkeleton";
@@ -13,8 +13,23 @@ export default function Home() {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const gridRef = useRef(null);
+  const requestIdRef = useRef(0);
 
-  const loadProducts = async ({ pageNumber = 1, reset = false } = {}) => {
+  const dedupeProducts = useCallback((items) => {
+    const seenIds = new Set();
+
+    return items.filter((item) => {
+      if (seenIds.has(item._id)) {
+        return false;
+      }
+
+      seenIds.add(item._id);
+      return true;
+    });
+  }, []);
+
+  const loadProducts = useCallback(async ({ pageNumber = 1, reset = false } = {}) => {
+    const currentRequestId = ++requestIdRef.current;
     if (reset) {
       setIsInitialLoading(true);
     } else {
@@ -25,28 +40,35 @@ export default function Home() {
       `/products?search=${search}&category=${category}&page=${pageNumber}&limit=${batchSize}`
     );
 
+    if (currentRequestId !== requestIdRef.current) {
+      return;
+    }
+
     const nextProducts = res.data.products || [];
+    const uniqueNextProducts = dedupeProducts(nextProducts);
 
     setProducts((currentProducts) =>
-      reset ? nextProducts : [...currentProducts, ...nextProducts]
+      reset
+        ? uniqueNextProducts
+        : dedupeProducts([...currentProducts, ...uniqueNextProducts])
     );
     setHasMoreProducts(Boolean(res.data.hasMore));
     setPage(pageNumber);
     setIsInitialLoading(false);
     setIsLoadingMore(false);
-  };
+  }, [search, category, batchSize, dedupeProducts]);
 
-  const handleLoadMore = () => {
+  const handleLoadMore = useCallback(() => {
     if (!hasMoreProducts || isLoadingMore || isInitialLoading) {
       return;
     }
 
     loadProducts({ pageNumber: page + 1, reset: false });
-  };
+  }, [hasMoreProducts, isLoadingMore, isInitialLoading, page, loadProducts]);
 
   useEffect(() => {
     loadProducts({ pageNumber: 1, reset: true });
-  }, [search, category]);
+  }, [loadProducts]);
 
   useEffect(() => {
     const container = gridRef.current;
