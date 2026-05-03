@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+.product-reveal-item {
+	opacity: 0;
+	transform: translateY(18px) scale(0.985);
+	filter: blur(4px);
+	transition:
+		opacity 500ms ease,
+		transform 600ms ease,
+		filter 500ms ease;
+	will-change: opacity, transform, filter;
+}
+
+.product-reveal-item.is-visible {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+	filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.product-reveal-item {
+		opacity: 1;
+		transform: none;
+		filter: none;
+		transition: none;
+	}
+}

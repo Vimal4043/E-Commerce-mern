@@ -1,25 +1,90 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import api from "../api/axios";
 import ProductCard from "../components/ProductCard";
 import ProductListSkeleton from "../loadingSkeleton/ProductListSkeleton";
 
 export default function Home() {
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
+  const batchSize = 24;
+  const [page, setPage] = useState(1);
+  const [hasMoreProducts, setHasMoreProducts] = useState(false);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const gridRef = useRef(null);
 
-  const loadProducts = async () => {
+  const loadProducts = async ({ pageNumber = 1, reset = false } = {}) => {
+    if (reset) {
+      setIsInitialLoading(true);
+    } else {
+      setIsLoadingMore(true);
+    }
+
     const res = await api.get(
-      `/products?search=${search}&category=${category}`
+      `/products?search=${search}&category=${category}&page=${pageNumber}&limit=${batchSize}`
     );
-    setProducts(res.data);
+
+    const nextProducts = res.data.products || [];
+
+    setProducts((currentProducts) =>
+      reset ? nextProducts : [...currentProducts, ...nextProducts]
+    );
+    setHasMoreProducts(Boolean(res.data.hasMore));
+    setPage(pageNumber);
+    setIsInitialLoading(false);
+    setIsLoadingMore(false);
+  };
+
+  const handleLoadMore = () => {
+    if (!hasMoreProducts || isLoadingMore || isInitialLoading) {
+      return;
+    }
+
+    loadProducts({ pageNumber: page + 1, reset: false });
   };
 
   useEffect(() => {
-    loadProducts();
+    loadProducts({ pageNumber: 1, reset: true });
   }, [search, category]);
 
-  if (!products) {
+  useEffect(() => {
+    const container = gridRef.current;
+
+    if (!container) {
+      return undefined;
+    }
+
+    const revealItems = Array.from(
+      container.querySelectorAll(".product-reveal-item:not(.is-visible)")
+    );
+
+    if (revealItems.length === 0) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "120px",
+        threshold: 0.15,
+      }
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+
+    return () => observer.disconnect();
+  }, [products]);
+
+  if (isInitialLoading) {
     return <ProductListSkeleton />;
   }
 
@@ -57,12 +122,27 @@ export default function Home() {
       </div>
 
       {/* Products Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-5">
+      <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-5">
         {/* products cards */}
         {products.map((product) => (
-          <ProductCard product={product} key={product._id} />
+          <div key={product._id} className="product-reveal-item">
+            <ProductCard product={product} />
+          </div>
         ))}
       </div>
+
+      {hasMoreProducts && (
+        <div className="mt-8 flex justify-center py-4">
+          <button
+            type="button"
+            onClick={handleLoadMore}
+            disabled={isLoadingMore || isInitialLoading}
+            className="rounded-full bg-gray-900 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-gray-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isLoadingMore ? "Loading..." : "Load More"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
