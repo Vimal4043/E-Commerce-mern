@@ -6,6 +6,7 @@ import ProductDetails from "./pages/ProductDetails";
 import AddProduct from "./admin/AddProduct";
 import EditProduct from "./admin/EditProduct";
 import ProductList from "./admin/ProductList";
+import AdminOrders from "./admin/Orders";
 import Layout from "./layout/Layout";
 import Cart from "./pages/Cart";
 import CheckoutAddress from "./pages/CheckoutAddress";
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
       { path: "/cart", element: <Cart /> },
 
       { path: "/admin/products", element: requireAdmin(<ProductList />) },
+      { path: "/admin/orders", element: requireAdmin(<AdminOrders />) },
       { path: "/admin/products/add", element: requireAdmin(<AddProduct />) },
       { path: "/admin/products/update/:id", element: requireAdmin(<EditProduct />) },
 
