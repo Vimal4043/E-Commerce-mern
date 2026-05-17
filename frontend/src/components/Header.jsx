@@ -8,6 +8,7 @@ export default function Header() {
     const navigate = useNavigate();
     const [cartCount, setCartCount] = useState(0);
     const userId = localStorage.getItem("userId");
+    const isAdmin = localStorage.getItem("isAdmin") === "true";
     const [user, setUser] = useState(null);
 
     const loadUser = async () => {
@@ -81,11 +82,23 @@ export default function Header() {
                 Shopverse
             </Link>
 
+            {/* middle section */}
+                {!isAdmin && (
+                <div className="hidden md:flex items-center gap-4">
+                    <Link to="/" className="hidden md:block text-lg px-4">
+                        <span className="underline-anim">browse</span>
+                    </Link>
+                    <Link to="/contact-us" className="hidden md:block text-lg px-4">
+                        <span className="underline-anim">contact us</span>
+                    </Link>
+                </div>
+            )}
+
             {/* Right Section */}
             <div className="flex items-center gap-6">
 
                 {/* Cart */}
-                <Link to="/cart" className="relative text-2xl hover:border">
+                <Link to="/cart" className="relative text-2xl underline-anim transition">
                     🛒
                     {cartCount > 0 && (
                         <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
@@ -97,11 +110,11 @@ export default function Header() {
                 {/* Auth Section */}
                 {!userId ? (
                     <div className="flex gap-4">
-                        <Link to="/login" className="hover:text-gray-300 transition">
-                            Login
+                        <Link to="/login" className="">
+                            <span className="underline-anim transition">Login</span>
                         </Link>
-                        <Link to="/signup" className="hover:text-gray-300 transition">
-                            Signup
+                        <Link to="/signup" className="">
+                            <span className="underline-anim transition">Signup</span>
                         </Link>
                     </div>
                 ) : (

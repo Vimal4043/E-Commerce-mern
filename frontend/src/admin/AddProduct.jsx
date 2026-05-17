@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router";
 
@@ -11,24 +11,34 @@ export default function AddProduct() {
         image: "",
         stock: "",
     });
+    const [categories, setCategories] = useState([]);
 
     const formTypes = {
         title: "text",
         description: "text",
         price: "number",
-        category: "text",
+        category: "select",
         image: "text",
         stock: "number",
     };
 
     const navigate = useNavigate();
 
+    const loadCategories = async () => {
+        try {
+            const response = await api.get("/products/categories");
+            setCategories(response.data);
+        } catch (err) {
+            console.error("Error loading categories:", err);
+        }
+    }
+
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-
-        if (name === "category") {
-            if (!/^[A-Za-z ]*$/.test(value)) return;
-        }
 
         if (name === "price" || name === "stock") {
             if (!/^[0-9]*$/.test(value)) return;
@@ -57,16 +67,34 @@ export default function AddProduct() {
             <form onSubmit={handleSubmit} className="space-y-3">
                 {
                     Object.keys(form).map((key) => (
-                        <input
-                            type={formTypes[key]}
-                            key={key}
-                            name = {key}
-                            value={form[key]}
-                            onChange={handleChange}
-                            placeholder={key}
-                            required={key === "title" || key === "price" || key === "stock"}
-                            className="w-full p-2 border border-gray-300 rounded"
-                        />
+                        formTypes[key] === "select" ? (
+                            <select
+                                key={key}
+                                name={key}
+                                value={form[key]}
+                                onChange={handleChange}
+                                required={key === "category"}
+                                className="w-full p-2 border border-gray-300 rounded"
+                            >
+                                <option value="">Select Category</option>
+                                {categories.map((cat) => (
+                                    <option key={cat} value={cat}>
+                                        {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                                    </option>
+                                ))}
+                            </select>
+                        ) : (
+                            <input
+                                type={formTypes[key]}
+                                key={key}
+                                name={key}
+                                value={form[key]}
+                                onChange={handleChange}
+                                placeholder={key}
+                                required={key === "title" || key === "price" || key === "stock"}
+                                className="w-full p-2 border border-gray-300 rounded"
+                            />
+                        )
                     ))
                 }
                 <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">

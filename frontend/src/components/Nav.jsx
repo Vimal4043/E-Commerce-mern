@@ -30,7 +30,6 @@ const Nav = ({ logout }) => {
   return (
     <div className="relative" ref={menuRef}>
 
-      {/* 3 dots */}
       <button
         onClick={toggler}
         className="p-1 rounded-full hover:bg-gray-700 transition text-white"

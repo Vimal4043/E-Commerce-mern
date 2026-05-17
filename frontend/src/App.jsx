@@ -7,6 +7,10 @@ import AddProduct from "./admin/AddProduct";
 import EditProduct from "./admin/EditProduct";
 import ProductList from "./admin/ProductList";
 import AdminOrders from "./admin/Orders";
+import AdminLayout from "./admin/AdminLayout";
+import AdminDashboard from "./admin/AdminDashboard";
+import AdminUsers from "./admin/AdminUsers";
+import AdminContacts from "./admin/AdminContacts";
 import Layout from "./layout/Layout";
 import Cart from "./pages/Cart";
 import CheckoutAddress from "./pages/CheckoutAddress";
@@ -18,6 +22,7 @@ import EditProfile from "./pages/EditProfile";
 import Orders from "./pages/Orders";
 import OrderDetails from "./pages/OrderDetails";
 import NotFound from "./pages/NotFound";
+import Contact from "./pages/Contact";
 import { ProtectedRoute, PublicRoute } from "./components/RouteGuards";
 
 const requireAdmin = (element) => {
@@ -46,11 +51,21 @@ const router = createBrowserRouter([
 
       { path: "/product/:id", element: <ProductDetails /> },
       { path: "/cart", element: <Cart /> },
+      { path: "/contact-us", element: <Contact /> },
 
-      { path: "/admin/products", element: requireAdmin(<ProductList />) },
-      { path: "/admin/orders", element: requireAdmin(<AdminOrders />) },
-      { path: "/admin/products/add", element: requireAdmin(<AddProduct />) },
-      { path: "/admin/products/update/:id", element: requireAdmin(<EditProduct />) },
+      {
+        path: "/admin",
+        element: requireAdmin(<AdminLayout />),
+        children: [
+          { index: true, element: <AdminDashboard /> },
+          { path: "products", element: <ProductList /> },
+          { path: "products/add", element: <AddProduct /> },
+          { path: "products/update/:id", element: <EditProduct /> },
+          { path: "orders", element: <AdminOrders /> },
+          { path: "users", element: <AdminUsers /> },
+          { path: "contacts", element: <AdminContacts /> },
+        ],
+      },
 
       { path: "/checkout-address", element: <ProtectedRoute><CheckoutAddress /></ProtectedRoute> },
       { path: "/checkout", element: <ProtectedRoute><Checkout /></ProtectedRoute> },

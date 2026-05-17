@@ -4,12 +4,22 @@ import { Link } from "react-router";
 
 export default function ProductList() {
     const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("");
 
     const loadProducts = async () => {
         const response = await api.get(`/products?search=${search}&category=${category}`);
         setProducts(response.data.products);
+    }
+
+    const loadCategories = async () => {
+        try {
+            const response = await api.get("/products/categories");
+            setCategories(response.data);
+        } catch (err) {
+            console.error("Error loading categories:", err);
+        }
     }
 
     const deletedProduct = async (id) => {
@@ -25,6 +35,10 @@ export default function ProductList() {
     useEffect(() => {
         loadProducts();
     }, [search, category]);
+
+    useEffect(() => {
+        loadCategories();
+    }, []);
 
     return (
         <div className="max-w-4xl mx-auto mt-10 mb-10">
@@ -47,16 +61,11 @@ export default function ProductList() {
                         className="w-1/3 border border-gray-300 px-4 py-2 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                     >
                         <option value="">All Categories</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="clothing">Clothing</option>
-                        <option value="footwear">Footwear</option>
-                        <option value="accessories">Accessories</option>
-                        <option value="home">Home</option>
-                        <option value="beauty">Beauty</option>
-                        <option value="books">Books</option>
-                        <option value="sports">Sports</option>
-                        <option value="toys">Toys</option>
-                        <option value="groceries">Groceries</option>
+                        {categories.map((cat) => (
+                            <option key={cat} value={cat}>
+                                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <Link to="/admin/products/add" className="bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600">

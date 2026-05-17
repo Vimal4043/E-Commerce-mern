@@ -20,11 +20,6 @@ const productSchema = new mongoose.Schema({
             "footwear",
             "accessories",
             "home",
-            "beauty",
-            "books",
-            "sports",
-            "toys",
-            "groceries"
         ]
     },
     image: {
