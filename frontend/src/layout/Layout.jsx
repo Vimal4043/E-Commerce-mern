@@ -1,8 +1,8 @@
 import React from 'react'
 import Footer from '../components/Footer'
 import { Outlet, useLocation } from 'react-router'
-import Header from '../components/Header'
-import ScrollToTop from '../components/ScrollToTop'
+import Header from '../components/Navbar/Header'
+import ScrollToTop from '../components/Utils/ScrollToTop'
 
 const Layout = () => {
   const location = useLocation()

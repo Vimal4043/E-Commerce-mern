@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
-import api from '../api/axios';
-import AddressList from '../components/AddressList';
-import ProfileSkeleton from '../loadingSkeleton/ProfileSkeleton';
+import api from '../../api/axios';
+import AddressList from '../../components/Address/AddressList';
+import ProfileSkeleton from '../../loadingSkeleton/ProfileSkeleton';
 
 const Profile = () => {
   const userId = localStorage.getItem("userId");

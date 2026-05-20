@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import api from '../api/axios';
-import OrderCard from '../components/OrderCard';
-import OrderSkeleton from '../loadingSkeleton/OrderSkeleton';
+import api from '../../api/axios';
+import OrderCard from '../../components/Orders/OrderCard';
+import OrderSkeleton from '../../loadingSkeleton/OrderSkeleton';
 import { Link } from 'react-router';
 
 const Orders = () => {

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import NavLinks from "./NavLinks";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 
 const Nav = ({ logout }) => {
   const [open, setOpen] = useState(false);

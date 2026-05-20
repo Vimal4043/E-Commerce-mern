@@ -1,8 +1,8 @@
 import React, { use, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router';
-import api from '../api/axios';
+import api from '../../api/axios';
 import { formatDistanceToNow } from 'date-fns';
-import OrderDetailsSkeleton from '../loadingSkeleton/OrderDetailsSkeleton';
+import OrderDetailsSkeleton from '../../loadingSkeleton/OrderDetailsSkeleton';
 
 const OrderDetails = () => {
 

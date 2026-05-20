@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import api from "../api/axios";
-import { useNavigate, Link } from "react-router";
-import CartSkeleton from "../loadingSkeleton/CartSkeleton";
+import api from "../../api/axios";
+import { useNavigate, Link } from "react-router-dom";
+import CartSkeleton from "../../loadingSkeleton/CartSkeleton";
 
 export default function Cart() {
   const userId = localStorage.getItem("userId");

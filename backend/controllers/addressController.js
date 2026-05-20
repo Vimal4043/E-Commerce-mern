@@ -31,9 +31,8 @@ export const saveAddress = async (req, res) => {
 //Get Addresses by User ID
 export const getAddresses = async (req, res) => {
     try {
-        const addresses = await Address.find({
-            userId: req.user.id,
-        }).sort({ createdAt: -1 });
+        const userId = req.user.id;
+        const addresses = await Address.find({ userId }).sort({ createdAt: -1 });
         res.json(addresses);
     } catch (error) {
         res.status(500).json({ message: "Error fetching addresses", error });
@@ -53,7 +52,7 @@ export const updateAddress = async (req, res) => {
             return res.status(404).json({ message: "Address not found" });
         }
 
-        if (address.userId.toString() !== userId) {
+        if (!address.userId.equals(userId)) {
             return res.status(403).json({ message: "Not authorized" });
         }
 
@@ -84,7 +83,7 @@ export const deleteAddress = async (req, res) => {
             return res.status(404).json({ message: "Address not found" });
         }
 
-        if (address.userId.toString() !== userId) {
+        if (!address.userId.equals(userId)) {
             return res.status(403).json({ message: "Not authorized" });
         }
 

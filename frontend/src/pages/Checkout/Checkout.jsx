@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import api from "../api/axios";
-import { useNavigate } from "react-router";
-import CheckoutSkeleton from "../loadingSkeleton/CheckoutSkeleton";
+import api from "../../api/axios";
+import { useNavigate } from "react-router-dom";
+import CheckoutSkeleton from "../../loadingSkeleton/CheckoutSkeleton";
 
 export default function Checkout() {
   const navigate = useNavigate();

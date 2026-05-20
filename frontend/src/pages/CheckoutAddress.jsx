@@ -1,6 +1,6 @@
 import { useState } from "react";
 import api from "../api/axios";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutAddress() {
     const userId = localStorage.getItem("userId");

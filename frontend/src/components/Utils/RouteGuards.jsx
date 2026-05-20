@@ -1,4 +1,4 @@
-import { Navigate } from "react-router";
+import { Navigate } from "react-router-dom";
 
 const isAuthenticated = () => Boolean(localStorage.getItem("token"));
 

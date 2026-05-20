@@ -1,6 +1,6 @@
 import React from 'react'
-import api from "../api/axios";
-import { Link } from "react-router";
+import api from "../../api/axios";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
 

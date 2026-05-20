@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import api from "../api/axios";
-import { useNavigate, useParams } from "react-router";
-import ProductSkeleton from "../loadingSkeleton/ProductSkeleton";
+import api from "../../api/axios";
+import { useNavigate, useParams } from "react-router-dom";
+import ProductSkeleton from "../../loadingSkeleton/ProductSkeleton";
 
 export default function ProductDetails() {
   const navigate = useNavigate();

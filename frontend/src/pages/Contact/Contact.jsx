@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router'
-import api from '../api/axios'
+import api from '../../api/axios'
 
 const initialForm = {
     name: '',

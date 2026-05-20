@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import api from "../api/axios";
-import { useNavigate, useLocation } from "react-router";
+import api from "../../api/axios";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function AddAddress() {
     const userId = localStorage.getItem("userId");
