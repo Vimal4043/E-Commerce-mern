@@ -3,6 +3,7 @@ import api from "../../api/axios";
 import CTA from "./CTA";
 import ProductCard from "../../components/Home/ProductCard";
 import ProductListSkeleton from "../../loadingSkeleton/ProductListSkeleton";
+import Products from "./Products";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -117,14 +118,7 @@ export default function Home() {
       <CTA search={search} setSearch={setSearch} category={category} setCategory={setCategory} />
 
       {/* Products Grid */}
-      <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-5">
-        {/* products cards */}
-        {products.map((product) => (
-          <div key={product._id} className="product-reveal-item">
-            <ProductCard product={product} />
-          </div>
-        ))}
-      </div>
+      <Products products={products} gridRef={gridRef} />
 
       {hasMoreProducts && (
         <div className="mt-8 flex justify-center py-4">
