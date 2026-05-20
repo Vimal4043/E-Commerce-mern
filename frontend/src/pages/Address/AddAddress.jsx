@@ -7,7 +7,8 @@ export default function AddAddress() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const existingAddress = location.state; // detect edit
+    const existingAddress = location.state && location.state._id ? location.state : null; // detect edit when state is an address object
+    const fromCheckout = location.state && location.state.fromCheckout;
 
     const [form, setForm] = useState({
         fullName: "",
@@ -88,7 +89,12 @@ export default function AddAddress() {
                 });
             }
 
-            navigate("/profile");
+            // If opened from checkout flow, redirect back to checkout
+            if (fromCheckout) {
+                navigate("/checkout");
+            } else {
+                navigate("/profile");
+            }
         } catch (error) {
             console.log(error.response?.data);
         }

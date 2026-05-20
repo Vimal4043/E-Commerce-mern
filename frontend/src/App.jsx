@@ -13,7 +13,6 @@ import AdminUsers from "./admin/AdminUsers";
 import AdminContacts from "./admin/AdminContacts";
 import Layout from "./layout/Layout";
 import Cart from "./pages/Cart/Cart";
-import CheckoutAddress from "./pages/CheckoutAddress";
 import Checkout from "./pages/Checkout/Checkout";
 import OrderSuccess from "./pages/Orders/OrderSuccess";
 import Profile from "./pages/Profile/Profile";
@@ -67,7 +66,6 @@ const router = createBrowserRouter([
         ],
       },
 
-      { path: "/checkout-address", element: <ProtectedRoute><CheckoutAddress /></ProtectedRoute> },
       { path: "/checkout", element: <ProtectedRoute><Checkout /></ProtectedRoute> },
       { path: "/order-success/:id", element: <ProtectedRoute><OrderSuccess /></ProtectedRoute> },
 
