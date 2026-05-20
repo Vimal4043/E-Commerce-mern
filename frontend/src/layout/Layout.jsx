@@ -1,5 +1,5 @@
 import React from 'react'
-import Footer from '../components/Footer'
+import Footer from '../components/Footer/Footer'
 import { Outlet, useLocation } from 'react-router'
 import Header from '../components/Navbar/Header'
 import ScrollToTop from '../components/Utils/ScrollToTop'

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import api from '../../api/axios';
 import AddressList from '../../components/Address/AddressList';
 import ProfileSkeleton from '../../loadingSkeleton/ProfileSkeleton';
