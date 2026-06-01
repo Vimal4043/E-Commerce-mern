@@ -55,79 +55,141 @@ A full-stack e-commerce web application built with the **MERN** stack (MongoDB, 
 ---
 
 ## 📁 Project Structure
-
 ```
-E-Commerce-mern/
-├── backend/                    # Express.js REST API
+E-Commerce/
+├── README.md
+├── backend/
+│   ├── package.json
+│   ├── server.js                # Express app entry point
 │   ├── config/
-│   │   └── db.js               # MongoDB connection
-│   ├── controllers/            # Route handler logic
-│   │   ├── authController.js
-│   │   ├── cartController.js
-│   │   ├── addressController.js
-│   │   ├── orderController.js
-│   │   ├── productController.js
-│   │   └── userController.js
+│   │   └── db.js                # MongoDB connection
+│   ├── controllers/
+│   │   ├── addressController.js # address routes logic
+│   │   ├── authController.js    # auth (signup/login)
+│   │   ├── cartController.js    # cart operations
+│   │   ├── contactController.js # contact form handling
+│   │   ├── orderController.js   # order placement & history
+│   │   ├── productController.js # product CRUD
+│   │   └── userController.js    # user profile management
+│   ├── init/
+│   │   ├── data.js               # seed/sample data
+│   │   └── init.js               # seed runner
 │   ├── middleware/
-│   │   └── authMiddleware.js   # JWT protect & isAdmin guards
-│   ├── models/                 # Mongoose schemas
-│   │   ├── User.js
-│   │   ├── Product.js
-│   │   ├── Cart.js
-│   │   ├── Address.js
-│   │   └── Order.js
-│   ├── routes/                 # API route definitions
-│   │   ├── authRoutes.js
-│   │   ├── products.js
-│   │   ├── cart.js
-│   │   ├── address.js
-│   │   ├── order.js
-│   │   └── user.js
-│   ├── init/                   # Database seed scripts
-│   ├── server.js               # App entry point
-│   └── package.json
-│
-└── frontend/                   # React + Vite app
-    ├── public/
-    ├── src/
-    │   ├── admin/              # Admin-only pages
-    │   │   ├── AddProduct.jsx
-    │   │   ├── EditProduct.jsx
-    │   │   └── ProductList.jsx
-    │   ├── api/                # Axios API call utilities
-    │   ├── assets/             # Static assets
-    │   ├── components/         # Reusable UI components
+│   │   └── authMiddleware.js     # JWT protect / isAdmin guards
+│   ├── models/
+│   │   ├── Address.js            # address schema
+│   │   ├── Cart.js               # cart schema
+│   │   ├── Contact.js            # contact messages
+│   │   ├── Order.js              # order schema
+│   │   ├── Product.js            # product schema
+│   │   └── User.js               # user schema
+│   └── routes/
+│       ├── address.js            # /api/address
+│       ├── authRoutes.js         # /api/auth
+│       ├── cart.js               # /api/cart
+│       ├── contact.js            # /api/contact
+│       ├── order.js              # /api/orders
+│       ├── products.js           # /api/products
+│       └── user.js               # /api/user
+
+└── frontend/
+  ├── package.json
+  ├── index.html                 # single-page app entry
+  ├── vite.config.js
+  ├── eslint.config.js
+  ├── vercel.json                # Vercel rewrite config
+  ├── public/                    # static assets served at /
+  └── src/
+    ├── App.css
+    ├── App.jsx                # top-level router & routes
+    ├── index.css
+    ├── main.jsx               # React entry point
+    ├── admin/                 # admin pages & components
+    │   ├── AddProduct.jsx
+    │   ├── AdminContacts.jsx
+    │   ├── AdminDashboard.jsx
+    │   ├── AdminLayout.jsx
+    │   ├── AdminNavbar.jsx
+    │   ├── AdminUsers.jsx
+    │   ├── EditProduct.jsx
+    │   ├── Orders.jsx
+    │   ├── ProductList.jsx
+    │   └── Sidebar.jsx
+    ├── api/
+    │   └── axios.js           # axios instance & interceptors
+    ├── assets/                 # images, icons, fonts
+    ├── components/             # reusable UI components
+    │   ├── Address/
+    │   │   ├── AddressCard.jsx
+    │   │   └── AddressList.jsx
+    │   ├── Auth/
+    │   ├── Cart/
+    │   │   └── ItemCard.jsx
+    │   ├── Checkout/
+    │   │   └── AddressCard.jsx
+    │   ├── Contact/
+    │   ├── Footer/
+    │   │   └── Footer.jsx
+    │   ├── Home/
+    │   │   └── ProductCard.jsx
+    │   ├── Navbar/
     │   │   ├── Header.jsx
     │   │   ├── Nav.jsx
-    │   │   ├── NavLinks.jsx
-    │   │   ├── Footer.jsx
-    │   │   ├── ProductCard.jsx
-    │   │   ├── OrderCard.jsx
-    │   │   ├── AddressCard.jsx
-    │   │   ├── AddressList.jsx
-    │   │   └── ScrollToTop.jsx
-    │   ├── layout/
-    │   │   └── Layout.jsx      # Shared page layout wrapper
-    │   ├── loadingSkeleton/    # Skeleton loaders for async content
-    │   ├── pages/              # Application pages
-    │   │   ├── Home.jsx
+    │   │   └── NavLinks.jsx
+    │   ├── Orders/
+    │   │   └── OrderCard.jsx
+    │   ├── Profile/
+    │   └── Utils/
+    │       ├── RouteGuards.jsx
+    │       └── ScrollToTop.jsx
+    ├── layout/
+    │   └── Layout.jsx          # app shell / header / footer
+    ├── loadingSkeleton/        # skeleton loaders while fetching
+    │   ├── CartSkeleton.jsx
+    │   ├── CheckoutSkeleton.jsx
+    │   ├── OrderDetailsSkeleton.jsx
+    │   ├── OrderSkeleton.jsx
+    │   ├── ProductListSkeleton.jsx
+    │   ├── ProductSkeleton.jsx
+    │   └── ProfileSkeleton.jsx
+    ├── pages/
+    │   ├── Address/
+    │   │   └── AddAddress.jsx
+    │   ├── Auth/
     │   │   ├── Login.jsx
-    │   │   ├── Signup.jsx
-    │   │   ├── ProductDetails.jsx
+    │   │   └── Signup.jsx
+    │   ├── Cart/
     │   │   ├── Cart.jsx
-    │   │   ├── CheckoutAddress.jsx
+    │   │   ├── EmptyCart.jsx
+    │   │   └── NoCart.jsx
+    │   ├── Checkout/
+    │   │   ├── AddressSections.jsx
     │   │   ├── Checkout.jsx
-    │   │   ├── OrderSuccess.jsx
-    │   │   ├── Orders.jsx
+    │   │   └── OrderSummary.jsx
+    │   ├── Contact/
+    │   │   └── Contact.jsx
+    │   ├── Dashboard/
+    │   ├── Home/
+    │   │   ├── CTA.jsx
+    │   │   ├── Home.jsx
+    │   │   ├── ProductDetails.jsx
+    │   │   └── Products.jsx
+    │   ├── Orders/
+    │   │   ├── NoOrder.jsx
     │   │   ├── OrderDetails.jsx
-    │   │   ├── Profile.jsx
+    │   │   ├── Orders.jsx
+    │   │   └── OrderSuccess.jsx
+    │   ├── Profile/
     │   │   ├── EditProfile.jsx
-    │   │   ├── AddAddress.jsx
-    │   │   └── NotFound.jsx
-    │   ├── App.jsx             # Router configuration
-    │   └── main.jsx            # React entry point
-    ├── vercel.json             # Vercel SPA rewrite config
-    └── package.json
+    │   │   ├── Profile.jsx
+    │   │   └── UserProfile.jsx
+    │   ├── Projects/
+    │   ├── Settings/
+    │   ├── Tasks/
+    │   ├── Team/
+    │   └── Utils/
+    │       └── NotFound.jsx
+    └── theme/
 ```
 
 ---

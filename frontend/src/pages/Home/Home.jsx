@@ -16,6 +16,7 @@ export default function Home() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const gridRef = useRef(null);
   const requestIdRef = useRef(0);
+  const hasLoadedInitialProductsRef = useRef(false);
 
   const dedupeProducts = useCallback((items) => {
     const seenIds = new Set();
@@ -32,32 +33,40 @@ export default function Home() {
 
   const loadProducts = useCallback(async ({ pageNumber = 1, reset = false } = {}) => {
     const currentRequestId = ++requestIdRef.current;
-    if (reset) {
+    if (reset && !hasLoadedInitialProductsRef.current) {
       setIsInitialLoading(true);
     } else {
       setIsLoadingMore(true);
     }
 
-    const res = await api.get(
-      `/products?search=${search}&category=${category}&page=${pageNumber}&limit=${batchSize}`
-    );
+    try {
+      const res = await api.get(
+        `/products?search=${search}&category=${category}&page=${pageNumber}&limit=${batchSize}`
+      );
 
-    if (currentRequestId !== requestIdRef.current) {
-      return;
+      if (currentRequestId !== requestIdRef.current) {
+        return;
+      }
+
+      const nextProducts = res.data.products || [];
+      const uniqueNextProducts = dedupeProducts(nextProducts);
+
+      setProducts((currentProducts) =>
+        reset
+          ? uniqueNextProducts
+          : dedupeProducts([...currentProducts, ...uniqueNextProducts])
+      );
+      setHasMoreProducts(Boolean(res.data.hasMore));
+      setPage(pageNumber);
+    } catch (error) {
+      console.error("Failed to load products:", error);
+    } finally {
+      if (currentRequestId === requestIdRef.current) {
+        hasLoadedInitialProductsRef.current = true;
+        setIsInitialLoading(false);
+        setIsLoadingMore(false);
+      }
     }
-
-    const nextProducts = res.data.products || [];
-    const uniqueNextProducts = dedupeProducts(nextProducts);
-
-    setProducts((currentProducts) =>
-      reset
-        ? uniqueNextProducts
-        : dedupeProducts([...currentProducts, ...uniqueNextProducts])
-    );
-    setHasMoreProducts(Boolean(res.data.hasMore));
-    setPage(pageNumber);
-    setIsInitialLoading(false);
-    setIsLoadingMore(false);
   }, [search, category, batchSize, dedupeProducts]);
 
   const handleLoadMore = useCallback(() => {
@@ -69,7 +78,11 @@ export default function Home() {
   }, [hasMoreProducts, isLoadingMore, isInitialLoading, page, loadProducts]);
 
   useEffect(() => {
-    loadProducts({ pageNumber: 1, reset: true });
+    const timeoutId = window.setTimeout(() => {
+      loadProducts({ pageNumber: 1, reset: true });
+    }, 250);
+
+    return () => window.clearTimeout(timeoutId);
   }, [loadProducts]);
 
   useEffect(() => {
