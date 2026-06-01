@@ -1,13 +1,11 @@
 import express from "express";
 
-import {
-  createProduct,
-  getProducts,
-  getProductById,
-  updateProduct,
-  deleteProduct,
-  getCategories
-} from "../controllers/productController.js";
+import { createProduct } from "../controllers/Product/create/CreateProduct.js";
+import { getProducts } from "../controllers/Product/read/GetProducts.js";
+import { getProductById } from "../controllers/Product/read/GetProductById.js";
+import { updateProduct } from "../controllers/Product/update/UpdateProduct.js";
+import { deleteProduct } from "../controllers/Product/delete/DeleteProduct.js";
+import { getCategories } from "../controllers/Product/read/GetCategories.js";
 import { protect, isAdmin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();

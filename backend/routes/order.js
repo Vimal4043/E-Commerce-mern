@@ -1,5 +1,8 @@
 import express from 'express';
-import { placeOrder, getUserOrders, getAllOrders, getOrderDetails } from '../controllers/orderController.js';
+import { placeOrder } from '../controllers/Order/create/PlaceOrder.js';
+import { getUserOrders } from '../controllers/Order/read/GetUserOrders.js';
+import { getAllOrders } from '../controllers/Order/read/GetAllOrders.js';
+import { getOrderDetails } from '../controllers/Order/read/GetOrderDetails.js';
 import { protect, isAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
