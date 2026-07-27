@@ -1,32 +1,44 @@
-import React from 'react'
+import { FiSearch, FiSliders } from "react-icons/fi";
 
 const CTA = ({ search, setSearch, category, setCategory }) => {
     return (
-        <div className="mb-6 flex flex-col md:flex-row gap-4 items-center bg-white p-4 rounded-xl shadow-md">
+        <div className="mb-10 flex flex-col md:flex-row gap-4 items-stretch md:items-center">
             {/* Search Input */}
-            <input
-                type="text"
-                placeholder="Search products..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full md:w-1/2 border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            />
+            <div className="relative flex-1 max-w-md">
+                <FiSearch
+                    size={16}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none"
+                />
+                <input
+                    type="text"
+                    placeholder="Search timepieces..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="input pl-11 pr-4"
+                />
+            </div>
 
             {/* Category Filter */}
-            <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full md:w-1/4 border border-gray-300 px-4 py-2 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            >
-                <option value="">All Categories</option>
-                <option value="electronics">Electronics</option>
-                <option value="clothing">Clothing</option>
-                <option value="footwear">Footwear</option>
-                <option value="accessories">Accessories</option>
-                <option value="home">Home</option>
-            </select>
+            <div className="relative min-w-[180px]">
+                <FiSliders
+                    size={14}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none"
+                />
+                <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="input select pl-11 pr-10"
+                >
+                    <option value="">All Categories</option>
+                    <option value="electronics">Watches</option>
+                    <option value="clothing">Straps & Bands</option>
+                    <option value="footwear">Accessories</option>
+                    <option value="accessories">Winders & Boxes</option>
+                    <option value="home">Care & Maintenance</option>
+                </select>
+            </div>
         </div>
-    )
-}
+    );
+};
 
-export default CTA
+export default CTA;

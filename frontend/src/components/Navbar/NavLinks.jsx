@@ -1,44 +1,66 @@
 import { Link } from "react-router-dom";
+import { FiHome, FiUser, FiPackage, FiHeadphones, FiShield, FiLogOut, FiGrid } from "react-icons/fi";
 
 const NavLinks = ({ logout, closeMenu }) => {
   const isAdmin = localStorage.getItem("isAdmin") === "true";
 
+  const linkClass = "flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-text-secondary hover:text-white hover:bg-dark-hover transition-all duration-200 group";
+
+  const iconClass = "text-text-muted group-hover:text-accent transition-colors duration-200 shrink-0";
+
   return (
     <>
-      <Link to="/" onClick={closeMenu} className="block md:hidden w-full text-left px-4 py-2 hover:bg-gray-100">
-        Browse
+      {/* Mobile-only home link */}
+      <Link to="/" onClick={closeMenu} className={`${linkClass} md:hidden`}>
+        <FiHome size={16} className={iconClass} />
+        <span>Home</span>
       </Link>
 
-      <Link to="/profile" onClick={closeMenu} className="block w-full text-left px-4 py-2 hover:bg-gray-100">
-        Profile
+      {/* Collections (mobile) */}
+      <Link to="/" onClick={closeMenu} className={`${linkClass} md:hidden`}>
+        <FiGrid size={16} className={iconClass} />
+        <span>Collections</span>
       </Link>
 
-      <Link to="/orders" onClick={closeMenu} className="block w-full text-left px-4 py-2 hover:bg-gray-100">
-        Orders
+      {/* Divider for mobile */}
+      <div className="my-2 mx-4 h-px bg-dark-border md:hidden" />
+
+      <Link to="/profile" onClick={closeMenu} className={linkClass}>
+        <FiUser size={16} className={iconClass} />
+        <span>Profile</span>
+      </Link>
+
+      <Link to="/orders" onClick={closeMenu} className={linkClass}>
+        <FiPackage size={16} className={iconClass} />
+        <span>Orders</span>
       </Link>
 
       {!isAdmin && (
-        <Link to="/contact-us" onClick={closeMenu} className="block md:hidden w-full text-left px-4 py-2 hover:bg-gray-100">
-          contact us
+        <Link to="/contact-us" onClick={closeMenu} className={`${linkClass} md:hidden`}>
+          <FiHeadphones size={16} className={iconClass} />
+          <span>Contact Us</span>
         </Link>
       )}
 
       {isAdmin && (
-        <>
-          <Link to="/admin" onClick={closeMenu} className="block w-full text-left px-4 py-2 hover:bg-gray-100">
-            Admin
-          </Link>
-        </>
+        <Link to="/admin" onClick={closeMenu} className={linkClass}>
+          <FiShield size={16} className={iconClass} />
+          <span>Admin Panel</span>
+        </Link>
       )}
+
+      {/* Divider before logout */}
+      <div className="my-2 mx-4 h-px bg-dark-border" />
 
       <button
         onClick={() => {
           logout();
           closeMenu();
         }}
-        className="block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"
+        className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-error/80 hover:text-error hover:bg-error/5 transition-all duration-200 w-full text-left group"
       >
-        Logout
+        <FiLogOut size={16} className="shrink-0" />
+        <span>Sign Out</span>
       </button>
     </>
   );
