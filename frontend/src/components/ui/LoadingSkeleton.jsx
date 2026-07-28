@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { shimmer } from "../../utils/animations";
 
 export default function LoadingSkeleton({ className = "", variant = "default" }) {
-    const baseStyles = "bg-dark-elevated rounded-xl overflow-hidden relative";
+    const baseStyles = "bg-gradient-to-r from-dark-elevated via-dark-border/30 to-dark-elevated bg-[length:200%_100%] rounded-xl overflow-hidden relative";
 
     if (variant === "card") {
         return (
@@ -12,11 +12,11 @@ export default function LoadingSkeleton({ className = "", variant = "default" })
                 initial="initial"
                 animate="animate"
             >
-                <div className="aspect-square bg-dark-border/50" />
+                <div className="aspect-square bg-dark-border/30" />
                 <div className="p-6 space-y-3">
-                    <div className="h-4 bg-dark-border/50 rounded w-3/4" />
-                    <div className="h-3 bg-dark-border/50 rounded w-1/2" />
-                    <div className="h-6 bg-dark-border/50 rounded w-1/3" />
+                    <div className="h-4 bg-dark-border/30 rounded w-3/4" />
+                    <div className="h-3 bg-dark-border/30 rounded w-1/2" />
+                    <div className="h-6 bg-dark-border/30 rounded w-1/3" />
                 </div>
             </motion.div>
         );
@@ -30,9 +30,9 @@ export default function LoadingSkeleton({ className = "", variant = "default" })
                 initial="initial"
                 animate="animate"
             >
-                <div className="h-4 bg-dark-border/50 rounded w-full" />
-                <div className="h-4 bg-dark-border/50 rounded w-5/6" />
-                <div className="h-4 bg-dark-border/50 rounded w-4/6" />
+                <div className="h-4 bg-dark-border/30 rounded w-full" />
+                <div className="h-4 bg-dark-border/30 rounded w-5/6" />
+                <div className="h-4 bg-dark-border/30 rounded w-4/6" />
             </motion.div>
         );
     }
@@ -40,7 +40,7 @@ export default function LoadingSkeleton({ className = "", variant = "default" })
     if (variant === "circle") {
         return (
             <motion.div
-                className={`w-20 h-20 rounded-full bg-dark-border/50 ${className}`}
+                className={`w-20 h-20 rounded-full bg-dark-border/30 ${className}`}
                 variants={shimmer}
                 initial="initial"
                 animate="animate"
@@ -51,7 +51,7 @@ export default function LoadingSkeleton({ className = "", variant = "default" })
     if (variant === "button") {
         return (
             <motion.div
-                className={`h-12 bg-dark-border/50 rounded-xl ${className}`}
+                className={`h-12 bg-dark-border/30 rounded-xl ${className}`}
                 variants={shimmer}
                 initial="initial"
                 animate="animate"
@@ -62,7 +62,7 @@ export default function LoadingSkeleton({ className = "", variant = "default" })
     // Default rectangle
     return (
         <motion.div
-            className={`h-48 bg-dark-border/50 rounded-xl ${className}`}
+            className={`h-48 bg-dark-border/30 rounded-xl ${className}`}
             variants={shimmer}
             initial="initial"
             animate="animate"
