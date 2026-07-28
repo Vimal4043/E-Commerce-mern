@@ -3,6 +3,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import ProductDetails from "./pages/Home/LuxuryProductDetails";
+import LuxuryShop from "./pages/Home/LuxuryShop";
 import AddProduct from "./admin/AddProduct";
 import EditProduct from "./admin/EditProduct";
 import ProductList from "./admin/ProductList";
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
       { path: "/orders/:orderId", element: <ProtectedRoute><OrderDetails /></ProtectedRoute> },
 
       { path: "/product/:id", element: <ProductDetails /> },
+      { path: "/shop", element: <LuxuryShop /> },
       { path: "/cart", element: <Cart /> },
       { path: "/contact-us", element: <Contact /> },
 
