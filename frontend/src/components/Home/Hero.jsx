@@ -57,9 +57,10 @@ export default function Hero() {
                     >
                         {/* Premium badge */}
                         <motion.span
-                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5 text-accent text-[11px] tracking-[0.15em] uppercase mb-8"
+                            className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-accent/20 bg-accent/5 text-accent text-[11px] tracking-[0.2em] uppercase mb-10"
                             variants={fadeInUp}
                             custom={0}
+                            aria-label="Swiss Made since 1923"
                         >
                             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-soft" />
                             Swiss Made Since 1923
@@ -67,7 +68,7 @@ export default function Hero() {
 
                         {/* Main headline */}
                         <motion.h1
-                            className="typo-hero text-white mb-4"
+                            className="typo-hero text-white mb-6"
                             variants={fadeInUp}
                             custom={0.15}
                         >
@@ -78,13 +79,13 @@ export default function Hero() {
 
                         {/* Gold divider */}
                         <motion.div
-                            className="divider-gold mx-auto lg:mx-0 mb-6"
+                            className="divider-gold mx-auto lg:mx-0 mb-8"
                             variants={goldLineAnimation}
                         />
 
                         {/* Subheadline */}
                         <motion.p
-                            className="typo-body-sm max-w-md mx-auto lg:mx-0 mb-10"
+                            className="typo-body text-text-secondary max-w-lg mx-auto lg:mx-0 mb-12 leading-relaxed"
                             variants={fadeInUp}
                             custom={0.4}
                         >
@@ -95,13 +96,14 @@ export default function Hero() {
 
                         {/* CTA Buttons */}
                         <motion.div
-                            className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
+                            className="flex flex-col sm:flex-row items-center gap-5 justify-center lg:justify-start"
                             variants={fadeInUp}
                             custom={0.55}
                         >
                             <Link
                                 to="/"
                                 className="btn btn-primary btn-lg group"
+                                aria-label="Explore our collection of luxury watches"
                             >
                                 Explore Collection
                                 <FiArrowRight className="group-hover:translate-x-1 transition-transform duration-300" size={16} />
@@ -109,6 +111,7 @@ export default function Hero() {
                             <Link
                                 to="/"
                                 className="btn btn-outline btn-lg"
+                                aria-label="Visit our virtual showroom"
                             >
                                 Virtual Showroom
                             </Link>

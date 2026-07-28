@@ -46,7 +46,7 @@ export default function InstagramGallery() {
                                 ease: [0.165, 0.84, 0.44, 1]
                             }}
                         >
-                            <div className="group relative ${image.aspect} rounded-xl overflow-hidden bg-dark-card border border-dark-border cursor-pointer">
+                            <div className={`group relative ${image.aspect} rounded-xl overflow-hidden bg-dark-card border border-dark-border cursor-pointer`}>
                                 {/* Background */}
                                 <div className="absolute inset-0 bg-gradient-to-br from-dark-card to-dark-elevated" />
 

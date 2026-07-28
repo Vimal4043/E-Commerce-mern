@@ -5,35 +5,35 @@ import { Link } from "react-router-dom";
 const collections = [
     {
         id: 1,
-        title: "Heritage",
-        subtitle: "Classic Timepieces",
-        count: "24 Pieces",
+        title: "Classic",
+        subtitle: "Timeless Elegance",
+        count: "24 Models",
         image: "⌚",
-        gradient: "from-amber-900/20 to-stone-900/20"
+        gradient: "from-dark-elevated to-dark-card"
     },
     {
         id: 2,
-        title: "Avant-Garde",
-        subtitle: "Modern Design",
-        count: "18 Pieces",
+        title: "Dress",
+        subtitle: "Refined Sophistication",
+        count: "18 Models",
         image: "⌚",
-        gradient: "from-slate-800/20 to-zinc-900/20"
+        gradient: "from-dark-elevated to-dark-card"
     },
     {
         id: 3,
-        title: "Sport",
-        subtitle: "Performance",
-        count: "32 Pieces",
+        title: "Diver",
+        subtitle: "Professional Grade",
+        count: "32 Models",
         image: "⌚",
-        gradient: "from-neutral-800/20 to-stone-900/20"
+        gradient: "from-dark-elevated to-dark-card"
     },
     {
         id: 4,
-        title: "Limited",
-        subtitle: "Exclusive Editions",
-        count: "12 Pieces",
+        title: "Chronograph",
+        subtitle: "Precision Instruments",
+        count: "24 Models",
         image: "⌚",
-        gradient: "from-yellow-900/10 to-amber-950/20"
+        gradient: "from-dark-elevated to-dark-card"
     }
 ];
 
@@ -46,22 +46,22 @@ export default function FeaturedCollections() {
             <div className="container-lux">
                 {/* Section Header */}
                 <motion.div
-                    className="text-center mb-16"
+                    className="text-center mb-20"
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
                 >
-                    <span className="typo-label-gold mb-4 block">Explore Our World</span>
-                    <h2 className="typo-h1 text-white mb-4">Featured Collections</h2>
-                    <div className="divider-gold mx-auto mb-6" />
-                    <p className="typo-body-sm max-w-2xl mx-auto">
-                        Each collection tells a unique story, blending tradition with innovation
-                        to create timepieces that transcend generations.
+                    <span className="typo-label-gold mb-4 block">Our Collections</span>
+                    <h2 className="typo-h1 text-white mb-6">Exceptional Timepieces</h2>
+                    <div className="divider-gold mx-auto mb-8" />
+                    <p className="typo-body text-text-secondary max-w-2xl mx-auto leading-relaxed">
+                        Each collection represents a distinct philosophy of horological excellence,
+                        from classic dress watches to professional diving instruments.
                     </p>
                 </motion.div>
 
-                {/* Masonry-style Grid Layout */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Collections Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                     {collections.map((collection, index) => (
                         <motion.div
                             key={collection.id}
@@ -74,38 +74,38 @@ export default function FeaturedCollections() {
                             }}
                         >
                             <Link to="/" className="group block h-full">
-                                <div className="relative h-80 lg:h-96 rounded-2xl overflow-hidden bg-dark-card border border-dark-border card-hover">
-                                    {/* Gradient Background */}
-                                    <div className={`absolute inset-0 bg-gradient-to-br ${collection.gradient} opacity-60`} />
+                                <div className="relative h-[28rem] lg:h-[32rem] rounded-2xl overflow-hidden bg-dark-card border border-dark-border card-hover">
+                                    {/* Minimal Gradient Background */}
+                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-dark/80 opacity-80" />
                                     
                                     {/* Watch Icon */}
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="text-8xl opacity-20 group-hover:scale-110 group-hover:opacity-30 transition-all duration-700">
+                                        <div className="text-7xl opacity-10 group-hover:scale-125 group-hover:opacity-20 transition-all duration-700 ease-out">
                                             {collection.image}
                                         </div>
                                     </div>
 
                                     {/* Content */}
-                                    <div className="relative h-full flex flex-col justify-between p-8">
+                                    <div className="relative h-full flex flex-col justify-end p-8">
                                         <div>
-                                            <span className="typo-category text-accent mb-2 block">
+                                            <span className="typo-category text-accent mb-3 block">
                                                 {collection.count}
                                             </span>
-                                            <h3 className="typo-h4 text-white mb-2 group-hover:text-accent transition-colors">
+                                            <h3 className="typo-h3 text-white mb-3 group-hover:text-accent transition-colors duration-300">
                                                 {collection.title}
                                             </h3>
-                                            <p className="typo-body-sm text-text-muted">
+                                            <p className="typo-body-sm text-text-secondary">
                                                 {collection.subtitle}
                                             </p>
                                         </div>
 
                                         {/* Arrow */}
-                                        <div className="mt-6 flex items-center gap-2 text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            <span className="text-xs tracking-[0.15em] uppercase font-medium">
-                                                Discover
+                                        <div className="mt-8 flex items-center gap-3 text-accent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                            <span className="text-xs tracking-[0.2em] uppercase font-medium">
+                                                Explore
                                             </span>
                                             <svg
-                                                className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                                                className="w-4 h-4"
                                                 fill="none"
                                                 stroke="currentColor"
                                                 viewBox="0 0 24 24"
@@ -117,7 +117,7 @@ export default function FeaturedCollections() {
                                     </div>
 
                                     {/* Gold Accent Line */}
-                                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                                    <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                                 </div>
                             </Link>
                         </motion.div>

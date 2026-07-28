@@ -42,20 +42,20 @@ export default function NewArrivals() {
             <div className="container-lux">
                 {/* Section Header */}
                 <motion.div
-                    className="text-center mb-16"
+                    className="text-center mb-20"
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
                 >
                     <span className="typo-label-gold mb-4 block">Just Landed</span>
-                    <h2 className="typo-h1 text-white mb-4">New Arrivals</h2>
-                    <div className="divider-gold mx-auto mb-6" />
-                    <p className="typo-body-sm max-w-2xl mx-auto">
+                    <h2 className="typo-h1 text-white mb-6">New Arrivals</h2>
+                    <div className="divider-gold mx-auto mb-8" />
+                    <p className="typo-body text-text-secondary max-w-2xl mx-auto leading-relaxed">
                         Discover our latest additions, each piece meticulously crafted to redefine luxury.
                     </p>
                 </motion.div>
 
-                {/* Horizontal Scroll Cards - 2x2 Grid on Desktop */}
+                {/* Products Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
                     {products.map((product, index) => (
                         <motion.div
@@ -71,7 +71,7 @@ export default function NewArrivals() {
                             <div className="group relative h-full">
                                 {/* Product Card */}
                                 <div className="relative h-full bg-dark-card border border-dark-border rounded-2xl overflow-hidden card-hover">
-                                    {/* Image Placeholder with Gradient */}
+                                    {/* Image Placeholder */}
                                     <div className="relative aspect-square bg-gradient-to-br from-dark-elevated to-dark-card overflow-hidden">
                                         <div className="absolute inset-0 flex items-center justify-center">
                                             <div className="w-32 h-32 rounded-full border-2 border-accent/20 bg-accent/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
@@ -88,13 +88,13 @@ export default function NewArrivals() {
 
                                         {/* Quick Actions */}
                                         <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            <button className="btn-icon bg-dark/80 backdrop-blur-sm">
+                                            <button className="btn-icon bg-dark/80 backdrop-blur-sm" aria-label="Add to wishlist">
                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                                                         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                                 </svg>
                                             </button>
-                                            <button className="btn-icon bg-dark/80 backdrop-blur-sm">
+                                            <button className="btn-icon bg-dark/80 backdrop-blur-sm" aria-label="Quick view">
                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -107,14 +107,14 @@ export default function NewArrivals() {
 
                                     {/* Product Info */}
                                     <div className="p-6">
-                                        <span className="typo-category text-accent mb-2 block">
+                                        <span className="typo-category text-accent mb-3 block">
                                             {product.category}
                                         </span>
-                                        <h3 className="typo-h4 text-white mb-3 group-hover:text-accent transition-colors">
+                                        <h3 className="typo-h4 text-white mb-4 group-hover:text-accent transition-colors duration-300">
                                             {product.name}
                                         </h3>
                                         <div className="flex items-center justify-between">
-                                            <span className="typo-price-lg">{product.price}</span>
+                                            <span className="typo-price">{product.price}</span>
                                             <button className="btn btn-primary btn-sm">
                                                 Add to Cart
                                             </button>

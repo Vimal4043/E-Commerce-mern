@@ -42,22 +42,22 @@ export default function BestSellers() {
             <div className="container-lux">
                 {/* Section Header */}
                 <motion.div
-                    className="text-center mb-16"
+                    className="text-center mb-20"
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
                 >
                     <span className="typo-label-gold mb-4 block">Most Coveted</span>
-                    <h2 className="typo-h1 text-white mb-4">Best Sellers</h2>
-                    <div className="divider-gold mx-auto mb-6" />
-                    <p className="typo-body-sm max-w-2xl mx-auto">
+                    <h2 className="typo-h1 text-white mb-6">Best Sellers</h2>
+                    <div className="divider-gold mx-auto mb-8" />
+                    <p className="typo-body text-text-secondary max-w-2xl mx-auto leading-relaxed">
                         Join thousands of discerning collectors who have made these iconic
                         timepieces part of their legacy.
                     </p>
                 </motion.div>
 
-                {/* Asymmetric Horizontal List Layout */}
-                <div className="space-y-6">
+                {/* Best Sellers List */}
+                <div className="space-y-4">
                     {products.map((product, index) => (
                         <motion.div
                             key={product.id}
@@ -73,7 +73,7 @@ export default function BestSellers() {
                                 <div className="grid md:grid-cols-12 gap-6 items-center p-6">
                                     {/* Rank Number */}
                                     <div className="md:col-span-1 text-center">
-                                        <div className="typo-price-lg text-accent/40 group-hover:text-accent transition-colors">
+                                        <div className="typo-price-lg text-accent/40 group-hover:text-accent transition-colors duration-300">
                                             {String(index + 1).padStart(2, '0')}
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@ export default function BestSellers() {
                                     <div className="md:col-span-3">
                                         <div className="relative aspect-square max-w-[180px] mx-auto md:mx-0 bg-gradient-to-br from-dark-elevated to-dark-card rounded-xl overflow-hidden border border-dark-border">
                                             <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="w-20 h-20 rounded-full border border-accent/20 bg-accent/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                                                <div className="w-20 h-20 rounded-full border border-accent/20 bg-accent/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
                                                     <span className="text-4xl">⌚</span>
                                                 </div>
                                             </div>
@@ -94,17 +94,17 @@ export default function BestSellers() {
                                         <span className="typo-category text-accent mb-2 block">
                                             Best Seller
                                         </span>
-                                        <h3 className="typo-h4 text-white mb-2 group-hover:text-accent transition-colors">
+                                        <h3 className="typo-h4 text-white mb-3 group-hover:text-accent transition-colors duration-300">
                                             {product.name}
                                         </h3>
                                         <div className="flex items-center gap-4 justify-center md:justify-start text-sm">
-                                            <div className="flex items-center gap-1">
+                                            <div className="flex items-center gap-1.5">
                                                 <svg className="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
                                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                                 </svg>
                                                 <span className="text-white font-medium">{product.rating}</span>
                                             </div>
-                                            <span className="text-text-muted">|</span>
+                                            <span className="text-text-muted">•</span>
                                             <span className="text-text-muted text-sm">
                                                 {product.sales} sold
                                             </span>
@@ -114,7 +114,7 @@ export default function BestSellers() {
                                     {/* Price & CTA */}
                                     <div className="md:col-span-4 flex items-center justify-between md:justify-end gap-6">
                                         <div className="text-center md:text-right">
-                                            <div className="typo-price-lg">{product.price}</div>
+                                            <div className="typo-price">{product.price}</div>
                                         </div>
                                         <button className="btn btn-primary btn-sm whitespace-nowrap">
                                             Add to Cart

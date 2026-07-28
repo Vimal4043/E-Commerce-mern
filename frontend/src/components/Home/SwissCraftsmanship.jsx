@@ -57,11 +57,10 @@ export default function SwissCraftsmanship() {
                         </p>
 
                         {/* Features Grid - Offset Layout */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                             {features.map((feature, index) => (
                                 <motion.div
                                     key={index}
-                                    className={`flex ${index % 2 === 0 ? 'sm:-mt-8' : ''}`}
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                                     transition={{
@@ -71,13 +70,13 @@ export default function SwissCraftsmanship() {
                                     }}
                                 >
                                     <div className="group">
-                                        <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                                        <div className="text-4xl mb-5 group-hover:scale-110 transition-transform duration-300">
                                             {feature.icon}
                                         </div>
-                                        <h3 className="typo-h4 text-white mb-2 group-hover:text-accent transition-colors">
+                                        <h3 className="typo-h4 text-white mb-3 group-hover:text-accent transition-colors duration-300">
                                             {feature.title}
                                         </h3>
-                                        <p className="typo-body-sm text-text-muted">
+                                        <p className="typo-body-sm text-text-secondary">
                                             {feature.description}
                                         </p>
                                     </div>

@@ -7,7 +7,7 @@ export default function LuxuryCollectionBanner() {
     const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
     return (
-        <section ref={sectionRef} className="relative py-32 overflow-hidden bg-dark">
+        <section ref={sectionRef} className="section-padding overflow-hidden bg-dark">
             {/* Background Effects */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full bg-accent/5 blur-[120px]" />
@@ -15,7 +15,7 @@ export default function LuxuryCollectionBanner() {
             </div>
 
             <div className="container-lux relative z-10">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
                     {/* Left: Image/Visual */}
                     <motion.div
                         className="relative"
@@ -58,31 +58,31 @@ export default function LuxuryCollectionBanner() {
                             Luxury Collection
                         </h2>
                         <div className="divider-gold mx-auto lg:mx-0 mb-8" />
-                        <p className="typo-body-sm text-text-secondary mb-8 leading-relaxed">
+                        <p className="typo-body text-text-secondary mb-12 leading-relaxed">
                             Experience the epitome of horological artistry. Our luxury collection
                             features timepieces crafted from the finest materials, each one a
                             testament to centuries of Swiss watchmaking tradition.
                         </p>
 
                         {/* Specs Grid */}
-                        <div className="grid grid-cols-3 gap-6 mb-10">
+                        <div className="grid grid-cols-3 gap-8 mb-12">
                             <div className="text-center">
-                                <div className="typo-price-lg mb-1">18K</div>
+                                <div className="typo-price-lg mb-2">18K</div>
                                 <div className="typo-category">Gold</div>
                             </div>
                             <div className="text-center">
-                                <div className="typo-price-lg mb-1">100</div>
+                                <div className="typo-price-lg mb-2">100</div>
                                 <div className="typo-category">Meter WR</div>
                             </div>
                             <div className="text-center">
-                                <div className="typo-price-lg mb-1">72</div>
+                                <div className="typo-price-lg mb-2">72</div>
                                 <div className="typo-category">Hr Reserve</div>
                             </div>
                         </div>
 
                         {/* CTA */}
-                        <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-                            <Link to="/" className="btn btn-primary btn-lg group">
+                        <div className="flex flex-col sm:flex-row items-center gap-5 justify-center lg:justify-start">
+                            <Link to="/" className="btn btn-primary btn-lg group" aria-label="Explore luxury collection">
                                 Explore Collection
                                 <svg
                                     className="w-5 h-5 group-hover:translate-x-1 transition-transform"
@@ -94,7 +94,7 @@ export default function LuxuryCollectionBanner() {
                                         d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>
                             </Link>
-                            <Link to="/" className="btn btn-outline btn-lg">
+                            <Link to="/" className="btn btn-outline btn-lg" aria-label="Book an appointment">
                                 Book Appointment
                             </Link>
                         </div>
