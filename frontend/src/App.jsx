@@ -10,7 +10,7 @@ import EditProduct from "./admin/EditProduct";
 import ProductList from "./admin/ProductList";
 import AdminOrders from "./admin/Orders";
 import AdminLayout from "./admin/AdminLayout";
-import AdminDashboard from "./admin/AdminDashboard";
+import AdminDashboard from "./admin/LuxuryAdminDashboard";
 import AdminUsers from "./admin/AdminUsers";
 import AdminContacts from "./admin/AdminContacts";
 import Layout from "./layout/Layout";
