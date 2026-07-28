@@ -13,7 +13,7 @@ import AdminDashboard from "./admin/AdminDashboard";
 import AdminUsers from "./admin/AdminUsers";
 import AdminContacts from "./admin/AdminContacts";
 import Layout from "./layout/Layout";
-import Cart from "./pages/Cart/Cart";
+import Cart from "./pages/Cart/LuxuryCart";
 import Checkout from "./pages/Checkout/Checkout";
 import OrderSuccess from "./pages/Orders/OrderSuccess";
 import Profile from "./pages/Profile/Profile";
