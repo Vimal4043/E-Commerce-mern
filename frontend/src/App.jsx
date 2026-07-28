@@ -1,7 +1,8 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Login from "./pages/Auth/Login";
-import Signup from "./pages/Auth/Signup";
+import Login from "./pages/Auth/LuxuryLogin";
+import Signup from "./pages/Auth/LuxurySignup";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 import ProductDetails from "./pages/Home/LuxuryProductDetails";
 import LuxuryShop from "./pages/Home/LuxuryShop";
 import AddProduct from "./admin/AddProduct";
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/login", element: <PublicRoute><Login /></PublicRoute> },
       { path: "/signup", element: <PublicRoute><Signup /></PublicRoute> },
+      { path: "/forgot-password", element: <PublicRoute><ForgotPassword /></PublicRoute> },
 
       { path: "/profile", element: <ProtectedRoute><Profile /></ProtectedRoute> },
       { path: "/add-address", element: <ProtectedRoute><AddAddress /></ProtectedRoute> },
