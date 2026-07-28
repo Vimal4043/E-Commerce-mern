@@ -14,7 +14,7 @@ import AdminUsers from "./admin/AdminUsers";
 import AdminContacts from "./admin/AdminContacts";
 import Layout from "./layout/Layout";
 import Cart from "./pages/Cart/LuxuryCart";
-import Checkout from "./pages/Checkout/Checkout";
+import Checkout from "./pages/Checkout/LuxuryCheckout";
 import OrderSuccess from "./pages/Orders/OrderSuccess";
 import Profile from "./pages/Profile/Profile";
 import AddAddress from "./pages/Address/AddAddress";
