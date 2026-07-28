@@ -2,32 +2,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { FiChevronDown, FiArrowRight, FiShield, FiClock, FiDroplet } from "react-icons/fi";
-
-// ---------- Reusable animation variants ----------
-const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: (delay = 0) => ({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.9, delay, ease: [0.165, 0.84, 0.44, 1] }
-    })
-};
-
-const fadeInScale = {
-    hidden: { opacity: 0, scale: 0.92 },
-    visible: (delay = 0) => ({
-        opacity: 1,
-        scale: 1,
-        transition: { duration: 1.2, delay, ease: [0.165, 0.84, 0.44, 1] }
-    })
-};
-
-const staggerContainer = {
-    hidden: {},
-    visible: {
-        transition: { staggerChildren: 0.12, delayChildren: 0.3 }
-    }
-};
+import { fadeInUp, fadeInScale, staggerContainer, imageZoom, goldLineAnimation, floatingAnimation } from "../../utils/animations";
 
 // ---------- Floating spec cards data ----------
 const specs = [
@@ -104,8 +79,7 @@ export default function Hero() {
                         {/* Gold divider */}
                         <motion.div
                             className="divider-gold mx-auto lg:mx-0 mb-6"
-                            variants={fadeInUp}
-                            custom={0.3}
+                            variants={goldLineAnimation}
                         />
 
                         {/* Subheadline */}
@@ -141,15 +115,15 @@ export default function Hero() {
                         </motion.div>
                     </motion.div>
 
-                    {/* Right: Watch Image */}
-                    <motion.div
-                        className="flex-1 flex items-center justify-center relative"
-                        style={{ y: heroY, opacity: heroOpacity }}
-                        variants={fadeInScale}
-                        initial="hidden"
-                        animate="visible"
-                        custom={0.3}
-                    >
+                        {/* Right: Watch Image */}
+                        <motion.div
+                            className="flex-1 flex items-center justify-center relative"
+                            style={{ y: heroY, opacity: heroOpacity }}
+                            initial="hidden"
+                            animate="visible"
+                            variants={fadeInScale}
+                            custom={0.3}
+                        >
                         {/* Glass ring decoration */}
                         <div className="absolute w-[420px] h-[420px] md:w-[520px] md:h-[520px] rounded-full border border-accent/10 glass-card" />
 
@@ -191,13 +165,16 @@ export default function Hero() {
                                     key={spec.label}
                                     className="glass-strong rounded-xl px-4 py-3 min-w-[160px] flex items-center gap-3 border border-glass-border"
                                     variants={{
-                                        hidden: { opacity: 0, x: 20 },
+                                        hidden: { opacity: 0, x: 20, scale: 0.9 },
                                         visible: {
                                             opacity: 1,
                                             x: 0,
+                                            scale: 1,
                                             transition: { duration: 0.6, delay: 0.8 + i * 0.15, ease: [0.165, 0.84, 0.44, 1] }
                                         }
                                     }}
+                                    whileHover={{ scale: 1.05, x: -4 }}
+                                    transition={{ duration: 0.3 }}
                                 >
                                     <spec.icon size={18} className="text-accent shrink-0" />
                                     <div className="flex flex-col">
@@ -214,15 +191,15 @@ export default function Hero() {
             {/* ---------- Bottom: Scroll Indicator ---------- */}
             <motion.div
                 className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 1 }}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2, duration: 1, ease: [0.165, 0.84, 0.44, 1] }}
             >
                 <span className="text-[10px] tracking-[0.2em] uppercase text-text-muted">
                     Scroll to explore
                 </span>
                 <motion.div
-                    animate={{ y: [0, 6, 0] }}
+                    animate={{ y: [0, 8, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
                     <FiChevronDown size={16} className="text-text-muted" />

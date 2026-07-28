@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import api from "../../api/axios";
 import Nav from "./Nav";
 import { FiSearch, FiHeart, FiShoppingBag, FiUser } from "react-icons/fi";
+import { badgeBounce, fadeInUp, iconHover, navLinkHover } from "../../utils/animations";
 
 export default function Header() {
     const navigate = useNavigate();
@@ -14,6 +16,7 @@ export default function Header() {
     const userId = localStorage.getItem("userId");
     const isAdmin = localStorage.getItem("isAdmin") === "true";
     const [user, setUser] = useState(null);
+    const [mounted, setMounted] = useState(false);
 
     // Scroll detection for glass effect
     useEffect(() => {
@@ -81,6 +84,10 @@ export default function Header() {
             .join(" ");
     };
 
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const logout = () => {
         localStorage.clear();
         setCartCount(0);
@@ -97,93 +104,152 @@ export default function Header() {
     };
 
     return (
-        <header
+        <motion.header
             className={`fixed top-0 left-0 right-0 z-[var(--z-navbar)] transition-all duration-500 ease-out-expo ${
                 scrolled ? "glass-nav shadow-sm" : "bg-transparent"
             }`}
+            initial={{ y: -100 }}
+            animate={{ y: mounted ? 0 : -100 }}
+            transition={{ duration: 0.6, ease: [0.165, 0.84, 0.44, 1] }}
         >
             <div className="container-lux">
                 <div className="flex items-center justify-between h-16 md:h-20">
                     {/* Left: Logo */}
-                    <Link to="/" className="flex items-center gap-2 group shrink-0">
-                        <span className="text-lg md:text-xl font-display font-light tracking-[0.15em] text-white uppercase group-hover:text-accent transition-colors duration-300">
-                            Horologium
-                        </span>
-                    </Link>
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : -20 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                        <Link to="/" className="flex items-center gap-2 group shrink-0">
+                            <span className="text-lg md:text-xl font-display font-light tracking-[0.15em] text-white uppercase group-hover:text-accent transition-colors duration-300">
+                                Horologium
+                            </span>
+                        </Link>
+                    </motion.div>
 
                     {/* Center: Navigation (desktop only, hide for admin) */}
                     {!isAdmin && (
-                        <nav className="hidden md:flex items-center gap-10">
-                            <Link to="/" className="nav-link">Collections</Link>
-                            <Link to="/" className="nav-link">New Arrivals</Link>
-                            <Link to="/" className="nav-link">Craftsmanship</Link>
-                            <Link to="/contact-us" className="nav-link">Contact</Link>
-                        </nav>
+                        <motion.nav
+                            className="hidden md:flex items-center gap-10"
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : -10 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                        >
+                            {["Collections", "New Arrivals", "Craftsmanship", "Contact"].map((item, index) => (
+                                <motion.div
+                                    key={item}
+                                    {...navLinkHover}
+                                    whileHover="hover"
+                                >
+                                    <Link
+                                        to={item === "Contact" ? "/contact-us" : "/"}
+                                        className="nav-link inline-block"
+                                    >
+                                        {item}
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </motion.nav>
                     )}
 
                     {/* Right: Icons + Auth */}
-                    <div className="flex items-center gap-3 md:gap-4">
+                    <motion.div
+                        className="flex items-center gap-3 md:gap-4"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : 20 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                    >
                         {/* Search */}
                         <div className="relative" ref={searchRef}>
-                            <button
+                            <motion.button
+                                {...iconHover}
+                                whileHover="hover"
                                 onClick={() => setSearchOpen(!searchOpen)}
                                 className="btn-icon"
                                 aria-label="Search"
                             >
                                 <FiSearch size={18} />
-                            </button>
+                            </motion.button>
 
-                            {searchOpen && (
-                                <form
-                                    onSubmit={handleSearch}
-                                    className="absolute right-0 top-full mt-2 w-72 glass-strong rounded-lg p-3 animate-fade-in-down"
-                                >
-                                    <div className="relative">
-                                        <input
-                                            type="text"
-                                            value={searchQuery}
-                                            onChange={(e) => setSearchQuery(e.target.value)}
-                                            placeholder="Search timepieces..."
-                                            className="input pr-10 text-sm"
-                                            autoFocus
-                                        />
-                                        <button
-                                            type="submit"
-                                            className="absolute right-2 top-1/2 -translate-y-1/2 text-text-muted hover:text-accent transition-colors"
-                                        >
-                                            <FiSearch size={16} />
-                                        </button>
-                                    </div>
-                                </form>
-                            )}
+                            <AnimatePresence>
+                                {searchOpen && (
+                                    <motion.form
+                                        onSubmit={handleSearch}
+                                        className="absolute right-0 top-full mt-2 w-72 glass-strong rounded-lg p-3"
+                                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                        transition={{ duration: 0.2, ease: [0.165, 0.84, 0.44, 1] }}
+                                    >
+                                        <div className="relative">
+                                            <input
+                                                type="text"
+                                                value={searchQuery}
+                                                onChange={(e) => setSearchQuery(e.target.value)}
+                                                placeholder="Search timepieces..."
+                                                className="input pr-10 text-sm"
+                                                autoFocus
+                                            />
+                                            <button
+                                                type="submit"
+                                                className="absolute right-2 top-1/2 -translate-y-1/2 text-text-muted hover:text-accent transition-colors"
+                                            >
+                                                <FiSearch size={16} />
+                                            </button>
+                                        </div>
+                                    </motion.form>
+                                )}
+                            </AnimatePresence>
                         </div>
 
                         {/* Wishlist */}
-                        <Link to="/cart" className="btn-icon relative" aria-label="Wishlist">
-                            <FiHeart size={18} />
-                        </Link>
+                        <motion.div {...iconHover} whileHover="hover">
+                            <Link to="/cart" className="btn-icon relative" aria-label="Wishlist">
+                                <FiHeart size={18} />
+                            </Link>
+                        </motion.div>
 
                         {/* Cart */}
-                        <Link to="/cart" className="btn-icon relative" aria-label="Cart">
-                            <FiShoppingBag size={18} />
-                            {cartCount > 0 && (
-                                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center bg-accent text-dark text-[10px] font-semibold rounded-full leading-none px-1">
-                                    {cartCount > 99 ? "99+" : cartCount}
-                                </span>
-                            )}
-                        </Link>
+                        <motion.div {...iconHover} whileHover="hover">
+                            <Link to="/cart" className="btn-icon relative" aria-label="Cart">
+                                <FiShoppingBag size={18} />
+                                <AnimatePresence>
+                                    {cartCount > 0 && (
+                                        <motion.span
+                                            className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center bg-accent text-dark text-[10px] font-semibold rounded-full leading-none px-1"
+                                            variants={badgeBounce}
+                                            initial="initial"
+                                            animate="animate"
+                                            key="cart-badge"
+                                        >
+                                            {cartCount > 99 ? "99+" : cartCount}
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
+                            </Link>
+                        </motion.div>
 
                         {/* Divider */}
                         <span className="hidden md:block w-px h-6 bg-dark-border"></span>
 
                         {/* Auth */}
                         {!userId ? (
-                            <div className="hidden md:flex items-center gap-3">
+                            <motion.div
+                                className="hidden md:flex items-center gap-3"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: mounted ? 1 : 0 }}
+                                transition={{ duration: 0.5, delay: 0.5 }}
+                            >
                                 <Link to="/login" className="btn btn-sm btn-ghost">Sign In</Link>
                                 <Link to="/signup" className="btn btn-sm btn-outline">Get Started</Link>
-                            </div>
+                            </motion.div>
                         ) : (
-                            <div className="flex items-center gap-3">
+                            <motion.div
+                                className="flex items-center gap-3"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: mounted ? 1 : 0 }}
+                                transition={{ duration: 0.5, delay: 0.5 }}
+                            >
                                 <Link
                                     to="/profile"
                                     className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-full border border-dark-border hover:border-accent/30 transition-all duration-300 group"
@@ -194,11 +260,11 @@ export default function Header() {
                                     </span>
                                 </Link>
                                 <Nav logout={logout} />
-                            </div>
+                            </motion.div>
                         )}
-                    </div>
+                    </motion.div>
                 </div>
             </div>
-        </header>
+        </motion.header>
     );
 }

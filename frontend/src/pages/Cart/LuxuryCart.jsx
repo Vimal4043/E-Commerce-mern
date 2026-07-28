@@ -3,6 +3,7 @@ import api from "../../api/axios";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSearch, FiSliders, FiPlus, FiMinus, FiX, FiChevronDown, FiHeart } from "react-icons/fi";
+import { fadeInUp, cartAddAnimation, buttonHover, imageZoom } from "../../utils/animations";
 
 export default function LuxuryCart() {
     const userId = localStorage.getItem("userId");
@@ -94,11 +95,11 @@ export default function LuxuryCart() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: 0.6, ease: [0.165, 0.84, 0.44, 1] }}
                     >
                         <span className="typo-label-gold mb-4 block">Shopping Bag</span>
                         <h1 className="typo-h1 text-white mb-4">Your Cart</h1>
-                        <div className="divider-gold" />
+                        <motion.div className="divider-gold" variants={goldLineAnimation} initial="initial" animate="animate" />
                     </motion.div>
                 </div>
             </div>
@@ -118,14 +119,18 @@ export default function LuxuryCart() {
                                     className="bg-dark-card border border-dark-border rounded-2xl p-6 card-hover"
                                 >
                                     <div className="grid md:grid-cols-12 gap-6">
-                                        {/* Product Image */}
-                                        <div className="md:col-span-3">
-                                            <div className="aspect-square bg-gradient-to-br from-dark-elevated to-dark-card rounded-xl overflow-hidden border border-dark-border">
-                                                <div className="w-full h-full flex items-center justify-center">
-                                                    <span className="text-5xl">⌚</span>
-                                                </div>
-                                            </div>
-                                        </div>
+                        {/* Product Image */}
+                        <div className="md:col-span-3">
+                            <div className="aspect-square bg-gradient-to-br from-dark-elevated to-dark-card rounded-xl overflow-hidden border border-dark-border">
+                                <motion.div
+                                    className="w-full h-full flex items-center justify-center"
+                                    whileHover="hover"
+                                    variants={imageZoom}
+                                >
+                                    <span className="text-5xl">⌚</span>
+                                </motion.div>
+                            </div>
+                        </div>
 
                                         {/* Product Details */}
                                         <div className="md:col-span-5 flex flex-col justify-between">
@@ -303,9 +308,10 @@ export default function LuxuryCart() {
                             {/* Checkout Button */}
                             <motion.button
                                 onClick={() => navigate("/checkout")}
-                                className="w-full py-4 rounded-full bg-accent text-dark hover:bg-accent-alt transition-all duration-300 text-sm tracking-[0.15em] uppercase font-medium shadow-lg mb-4"
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
+                                className="w-full py-4 rounded-full bg-accent text-dark hover:bg-accent-alt transition-all duration-300 text-sm tracking-[0.15em] uppercase font-medium shadow-lg mb-4 relative overflow-hidden"
+                                variants={buttonHover}
+                                whileHover="hover"
+                                whileTap="tap"
                             >
                                 Proceed to Checkout
                             </motion.button>
@@ -340,21 +346,38 @@ function LuxuryEmptyCart() {
                 className="text-center max-w-md mx-auto px-6"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
             >
-                <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-br from-dark-card to-dark-elevated border border-dark-border flex items-center justify-center">
+                <motion.div
+                    className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-br from-dark-card to-dark-elevated border border-dark-border flex items-center justify-center"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >
                     <span className="text-6xl">🛒</span>
-                </div>
-                <h2 className="typo-h2 text-white mb-4">Your Cart is Empty</h2>
-                <div className="divider-gold mx-auto mb-6" />
+                </motion.div>
+                <motion.h2
+                    className="typo-h2 text-white mb-4"
+                    variants={fadeInUp}
+                    initial="initial"
+                    animate="animate"
+                >
+                    Your Cart is Empty
+                </motion.h2>
+                <motion.div
+                    className="divider-gold mx-auto mb-6"
+                    variants={goldLineAnimation}
+                    initial="initial"
+                    animate="animate"
+                />
                 <p className="typo-body-sm text-text-secondary mb-8">
                     Discover our exquisite collection of luxury timepieces and find the perfect addition to your collection.
                 </p>
                 <Link to="/shop">
                     <motion.button
                         className="btn btn-primary btn-lg group"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        variants={buttonHover}
+                        whileHover="hover"
+                        whileTap="tap"
                     >
                         Explore Collection
                         <FiSearch className="group-hover:translate-x-1 transition-transform" size={16} />
