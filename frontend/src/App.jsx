@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import Home from "./pages/Home/Home";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
-import ProductDetails from "./pages/Home/ProductDetails";
+import ProductDetails from "./pages/Home/LuxuryProductDetails";
 import AddProduct from "./admin/AddProduct";
 import EditProduct from "./admin/EditProduct";
 import ProductList from "./admin/ProductList";

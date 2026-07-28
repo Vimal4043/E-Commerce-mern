@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductCard from "../../components/Home/ProductCard";
+import LuxuryProductCard from "../../components/Home/LuxuryProductCard";
 
 const Products = ({ products, gridRef }) => {
     return (
@@ -8,7 +8,7 @@ const Products = ({ products, gridRef }) => {
                 {/* products cards */}
                 {products.map((product) => (
                     <div key={product._id} className="product-reveal-item">
-                        <ProductCard product={product} />
+                        <LuxuryProductCard product={product} />
                     </div>
                 ))}
             </div>
