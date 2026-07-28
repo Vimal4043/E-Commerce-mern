@@ -136,7 +136,7 @@ export default function LuxuryShop() {
                         transition={{ duration: 0.8 }}
                     >
                         <span className="typo-label-gold mb-4 block">Explore Our Collection</span>
-                        <h1 className="typo-h1 text-white mb-4">Shop Watches</h1>
+                        <h1 className="typo-h1 text-white mb-4">Exceptional Timepieces</h1>
                         <div className="divider-gold mx-auto mb-6" />
                         <p className="typo-body-sm max-w-2xl mx-auto">
                             Discover our complete collection of luxury timepieces, each crafted with precision and passion.

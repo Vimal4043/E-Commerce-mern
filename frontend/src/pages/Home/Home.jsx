@@ -152,12 +152,12 @@ export default function Home() {
         <div className="container-lux">
           {/* Section Header */}
           <div className="flex flex-col items-center text-center mb-12">
-            <span className="typo-label-gold mb-4">Curated Collection</span>
-            <h2 className="typo-h2 text-white mb-3">Timeless Masterpieces</h2>
+            <span className="typo-label-gold mb-4">Our Collection</span>
+            <h2 className="typo-h2 text-white mb-3">Exceptional Timepieces</h2>
             <div className="divider-gold mx-auto mb-6" />
             <p className="typo-body-sm max-w-lg">
-              Each timepiece represents the pinnacle of Swiss craftsmanship,
-              selected for those who recognize true excellence.
+              Discover our complete range of luxury watches, from classic dress watches
+              to professional diving instruments, each crafted with precision.
             </p>
           </div>
 
@@ -172,18 +172,18 @@ export default function Home() {
           {/* Products Grid */}
           <Products products={products} gridRef={gridRef} />
 
-          {hasMoreProducts && (
-            <div className="mt-12 flex justify-center">
-              <button
-                type="button"
-                onClick={handleLoadMore}
-                disabled={isLoadingMore || isInitialLoading}
-                className="btn btn-outline btn-lg"
-              >
-                {isLoadingMore ? "Loading..." : "Discover More"}
-              </button>
-            </div>
-          )}
+               {hasMoreProducts && (
+             <div className="mt-12 flex justify-center">
+               <button
+                 type="button"
+                 onClick={handleLoadMore}
+                 disabled={isLoadingMore || isInitialLoading}
+                 className="btn btn-outline btn-lg"
+               >
+                 {isLoadingMore ? "Loading..." : "View All Timepieces"}
+               </button>
+             </div>
+           )}
         </div>
       </section>
 

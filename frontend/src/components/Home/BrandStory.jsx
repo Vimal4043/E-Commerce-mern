@@ -6,10 +6,10 @@ export default function BrandStory() {
     const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
     const milestones = [
-        { year: "1923", title: "Founded", description: "Established in Geneva" },
-        { year: "1952", title: "Innovation", description: "First automatic movement" },
-        { year: "1985", title: "Global", description: "Expanded to 40 countries" },
-        { year: "2024", title: "Legacy", description: "Century of excellence" }
+        { year: "1923", title: "Founded", description: "Established in Geneva, Switzerland" },
+        { year: "1952", title: "Innovation", description: "First in-house automatic movement" },
+        { year: "1985", title: "Global", description: "Timepieces in 40 countries" },
+        { year: "2024", title: "Legacy", description: "A century of horological excellence" }
     ];
 
     return (
@@ -30,10 +30,10 @@ export default function BrandStory() {
                         </h2>
                         <div className="divider-gold mx-auto lg:mx-0 mb-8" />
                         <p className="typo-body-sm text-text-secondary mb-12 leading-relaxed">
-                            For over a century, we have been crafting timepieces that embody
-                            the pinnacle of Swiss horological excellence. Each watch tells a
-                            story of tradition, innovation, and uncompromising dedication to
-                            the art of watchmaking.
+                            For over a century, Horologium has been crafting exceptional timepieces 
+                            that embody the pinnacle of Swiss horological excellence. Each watch 
+                            represents generations of tradition, innovation, and uncompromising 
+                            dedication to the art of watchmaking.
                         </p>
 
                         {/* Timeline */}
@@ -93,9 +93,9 @@ export default function BrandStory() {
                             </div>
                         </div>
                         <div className="space-y-4 pt-8">
-                            <div className="aspect-square rounded-2xl bg-gradient-to-br from-dark-card to-dark-elevated border border-dark-border overflow-hidden">
+                                    <div className="aspect-square rounded-2xl bg-gradient-to-br from-dark-card to-dark-elevated border border-dark-border overflow-hidden">
                                 <div className="w-full h-full flex items-center justify-center">
-                                    <span className="text-7xl">🏆</span>
+                                    <span className="text-7xl">⌚</span>
                                 </div>
                             </div>
                             <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-dark-card to-dark-elevated border border-dark-border overflow-hidden">

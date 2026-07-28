@@ -9,22 +9,22 @@ export default function PremiumFeatures() {
         {
             icon: "📦",
             title: "Complimentary Shipping",
-            description: "Worldwide delivery with premium packaging and insurance"
+            description: "Secure worldwide delivery with premium packaging and full insurance"
         },
         {
-            icon: "✨",
-            title: "Lifetime Servicing",
-            description: "Expert maintenance and care for generations"
+            icon: "⚙️",
+            title: "Lifetime Maintenance",
+            description: "Expert servicing and care for generations of precision"
         },
         {
             icon: "🔍",
-            title: "Authentication Certificate",
-            description: "Official documentation of provenance and quality"
+            title: "Certificate of Authenticity",
+            description: "Official documentation of provenance and Swiss quality"
         },
         {
             icon: "💬",
-            title: "Personal Concierge",
-            description: "Dedicated specialist for personalized assistance"
+            title: "Personal Horologist",
+            description: "Dedicated specialist for personalized timepiece guidance"
         }
     ];
 
@@ -46,8 +46,8 @@ export default function PremiumFeatures() {
                     <h2 className="typo-h1 text-white mb-4">Premium Features</h2>
                     <div className="divider-gold mx-auto mb-6" />
                     <p className="typo-body-sm max-w-2xl mx-auto">
-                        Every purchase includes an elevated experience, ensuring your
-                        timepiece remains a treasured possession for generations.
+                        Every Horologium timepiece comes with an elevated ownership experience,
+                        ensuring your watch remains a treasured legacy for generations.
                     </p>
                 </motion.div>
 

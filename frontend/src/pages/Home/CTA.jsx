@@ -29,12 +29,13 @@ const CTA = ({ search, setSearch, category, setCategory }) => {
                     onChange={(e) => setCategory(e.target.value)}
                     className="input select pl-11 pr-10"
                 >
-                    <option value="">All Categories</option>
-                    <option value="electronics">Watches</option>
-                    <option value="clothing">Straps & Bands</option>
-                    <option value="footwear">Accessories</option>
-                    <option value="accessories">Winders & Boxes</option>
-                    <option value="home">Care & Maintenance</option>
+                    <option value="">All Collections</option>
+                    <option value="classic">Classic</option>
+                    <option value="dress">Dress</option>
+                    <option value="diver">Diver</option>
+                    <option value="chronograph">Chronograph</option>
+                    <option value="limited">Limited Edition</option>
+                    <option value="accessories">Luxury Accessories</option>
                 </select>
             </div>
         </div>

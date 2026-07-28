@@ -11,19 +11,19 @@ export default function LuxuryFooter() {
     }, []);
 
     const collections = [
-        { name: "Heritage", href: "#" },
-        { name: "Avant-Garde", href: "#" },
-        { name: "Sport", href: "#" },
-        { name: "Limited Edition", href: "#" },
-        { name: "New Arrivals", href: "/shop" }
+        { name: "Classic", href: "#" },
+        { name: "Dress", href: "#" },
+        { name: "Diver", href: "#" },
+        { name: "Chronograph", href: "#" },
+        { name: "Limited Edition", href: "#" }
     ];
 
     const customerService = [
         { name: "Contact Us", href: "/contact-us" },
-        { name: "Shipping Info", href: "#" },
+        { name: "Shipping & Insurance", href: "#" },
         { name: "Returns & Exchanges", href: "#" },
         { name: "FAQs", href: "#" },
-        { name: "Size Guide", href: "#" }
+        { name: "Care & Maintenance", href: "#" }
     ];
 
     const socialLinks = [
@@ -144,7 +144,7 @@ export default function LuxuryFooter() {
                         >
                             <h3 className="typo-label text-white mb-6">Newsletter</h3>
                             <p className="typo-body-sm text-text-muted mb-4">
-                                Subscribe to receive exclusive updates on new collections and special offers.
+                                Subscribe for exclusive previews of new timepieces, invitations to private events, and horological insights.
                             </p>
                             <form className="flex gap-2 mb-6" onSubmit={(e) => e.preventDefault()}>
                                 <input
