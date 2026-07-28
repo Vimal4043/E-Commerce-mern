@@ -17,7 +17,7 @@ import Layout from "./layout/Layout";
 import Cart from "./pages/Cart/LuxuryCart";
 import Checkout from "./pages/Checkout/LuxuryCheckout";
 import OrderSuccess from "./pages/Orders/OrderSuccess";
-import Profile from "./pages/Profile/Profile";
+import Profile from "./pages/Profile/LuxuryDashboard";
 import AddAddress from "./pages/Address/AddAddress";
 import EditProfile from "./pages/Profile/EditProfile";
 import Orders from "./pages/Orders/Orders";
