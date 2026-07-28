@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Auth/LuxuryLogin";
 import Signup from "./pages/Auth/LuxurySignup";
@@ -25,6 +26,23 @@ import OrderDetails from "./pages/Orders/OrderDetails";
 import NotFound from "./pages/Utils/NotFound";
 import Contact from "./pages/Contact/Contact";
 import { ProtectedRoute, PublicRoute } from "./components/Utils/RouteGuards";
+import { SEO } from "./utils/seo";
+
+// Code splitting for heavy routes
+const LazyAdminDashboard = lazy(() => import("./admin/LuxuryAdminDashboard"));
+const LazyProductList = lazy(() => import("./admin/ProductList"));
+const LazyAddProduct = lazy(() => import("./admin/AddProduct"));
+const LazyEditProduct = lazy(() => import("./admin/EditProduct"));
+const LazyAdminOrders = lazy(() => import("./admin/Orders"));
+const LazyAdminUsers = lazy(() => import("./admin/AdminUsers"));
+const LazyAdminContacts = lazy(() => import("./admin/AdminContacts"));
+
+// Loading fallback for code-split components
+const PageLoader = () => (
+    <div className="min-h-screen flex items-center justify-center">
+        <div className="w-16 h-16 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+    </div>
+);
 
 const requireAdmin = (element) => {
   const token = localStorage.getItem("token");
@@ -38,7 +56,12 @@ const requireAdmin = (element) => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <SEO />
+        <Layout />
+      </Suspense>
+    ),
     children: [
       { path: "/", element: <Home /> },
       { path: "/login", element: <PublicRoute><Login /></PublicRoute> },
@@ -60,13 +83,13 @@ const router = createBrowserRouter([
         path: "/admin",
         element: requireAdmin(<AdminLayout />),
         children: [
-          { index: true, element: <AdminDashboard /> },
-          { path: "products", element: <ProductList /> },
-          { path: "products/add", element: <AddProduct /> },
-          { path: "products/update/:id", element: <EditProduct /> },
-          { path: "orders", element: <AdminOrders /> },
-          { path: "users", element: <AdminUsers /> },
-          { path: "contacts", element: <AdminContacts /> },
+          { index: true, element: <Suspense fallback={<PageLoader />}><LazyAdminDashboard /></Suspense> },
+          { path: "products", element: <Suspense fallback={<PageLoader />}><LazyProductList /></Suspense> },
+          { path: "products/add", element: <Suspense fallback={<PageLoader />}><LazyAddProduct /></Suspense> },
+          { path: "products/update/:id", element: <Suspense fallback={<PageLoader />}><LazyEditProduct /></Suspense> },
+          { path: "orders", element: <Suspense fallback={<PageLoader />}><LazyAdminOrders /></Suspense> },
+          { path: "users", element: <Suspense fallback={<PageLoader />}><LazyAdminUsers /></Suspense> },
+          { path: "contacts", element: <Suspense fallback={<PageLoader />}><LazyAdminContacts /></Suspense> },
         ],
       },
 
