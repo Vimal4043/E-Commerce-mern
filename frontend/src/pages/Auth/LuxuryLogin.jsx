@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiEye, FiEyeOff, FiLock, FiMail, FiArrowRight, FiCheck } from "react-icons/fi";
+import api from "../../api/axios";
 
 export default function LuxuryLogin() {
     const navigate = useNavigate();

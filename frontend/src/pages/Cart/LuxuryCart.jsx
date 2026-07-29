@@ -3,7 +3,7 @@ import api from "../../api/axios";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSearch, FiSliders, FiPlus, FiMinus, FiX, FiChevronDown, FiHeart } from "react-icons/fi";
-import { fadeInUp, cartAddAnimation, buttonHover, imageZoom } from "../../utils/animations";
+import { fadeInUp, cartAddAnimation, buttonHover, imageZoom, goldLineAnimation } from "../../utils/animations";
 
 export default function LuxuryCart() {
     const userId = localStorage.getItem("userId");

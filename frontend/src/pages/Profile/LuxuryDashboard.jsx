@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiUser, FiShoppingBag, FiHeart, FiMapPin, FiSettings, FiChevronRight, FiPackage, FiTruck, FiCheck, FiX, FiEye, FiEdit, FiTrash2, FiHome, FiBriefcase } from "react-icons/fi";
+import api from "../../api/axios";
 
 export default function LuxuryDashboard() {
     const navigate = useNavigate();
