@@ -232,7 +232,7 @@ export default function Header() {
                         {/* Divider */}
                         <span className="hidden md:block w-px h-6 bg-dark-border"></span>
 
-                        {/* Auth */}
+                        {/* Auth (desktop only) */}
                         {!userId ? (
                             <motion.div
                                 className="hidden md:flex items-center gap-3"
@@ -244,24 +244,19 @@ export default function Header() {
                                 <Link to="/signup" className="btn btn-sm btn-outline">Get Started</Link>
                             </motion.div>
                         ) : (
-                            <motion.div
-                                className="flex items-center gap-3"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: mounted ? 1 : 0 }}
-                                transition={{ duration: 0.5, delay: 0.5 }}
+                            <Link
+                                to="/profile"
+                                className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-full border border-dark-border hover:border-accent/30 transition-all duration-300 group"
                             >
-                                <Link
-                                    to="/profile"
-                                    className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-full border border-dark-border hover:border-accent/30 transition-all duration-300 group"
-                                >
-                                    <FiUser size={14} className="text-text-secondary group-hover:text-accent transition-colors" />
-                                    <span className="text-xs font-medium text-text-secondary group-hover:text-white transition-colors">
-                                        {formatName(user?.name?.split(" ")[0]) || "Profile"}
-                                    </span>
-                                </Link>
-                                <Nav logout={logout} />
-                            </motion.div>
+                                <FiUser size={14} className="text-text-secondary group-hover:text-accent transition-colors" />
+                                <span className="text-xs font-medium text-text-secondary group-hover:text-white transition-colors">
+                                    {formatName(user?.name?.split(" ")[0]) || "Profile"}
+                                </span>
+                            </Link>
                         )}
+
+                        {/* Hamburger Menu (always visible — works on mobile for all users) */}
+                        <Nav logout={logout} />
                     </motion.div>
                 </div>
             </div>

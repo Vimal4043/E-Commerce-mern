@@ -29,11 +29,15 @@ export default function LuxuryLogin() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        console.log("Submitting form:", form);
         setIsLoading(true);
         setMsg("");
 
         try {
+            console.log("Sending login request to API...");
             const res = await api.post("/auth/login", form);
+            console.log("Login response:", res.data);
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("userId", res.data.user.id);
             localStorage.setItem("username", res.data.user.name);
@@ -45,6 +49,8 @@ export default function LuxuryLogin() {
                 navigate("/");
             }, 1000);
         } catch (error) {
+            console.log("Error", error);
+            console.log("Error response:", error.response);
             setMsg(error.response?.data?.message || "An error occurred");
         } finally {
             setIsLoading(false);
