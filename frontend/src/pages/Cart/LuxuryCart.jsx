@@ -121,7 +121,7 @@ export default function LuxuryCart() {
                                     <div className="grid md:grid-cols-12 gap-6">
                         {/* Product Image */}
                         <div className="md:col-span-3">
-                            <div className="aspect-square bg-gradient-to-br from-dark-elevated to-dark-card rounded-xl overflow-hidden border border-dark-border">
+                            <div className="aspect-square bg-linear-to-br from-dark-elevated to-dark-card rounded-xl overflow-hidden border border-dark-border">
                                 <motion.div
                                     className="w-full h-full flex items-center justify-center"
                                     whileHover="hover"
@@ -154,7 +154,7 @@ export default function LuxuryCart() {
                                                 >
                                                     <FiMinus size={14} className="text-text-muted" />
                                                 </motion.button>
-                                                <span className="typo-product-name text-white min-w-[2rem] text-center">
+                                                <span className="typo-product-name text-white min-w-8 text-center">
                                                     {item.quantity}
                                                 </span>
                                                 <motion.button
@@ -296,7 +296,7 @@ export default function LuxuryCart() {
                                     </div>
                                     <div className="h-2 bg-dark-elevated rounded-full overflow-hidden">
                                         <motion.div
-                                            className="h-full bg-gradient-to-r from-accent to-accent-alt"
+                                            className="h-full bg-linear-to-r from-accent to-accent-alt"
                                             initial={{ width: 0 }}
                                             animate={{ width: `${Math.min((subtotal / 5000) * 100, 100)}%` }}
                                             transition={{ duration: 0.6 }}
@@ -349,7 +349,7 @@ function LuxuryEmptyCart() {
                 transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
             >
                 <motion.div
-                    className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-br from-dark-card to-dark-elevated border border-dark-border flex items-center justify-center"
+                    className="w-32 h-32 mx-auto mb-8 rounded-full bg-linear-to-br from-dark-card to-dark-elevated border border-dark-border flex items-center justify-center"
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 >

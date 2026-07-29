@@ -29,15 +29,11 @@ export default function LuxuryLogin() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        console.log("Submitting form:", form);
         setIsLoading(true);
         setMsg("");
 
         try {
-            console.log("Sending login request to API...");
             const res = await api.post("/auth/login", form);
-            console.log("Login response:", res.data);
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("userId", res.data.user.id);
             localStorage.setItem("username", res.data.user.name);
@@ -49,8 +45,6 @@ export default function LuxuryLogin() {
                 navigate("/");
             }, 1000);
         } catch (error) {
-            console.log("Error", error);
-            console.log("Error response:", error.response);
             setMsg(error.response?.data?.message || "An error occurred");
         } finally {
             setIsLoading(false);
@@ -63,7 +57,7 @@ export default function LuxuryLogin() {
             <div className="hidden lg:flex lg:w-1/2 relative bg-dark-elevated/30 border-r border-dark-border">
                 {/* Background Effects */}
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-accent/5 blur-[120px]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 rounded-full bg-accent/5 blur-[120px]" />
                 </div>
 
                 <div className="relative z-10 flex flex-col justify-center items-center p-12 text-center">
@@ -75,7 +69,7 @@ export default function LuxuryLogin() {
                         {/* Watch Illustration */}
                         <div className="relative w-80 h-80 mx-auto mb-8">
                             <div className="absolute inset-0 rounded-full border-2 border-accent/20 bg-accent/5 flex items-center justify-center">
-                                <div className="w-64 h-64 rounded-full border-2 border-accent/30 bg-gradient-to-br from-accent/10 to-transparent flex items-center justify-center">
+                                <div className="w-64 h-64 rounded-full border-2 border-accent/30 bg-linear-to-br from-accent/10 to-transparent flex items-center justify-center">
                                     <span className="text-9xl">⌚</span>
                                 </div>
                             </div>

@@ -105,7 +105,7 @@ export default function Header() {
 
     return (
         <motion.header
-            className={`fixed top-0 left-0 right-0 z-[var(--z-navbar)] transition-all duration-500 ease-out-expo ${
+            className={`fixed top-0 left-0 right-0 z-(--z-navbar) transition-all duration-500 ease-out-expo ${
                 scrolled ? "glass-nav shadow-sm" : "bg-transparent"
             }`}
             initial={{ y: -100 }}
@@ -216,7 +216,7 @@ export default function Header() {
                                 <AnimatePresence>
                                     {cartCount > 0 && (
                                         <motion.span
-                                            className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center bg-accent text-dark text-[10px] font-semibold rounded-full leading-none px-1"
+                                            className="absolute -top-1 -right-1 min-w-4.5 h-4.5 flex items-center justify-center bg-accent text-dark text-[10px] font-semibold rounded-full leading-none px-1"
                                             variants={badgeBounce}
                                             initial="initial"
                                             animate="animate"

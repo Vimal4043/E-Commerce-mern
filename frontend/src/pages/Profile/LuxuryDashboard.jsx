@@ -248,7 +248,7 @@ export default function LuxuryDashboard() {
                                     <div className="bg-dark-card border border-dark-border rounded-2xl p-8">
                                         <h2 className="typo-h3 text-white mb-6">Profile Information</h2>
                                         <div className="flex flex-col md:flex-row items-start gap-6">
-                                            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-accent/20 to-accent/5 border-2 border-accent/20 flex items-center justify-center">
+                                            <div className="w-24 h-24 rounded-full bg-linear-to-br from-accent/20 to-accent/5 border-2 border-accent/20 flex items-center justify-center">
                                                 <span className="text-4xl font-display text-accent font-light">
                                                     {user?.name?.trim().charAt(0).toUpperCase()}
                                                 </span>
@@ -333,7 +333,7 @@ export default function LuxuryDashboard() {
                                                 transition={{ delay: index * 0.1 }}
                                                 className="bg-dark-card border border-dark-border rounded-2xl overflow-hidden card-hover group"
                                             >
-                                                <div className="aspect-square bg-gradient-to-br from-dark-elevated to-dark-card flex items-center justify-center">
+                                                <div className="aspect-square bg-linear-to-br from-dark-elevated to-dark-card flex items-center justify-center">
                                                     <span className="text-6xl group-hover:scale-110 transition-transform duration-500">{item.image}</span>
                                                 </div>
                                                 <div className="p-6">
@@ -438,7 +438,7 @@ export default function LuxuryDashboard() {
                                                 </div>
                                                 <label className="relative inline-flex items-center cursor-pointer">
                                                     <input type="checkbox" className="sr-only peer" defaultChecked />
-                                                    <div className="w-11 h-6 bg-dark-elevated peer-fill-accent rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
+                                                    <div className="w-11 h-6 bg-dark-elevated peer-fill-accent rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                                                 </label>
                                             </div>
                                             <div className="flex items-center justify-between py-4 border-b border-dark-border">
@@ -448,7 +448,7 @@ export default function LuxuryDashboard() {
                                                 </div>
                                                 <label className="relative inline-flex items-center cursor-pointer">
                                                     <input type="checkbox" className="sr-only peer" />
-                                                    <div className="w-11 h-6 bg-dark-elevated peer-fill-accent rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
+                                                    <div className="w-11 h-6 bg-dark-elevated peer-fill-accent rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                                                 </label>
                                             </div>
                                             <div className="flex items-center justify-between py-4">
@@ -458,7 +458,7 @@ export default function LuxuryDashboard() {
                                                 </div>
                                                 <label className="relative inline-flex items-center cursor-pointer">
                                                     <input type="checkbox" className="sr-only peer" />
-                                                    <div className="w-11 h-6 bg-dark-elevated peer-fill-accent rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
+                                                    <div className="w-11 h-6 bg-dark-elevated peer-fill-accent rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                                                 </label>
                                             </div>
                                         </div>
