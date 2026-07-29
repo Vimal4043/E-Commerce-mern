@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiArrowLeft } from "react-icons/fi";
-import LuxuryButton from "../../components/UI/LuxuryButton";
+import LuxuryButton from "../../components/ui/LuxuryButton";
 
 export default function Luxury404() {
     return (
