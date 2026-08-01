@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { buttonHover, imageZoom, wishlistAnimation, goldLineAnimation, cardHover } from "../../utils/animations";
-import LuxuryButton from "../UI/LuxuryButton";
+import LuxuryButton from "../ui/LuxuryButton";
 import api from "../../api/axios";
 
 const LuxuryProductCard = ({ product }) => {
