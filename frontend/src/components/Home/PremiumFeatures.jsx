@@ -54,7 +54,7 @@ export default function PremiumFeatures() {
                 {/* Features Grid - Circular Layout */}
                 <div className="relative max-w-5xl mx-auto">
                     {/* Center Circle */}
-                    <motion.div
+                    {/* <motion.div
                         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-dark-card to-dark-elevated border-2 border-accent/20 flex items-center justify-center z-10"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -64,10 +64,10 @@ export default function PremiumFeatures() {
                             <div className="text-5xl mb-2">⌚</div>
                             <div className="typo-label-gold text-[10px]">Excellence</div>
                         </div>
-                    </motion.div>
+                    </motion.div> */}
 
                     {/* Feature Cards in Circle */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pt-20">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pt-10">
                         {features.map((feature, index) => {
                             const angles = [0, 90, 180, 270];
                             const delay = 0.4 + index * 0.15;

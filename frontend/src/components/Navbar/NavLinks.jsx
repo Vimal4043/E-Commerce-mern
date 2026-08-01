@@ -1,29 +1,60 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { FiHome, FiUser, FiPackage, FiHeadphones, FiShield, FiLogOut, FiGrid, FiLogIn, FiUserPlus } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { FiHome, FiUser, FiPackage, FiHeadphones, FiShield, FiLogOut, FiGrid, FiLogIn, FiUserPlus, FiHeart } from "react-icons/fi";
 import { fadeInUp, staggerContainer, staggerItem, navLinkHover } from "../../utils/animations";
+import api from "../../api/axios";
 
 const NavLinks = ({ logout, closeMenu }) => {
-  const isAdmin = localStorage.getItem("isAdmin") === "true";
-  const isLoggedIn = Boolean(localStorage.getItem("userId"));
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const linkClass = "flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-text-secondary hover:text-white hover:bg-dark-hover transition-all duration-200 group";
 
   const iconClass = "text-text-muted group-hover:text-accent transition-colors duration-200 shrink-0";
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+      // Check admin status from API
+      const checkAdminStatus = async () => {
+        try {
+          const response = await api.get("/user/check-admin");
+          setIsAdmin(response.data.isAdmin);
+        } catch (error) {
+          console.error("Error checking admin status:", error);
+          setIsAdmin(false);
+        }
+      };
+      checkAdminStatus();
+    } else {
+      setIsLoggedIn(false);
+      setIsAdmin(false);
+    }
+  }, []);
+
+  // Variants use "initial"/"animate"/"exit" keys to match staggerItem from animations.js
   const menuVariants = {
-    closed: {
+    initial: {
       opacity: 0,
       transition: {
         staggerChildren: 0.05,
         staggerDirection: -1
       }
     },
-    open: {
+    animate: {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
         delayChildren: 0.2
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1
       }
     }
   };
@@ -31,9 +62,6 @@ const NavLinks = ({ logout, closeMenu }) => {
   return (
     <motion.div
       variants={menuVariants}
-      initial="closed"
-      animate="open"
-      exit="closed"
       className="flex flex-col"
     >
       {/* Mobile-only home link */}
@@ -52,59 +80,63 @@ const NavLinks = ({ logout, closeMenu }) => {
         </Link>
       </motion.div>
 
-      {/* Divider for mobile */}
-      <motion.div variants={staggerItem} className="my-2 mx-4 h-px bg-dark-border md:hidden" />
+      {/* Contact Us (mobile only, non-admin) */}
+      {!isAdmin && (
+        <motion.div variants={staggerItem}>
+          <motion.div {...navLinkHover} whileHover="hover">
+            <Link to="/contact-us" onClick={closeMenu} className={`${linkClass} md:hidden`}>
+              <FiHeadphones size={16} className={iconClass} />
+              <span>Contact Us</span>
+            </Link>
+          </motion.div>
+        </motion.div>
+      )}
 
       {isLoggedIn ? (
         <>
-          {/* Profile */}
-          <motion.div variants={staggerItem}>
-            <motion.div {...navLinkHover} whileHover="hover">
-              <Link to="/profile" onClick={closeMenu} className={linkClass}>
-                <FiUser size={16} className={iconClass} />
-                <span>Profile</span>
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          {/* Orders */}
-          <motion.div variants={staggerItem}>
-            <motion.div {...navLinkHover} whileHover="hover">
-              <Link to="/orders" onClick={closeMenu} className={linkClass}>
-                <FiPackage size={16} className={iconClass} />
-                <span>Orders</span>
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          {/* Contact Us (mobile only, non-admin) */}
-          {!isAdmin && (
-            <motion.div variants={staggerItem}>
-              <motion.div {...navLinkHover} whileHover="hover">
-                <Link to="/contact-us" onClick={closeMenu} className={`${linkClass} md:hidden`}>
-                  <FiHeadphones size={16} className={iconClass} />
-                  <span>Contact Us</span>
-                </Link>
-              </motion.div>
-            </motion.div>
-          )}
-
-          {/* Admin Panel (admin only) */}
+          {/* Admin Dashboard (admin only) */}
           {isAdmin && (
             <motion.div variants={staggerItem}>
               <motion.div {...navLinkHover} whileHover="hover">
                 <Link to="/admin" onClick={closeMenu} className={linkClass}>
                   <FiShield size={16} className={iconClass} />
-                  <span>Admin Panel</span>
+                  <span>Admin Dashboard</span>
                 </Link>
               </motion.div>
             </motion.div>
           )}
 
-          {/* Divider before logout */}
-          <motion.div variants={staggerItem} className="my-2 mx-4 h-px bg-dark-border" />
+          {/* My Profile */}
+          <motion.div variants={staggerItem}>
+            <motion.div {...navLinkHover} whileHover="hover">
+              <Link to="/profile" onClick={closeMenu} className={linkClass}>
+                <FiUser size={16} className={iconClass} />
+                <span>My Profile</span>
+              </Link>
+            </motion.div>
+          </motion.div>
 
-          {/* Sign Out */}
+          {/* My Orders */}
+          <motion.div variants={staggerItem}>
+            <motion.div {...navLinkHover} whileHover="hover">
+              <Link to="/orders" onClick={closeMenu} className={linkClass}>
+                <FiPackage size={16} className={iconClass} />
+                <span>My Orders</span>
+              </Link>
+            </motion.div>
+          </motion.div>
+
+           {/* Wishlist */}
+           <motion.div variants={staggerItem}>
+             <motion.div {...navLinkHover} whileHover="hover">
+               <Link to="/wishlist" onClick={closeMenu} className={linkClass}>
+                 <FiHeart size={16} className={iconClass} />
+                 <span>Wishlist</span>
+               </Link>
+             </motion.div>
+           </motion.div>
+
+          {/* Logout */}
           <motion.div variants={staggerItem}>
             <motion.button
               onClick={() => {
@@ -116,7 +148,7 @@ const NavLinks = ({ logout, closeMenu }) => {
               whileTap={{ scale: 0.98 }}
             >
               <FiLogOut size={16} className="shrink-0" />
-              <span>Sign Out</span>
+              <span>Logout</span>
             </motion.button>
           </motion.div>
         </>
@@ -141,18 +173,6 @@ const NavLinks = ({ logout, closeMenu }) => {
               </Link>
             </motion.div>
           </motion.div>
-
-          {/* Contact Us (mobile only, non-admin) */}
-          {!isAdmin && (
-            <motion.div variants={staggerItem}>
-              <motion.div {...navLinkHover} whileHover="hover">
-                <Link to="/contact-us" onClick={closeMenu} className={`${linkClass} md:hidden`}>
-                  <FiHeadphones size={16} className={iconClass} />
-                  <span>Contact Us</span>
-                </Link>
-              </motion.div>
-            </motion.div>
-          )}
         </>
       )}
     </motion.div>

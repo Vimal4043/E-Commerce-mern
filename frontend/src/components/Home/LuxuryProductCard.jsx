@@ -1,11 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { buttonHover, imageZoom, wishlistAnimation, goldLineAnimation, cardHover } from "../../utils/animations";
-import LuxuryButton from "../ui/LuxuryButton";
+import LuxuryButton from "../UI/LuxuryButton";
+import api from "../../api/axios";
 
 const LuxuryProductCard = ({ product }) => {
     const [isWishlisted, setIsWishlisted] = useState(false);
+    const [addingToCart, setAddingToCart] = useState(false);
+    const [cartAdded, setCartAdded] = useState(false);
+    const userId = localStorage.getItem("userId");
+
+    // Check if product is already in wishlist
+    useEffect(() => {
+        if (!userId) return;
+        const checkWishlist = async () => {
+            try {
+                const res = await api.get(`/wishlist`);
+                const exists = res.data.items.some(
+                    (i) => i.productId?._id?.toString() === product._id?.toString()
+                );
+                setIsWishlisted(exists);
+            } catch {
+                // silent
+            }
+        };
+        checkWishlist();
+    }, [userId, product._id]);
+
+    const handleWishlist = async () => {
+        if (!userId) return;
+        try {
+            if (isWishlisted) {
+                await api.post(`/wishlist/remove`, { productId: product._id });
+                setIsWishlisted(false);
+            } else {
+                await api.post(`/wishlist/add`, { productId: product._id });
+                setIsWishlisted(true);
+            }
+        } catch (err) {
+            console.error("Wishlist error:", err);
+        }
+    };
+
+    const handleAddToCart = async () => {
+        if (!userId) return;
+        setAddingToCart(true);
+        try {
+            await api.post(`/cart/add`, { productId: product._id });
+            setCartAdded(true);
+            window.dispatchEvent(new Event("cartUpdated"));
+            setTimeout(() => setCartAdded(false), 2000);
+        } catch (err) {
+            console.error("Add to cart error:", err);
+        } finally {
+            setAddingToCart(false);
+        }
+    };
 
     return (
         <motion.div
@@ -61,9 +112,10 @@ const LuxuryProductCard = ({ product }) => {
                     {/* Wishlist */}
                     <motion.button
                         className="w-10 h-10 rounded-full bg-dark/60 backdrop-blur-md border border-dark-border flex items-center justify-center hover:border-accent/30 transition-all"
-                        onClick={() => setIsWishlisted(!isWishlisted)}
+                        onClick={handleWishlist}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
+                        aria-label="Toggle wishlist"
                     >
                         <motion.svg
                             className={`w-4 h-4 ${isWishlisted ? 'text-accent fill-accent' : 'text-white'}`}
@@ -87,6 +139,7 @@ const LuxuryProductCard = ({ product }) => {
                         className="w-10 h-10 rounded-full bg-dark/60 backdrop-blur-md border border-dark-border flex items-center justify-center hover:border-accent/30 transition-all"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
+                        aria-label="Quick view"
                     >
                         <svg
                             className="w-4 h-4 text-white"
@@ -164,11 +217,13 @@ const LuxuryProductCard = ({ product }) => {
 
                 {/* Add to Cart Button */}
                 <LuxuryButton
-                    variant="outline"
+                    variant={cartAdded ? "primary" : "outline"}
                     size="sm"
                     className="w-full"
+                    onClick={handleAddToCart}
+                    disabled={addingToCart || !userId}
                 >
-                    Add to Cart
+                    {cartAdded ? "Added to Cart ✓" : addingToCart ? "Adding..." : "Add to Cart"}
                 </LuxuryButton>
             </div>
 

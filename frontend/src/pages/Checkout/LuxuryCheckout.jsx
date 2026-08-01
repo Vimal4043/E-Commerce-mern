@@ -16,11 +16,10 @@ export default function LuxuryCheckout() {
     const [formData, setFormData] = useState({
         // Shipping
         fullName: "",
-        street: "",
+        addressLine: "",
         city: "",
         state: "",
-        zipCode: "",
-        country: "",
+        pincode: "",
         phone: "",
         // Billing
         sameAsShipping: true,
@@ -53,18 +52,18 @@ export default function LuxuryCheckout() {
                 setFormData(prev => ({
                     ...prev,
                     fullName: res.data[0].fullName || "",
-                    street: res.data[0].street || "",
+                    addressLine: res.data[0].addressLine || "",
                     city: res.data[0].city || "",
                     state: res.data[0].state || "",
-                    zipCode: res.data[0].zipCode || "",
-                    country: res.data[0].country || "",
+                    pincode: res.data[0].pincode || "",
                     phone: res.data[0].phone || ""
                 }));
             }
         });
     }, [userId, navigate]);
 
-    const subtotal = cart?.items?.reduce((sum, item) => sum + item.productId.price * item.quantity, 0) || 0;
+    const validItems = (cart?.items || []).filter((i) => i?.productId?._id);
+    const subtotal = validItems.reduce((sum, item) => sum + item.productId.price * item.quantity, 0);
     const shipping = subtotal > 5000 ? 0 : 50;
     const tax = subtotal * 0.08;
     const total = subtotal + shipping + tax;
@@ -89,7 +88,7 @@ export default function LuxuryCheckout() {
                 userId,
                 address: selectedAddress
             });
-            window.location.href = `/order-success/${res.data.orderId}`;
+            navigate(`/order-success/${res.data.orderId}`);
         } catch (error) {
             alert("Failed to place order. Please try again.");
             console.error(error);
@@ -208,8 +207,8 @@ export default function LuxuryCheckout() {
                                                         whileTap={{ scale: 0.98 }}
                                                     >
                                                         <p className="text-white font-medium mb-1">{addr.fullName}</p>
-                                                        <p className="text-sm text-text-muted">{addr.street}</p>
-                                                        <p className="text-sm text-text-muted">{addr.city}, {addr.state} {addr.zipCode}</p>
+                                                        <p className="text-sm text-text-muted">{addr.addressLine}</p>
+                                                        <p className="text-sm text-text-muted">{addr.city}, {addr.state} {addr.pincode}</p>
                                                     </motion.div>
                                                 ))}
                                             </div>
@@ -230,11 +229,11 @@ export default function LuxuryCheckout() {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-sm text-text-muted mb-2">Street Address</label>
+                                            <label className="block text-sm text-text-muted mb-2">Address Line</label>
                                             <input
                                                 type="text"
-                                                name="street"
-                                                value={formData.street}
+                                                name="addressLine"
+                                                value={formData.addressLine}
                                                 onChange={handleInputChange}
                                                 className="input w-full py-3 rounded-xl"
                                                 placeholder="123 Main Street"
@@ -266,11 +265,11 @@ export default function LuxuryCheckout() {
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-sm text-text-muted mb-2">ZIP Code</label>
+                                                <label className="block text-sm text-text-muted mb-2">Pincode</label>
                                                 <input
                                                     type="text"
-                                                    name="zipCode"
-                                                    value={formData.zipCode}
+                                                    name="pincode"
+                                                    value={formData.pincode}
                                                     onChange={handleInputChange}
                                                     className="input w-full py-3 rounded-xl"
                                                     placeholder="10001"
@@ -495,10 +494,9 @@ export default function LuxuryCheckout() {
                                             <p className="text-text-secondary text-sm">
                                                 {selectedAddress ? (
                                                     <>
-                                                        {selectedAddress.fullName}<br />
-                                                        {selectedAddress.street}<br />
-                                                        {selectedAddress.city}, {selectedAddress.state} {selectedAddress.zipCode}<br />
-                                                        {selectedAddress.country}
+                                                    {selectedAddress.fullName}<br />
+                                                        {selectedAddress.addressLine}<br />
+                                                        {selectedAddress.city}, {selectedAddress.state} {selectedAddress.pincode}
                                                     </>
                                                 ) : (
                                                     "No address selected"
@@ -524,9 +522,9 @@ export default function LuxuryCheckout() {
 
                                         {/* Items Summary */}
                                         <div className="p-6 bg-dark-elevated/50 rounded-xl">
-                                            <h3 className="text-white font-medium mb-4">Order Items ({cart?.items?.length || 0})</h3>
+                                            <h3 className="text-white font-medium mb-4">Order Items ({validItems.length})</h3>
                                             <div className="space-y-3">
-                                                {cart?.items?.map((item) => (
+                                                {validItems.map((item) => (
                                                     <div key={item.productId._id} className="flex justify-between text-sm">
                                                         <span className="text-text-secondary">
                                                             {item.productId.title} × {item.quantity}
@@ -599,7 +597,7 @@ export default function LuxuryCheckout() {
 
                                 {/* Order Items */}
                                 <div className="space-y-4 mb-6">
-                                    {cart?.items?.map((item) => (
+                                    {validItems.map((item) => (
                                         <div key={item.productId._id} className="flex justify-between text-sm">
                                             <span className="text-text-secondary">
                                                 {item.productId.title} × {item.quantity}

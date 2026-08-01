@@ -1,54 +1,100 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { FiCheck, FiPackage, FiHome } from "react-icons/fi";
+import { fadeInUp, goldLineAnimation, checkmarkAnimation, buttonHover } from "../../utils/animations";
 
 export default function OrderSuccess() {
-  const navigate = useNavigate();
-  const { id } = useParams();
+    const { id } = useParams();
 
-  return (
-    <div className="max-w-2xl mx-auto mt-16 p-6 text-center">
-      
-      {/* Card */}
-      <div className="bg-white p-8 rounded-xl shadow-md">
+    return (
+        <div className="min-h-screen bg-dark flex items-center justify-center">
+            <motion.div
+                className="text-center max-w-md mx-auto px-6"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
+            >
+                {/* Success Icon */}
+                <motion.div
+                    className="w-32 h-32 mx-auto mb-8 rounded-full bg-linear-to-br from-dark-card to-dark-elevated border border-accent/30 flex items-center justify-center"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >
+                    <motion.svg
+                        className="w-16 h-16 text-accent"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        variants={checkmarkAnimation}
+                        initial="initial"
+                        animate="animate"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={1.5}
+                            d="M5 13l4 4L19 7"
+                        />
+                    </motion.svg>
+                </motion.div>
 
-        {/* ✅ Icon */}
-        <div className="text-5xl mb-4">✅</div>
+                {/* Title */}
+                <motion.h2
+                    className="typo-h2 text-white mb-4"
+                    variants={fadeInUp}
+                    initial="initial"
+                    animate="animate"
+                >
+                    Order Placed Successfully
+                </motion.h2>
 
-        {/* Title */}
-        <h1 className="text-3xl font-bold text-green-600">
-          Order Placed Successfully!
-        </h1>
+                {/* Gold Divider */}
+                <motion.div
+                    className="divider-gold mx-auto mb-6"
+                    variants={goldLineAnimation}
+                    initial="initial"
+                    animate="animate"
+                />
 
-        {/* Order ID */}
-        <p className="mt-4 text-gray-600">
-          Your Order ID:
-          <span className="font-semibold ml-1">{id}</span>
-        </p>
+                {/* Order ID */}
+                <p className="typo-body-sm text-text-secondary mb-2">
+                    Your Order ID:
+                </p>
+                <p className="font-display text-lg text-accent mb-6 break-all">
+                    {id}
+                </p>
 
-        {/* Extra message */}
-        <p className="text-sm text-gray-500 mt-2">
-          🎉 Thank you for your purchase! Your order will be delivered soon.
-        </p>
+                {/* Message */}
+                <p className="typo-body-sm text-text-muted mb-8">
+                    Thank you for your purchase! Your order will be delivered soon.
+                </p>
 
-        {/* Buttons */}
-        <div className="flex justify-center gap-4 mt-6">
-
-          <button
-            onClick={() => navigate("/")}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            Continue Shopping
-          </button>
-
-          {/* <button
-            onClick={() => navigate("/orders")}
-            className="border px-6 py-2 rounded-lg hover:bg-gray-100 transition"
-          >
-            View Orders
-          </button> */}
-
+                {/* Buttons */}
+                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                    <Link to="/">
+                        <motion.button
+                            className="btn btn-outline btn-lg w-full sm:w-auto group"
+                            variants={buttonHover}
+                            whileHover="hover"
+                            whileTap="tap"
+                        >
+                            <FiHome size={16} className="group-hover:translate-x-1 transition-transform" />
+                            Continue Shopping
+                        </motion.button>
+                    </Link>
+                    <Link to="/orders">
+                        <motion.button
+                            className="btn btn-primary btn-lg w-full sm:w-auto group"
+                            variants={buttonHover}
+                            whileHover="hover"
+                            whileTap="tap"
+                        >
+                            <FiPackage size={16} />
+                            View Orders
+                        </motion.button>
+                    </Link>
+                </div>
+            </motion.div>
         </div>
-
-      </div>
-    </div>
-  );
+    );
 }

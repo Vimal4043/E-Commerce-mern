@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Auth/LuxuryLogin";
 import Signup from "./pages/Auth/LuxurySignup";
@@ -16,6 +16,7 @@ import AdminUsers from "./admin/AdminUsers";
 import AdminContacts from "./admin/AdminContacts";
 import Layout from "./layout/Layout";
 import Cart from "./pages/Cart/LuxuryCart";
+import Wishlist from "./pages/Cart/LuxuryWishlist";
 import Checkout from "./pages/Checkout/LuxuryCheckout";
 import OrderSuccess from "./pages/Orders/OrderSuccess";
 import Profile from "./pages/Profile/LuxuryDashboard";
@@ -27,6 +28,7 @@ import NotFound from "./pages/Utils/NotFound";
 import Contact from "./pages/Contact/Contact";
 import { ProtectedRoute, PublicRoute } from "./components/Utils/RouteGuards";
 import { SEO } from "./utils/seo";
+import api from "./api/axios.js";
 
 // Code splitting for heavy routes
 const LazyAdminDashboard = lazy(() => import("./admin/LuxuryAdminDashboard"));
@@ -46,11 +48,47 @@ const PageLoader = () => (
 
 const requireAdmin = (element) => {
   const token = localStorage.getItem("token");
-  const isAdmin = localStorage.getItem("isAdmin") === "true";
 
-  if (!token) return <Navigate to="/login"/>;
-  if (!isAdmin) return <Navigate to="/"/>;
-  return element;
+  if (!token) return <Navigate to="/login" />;
+
+  // Admin status is checked asynchronously in AdminCheckWrapper
+  // (we can't use await directly in a route element)
+  return <AdminCheckWrapper>{element}</AdminCheckWrapper>;
+};
+
+// Wrapper component to check admin status from DB
+const AdminCheckWrapper = ({ children }) => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      try {
+        const response = await api.get("/user/check-admin");
+        setIsAdmin(response.data.isAdmin);
+      } catch (error) {
+        console.error("Error checking admin status:", error);
+        setIsAdmin(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkAdmin();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-16 h-16 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return <Navigate to="/" />;
+  }
+
+  return children;
 };
 
 const router = createBrowserRouter([
@@ -77,6 +115,7 @@ const router = createBrowserRouter([
       { path: "/product/:id", element: <ProductDetails /> },
       { path: "/shop", element: <LuxuryShop /> },
       { path: "/cart", element: <Cart /> },
+      { path: "/wishlist", element: <ProtectedRoute><Wishlist /></ProtectedRoute> },
       { path: "/contact-us", element: <Contact /> },
 
       {

@@ -14,7 +14,7 @@ export default function Header() {
     const [searchQuery, setSearchQuery] = useState("");
     const searchRef = useRef(null);
     const userId = localStorage.getItem("userId");
-    const isAdmin = localStorage.getItem("isAdmin") === "true";
+    const [isAdmin, setIsAdmin] = useState(false);
     const [user, setUser] = useState(null);
     const [mounted, setMounted] = useState(false);
 
@@ -83,6 +83,25 @@ export default function Header() {
             )
             .join(" ");
     };
+
+    // Check admin status from API
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token && userId) {
+            const checkAdminStatus = async () => {
+                try {
+                    const response = await api.get("/user/check-admin");
+                    setIsAdmin(response.data.isAdmin);
+                } catch (error) {
+                    console.error("Error checking admin status:", error);
+                    setIsAdmin(false);
+                }
+            };
+            checkAdminStatus();
+        } else {
+            setIsAdmin(false);
+        }
+    }, [userId]);
 
     useEffect(() => {
         setMounted(true);
@@ -204,7 +223,7 @@ export default function Header() {
 
                         {/* Wishlist */}
                         <motion.div {...iconHover} whileHover="hover">
-                            <Link to="/cart" className="btn-icon relative" aria-label="Wishlist">
+                            <Link to="/wishlist" className="btn-icon relative" aria-label="Wishlist">
                                 <FiHeart size={18} />
                             </Link>
                         </motion.div>
@@ -255,7 +274,7 @@ export default function Header() {
                             </Link>
                         )}
 
-                        {/* Hamburger Menu (always visible — works on mobile for all users) */}
+                        {/* Hamburger Menu (dropdown below hamburger) */}
                         <Nav logout={logout} />
                     </motion.div>
                 </div>

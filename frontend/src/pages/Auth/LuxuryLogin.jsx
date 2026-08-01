@@ -38,7 +38,6 @@ export default function LuxuryLogin() {
             localStorage.setItem("userId", res.data.user.id);
             localStorage.setItem("username", res.data.user.name);
             localStorage.setItem("email", res.data.user.email);
-            localStorage.setItem("isAdmin", res.data.user.isAdmin);
 
             setMsg("Login successful!");
             setTimeout(() => {

@@ -28,14 +28,14 @@ export default function Hero() {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full h-screen min-h-[700px] max-h-[1080px] overflow-hidden"
+            className="relative w-full h-screen min-h-175 max-h-270 overflow-hidden"
         >
             {/* ---------- Background Layers ---------- */}
             {/* Radial lighting */}
             <div className="absolute inset-0 z-0">
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent/3 blur-[120px]" />
-                <div className="absolute bottom-0 left-1/3 w-[600px] h-[600px] rounded-full bg-accent/2 blur-[100px]" />
-                <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full bg-white/[0.02] blur-[80px]" />
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 rounded-full bg-accent/3 blur-[120px]" />
+                <div className="absolute bottom-0 left-1/3 w-150 h-150 rounded-full bg-accent/2 blur-[100px]" />
+                <div className="absolute top-1/3 right-1/4 w-100 h-100 rounded-full bg-white/2 blur-[80px]" />
             </div>
 
             {/* Dark overlay for scroll effect */}
@@ -56,7 +56,7 @@ export default function Hero() {
                         animate="visible"
                     >
                         {/* Premium badge */}
-                        <motion.span
+                        {/* <motion.span
                             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-accent/20 bg-accent/5 text-accent text-[11px] tracking-[0.2em] uppercase mb-10"
                             variants={fadeInUp}
                             custom={0}
@@ -64,7 +64,7 @@ export default function Hero() {
                         >
                             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-soft" />
                             Swiss Made Since 1923
-                        </motion.span>
+                        </motion.span> */}
 
                         {/* Main headline */}
                         <motion.h1
@@ -128,10 +128,10 @@ export default function Hero() {
                             custom={0.3}
                         >
                         {/* Glass ring decoration */}
-                        <div className="absolute w-[420px] h-[420px] md:w-[520px] md:h-[520px] rounded-full border border-accent/10 glass-card" />
+                        <div className="absolute w-105 h-105 md:w-130 md:h-130 rounded-full border border-accent/10 glass-card" />
 
                         {/* Inner glass ring */}
-                        <div className="absolute w-[340px] h-[340px] md:w-[440px] md:h-[440px] rounded-full border border-white/[0.04] glass" />
+                        <div className="absolute w-85 h-85 md:w-110 md:h-110 rounded-full border border-white/4 glass" />
 
                         {/* Watch image with subtle scale on scroll */}
                         <motion.div
@@ -141,7 +141,7 @@ export default function Hero() {
                             <div className="w-full h-full rounded-full bg-dark-card border border-dark-border overflow-hidden shadow-2xl flex items-center justify-center">
                                 {/* Premium watch placeholder */}
                                 <div className="text-center p-8">
-                                    <div className="w-32 h-32 md:w-44 md:h-44 mx-auto rounded-full bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 flex items-center justify-center mb-4">
+                                    <div className="w-32 h-32 md:w-44 md:h-44 mx-auto rounded-full bg-linear-to-br from-accent/10 to-accent/5 border border-accent/20 flex items-center justify-center mb-4">
                                         <span className="text-5xl md:text-6xl font-display text-accent font-light">⌚</span>
                                     </div>
                                     <p className="text-[10px] tracking-[0.2em] uppercase text-text-muted">
@@ -166,7 +166,7 @@ export default function Hero() {
                             {specs.map((spec, i) => (
                                 <motion.div
                                     key={spec.label}
-                                    className="glass-strong rounded-xl px-4 py-3 min-w-[160px] flex items-center gap-3 border border-glass-border"
+                                    className="glass-strong rounded-xl px-4 py-3 min-w-40 flex items-center gap-3 border border-glass-border"
                                     variants={{
                                         hidden: { opacity: 0, x: 20, scale: 0.9 },
                                         visible: {

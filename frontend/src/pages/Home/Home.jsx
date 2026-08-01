@@ -1,17 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import api from "../../api/axios";
 import Hero from "../../components/Home/Hero";
-import FeaturedCollections from "../../components/Home/FeaturedCollections";
-import NewArrivals from "../../components/Home/NewArrivals";
-import LuxuryCollectionBanner from "../../components/Home/LuxuryCollectionBanner";
-import BestSellers from "../../components/Home/BestSellers";
 import SwissCraftsmanship from "../../components/Home/SwissCraftsmanship";
-import BrandStory from "../../components/Home/BrandStory";
 import PremiumFeatures from "../../components/Home/PremiumFeatures";
-import CustomerReviews from "../../components/Home/CustomerReviews";
-import InstagramGallery from "../../components/Home/InstagramGallery";
-import Newsletter from "../../components/Home/Newsletter";
-import LuxuryFooter from "../../components/Home/LuxuryFooter";
 import CTA from "./CTA";
 import Products from "./Products";
 import ProductListSkeleton from "../../loadingSkeleton/ProductListSkeleton";
@@ -126,23 +117,8 @@ export default function Home() {
       {/* Fullscreen Hero Section */}
       <Hero />
 
-      {/* Featured Collections */}
-      <FeaturedCollections />
-
-      {/* New Arrivals */}
-      <NewArrivals />
-
-      {/* Luxury Collection Banner */}
-      <LuxuryCollectionBanner />
-
-      {/* Best Sellers */}
-      <BestSellers />
-
       {/* Swiss Craftsmanship Section */}
       <SwissCraftsmanship />
-
-      {/* Brand Story */}
-      <BrandStory />
 
       {/* Premium Features */}
       <PremiumFeatures />
@@ -180,24 +156,12 @@ export default function Home() {
                  disabled={isLoadingMore || isInitialLoading}
                  className="btn btn-outline btn-lg"
                >
-                 {isLoadingMore ? "Loading..." : "View All Timepieces"}
+                 {isLoadingMore ? "Loading..." : "View more Timepieces"}
                </button>
              </div>
            )}
         </div>
       </section>
-
-      {/* Customer Reviews */}
-      <CustomerReviews />
-
-      {/* Instagram Gallery */}
-      <InstagramGallery />
-
-      {/* Newsletter */}
-      <Newsletter />
-
-      {/* Luxury Footer */}
-      <LuxuryFooter />
     </div>
   );
 }

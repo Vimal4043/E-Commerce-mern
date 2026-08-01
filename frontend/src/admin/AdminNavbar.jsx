@@ -28,7 +28,6 @@ const AdminNavbar = () => {
     localStorage.removeItem('userId')
     localStorage.removeItem('username')
     localStorage.removeItem('email')
-    localStorage.removeItem('isAdmin')
     navigate('/')
   }
 
