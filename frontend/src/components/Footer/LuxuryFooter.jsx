@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FiMail, FiPhone, FiMapPin, FiClock, FiArrowRight, FiInstagram, FiLinkedin, FiTwitter, FiFacebook } from "react-icons/fi";
+import { FiMail, FiPhone, FiInstagram, FiLinkedin, FiGithub } from "react-icons/fi";
 
 export default function LuxuryFooter() {
     const [mounted, setMounted] = useState(false);
@@ -10,48 +10,37 @@ export default function LuxuryFooter() {
         setMounted(true);
     }, []);
 
-    const collections = [
-        { name: "Classic", href: "#" },
-        { name: "Dress", href: "#" },
-        { name: "Diver", href: "#" },
-        { name: "Chronograph", href: "#" },
-        { name: "Limited Edition", href: "#" }
-    ];
-
-    const customerService = [
-        { name: "Contact Us", href: "/contact-us" },
-        { name: "Shipping & Insurance", href: "#" },
-        { name: "Returns & Exchanges", href: "#" },
-        { name: "FAQs", href: "#" },
-        { name: "Care & Maintenance", href: "#" }
+    const exploreLinks = [
+        { name: "Home", href: "/" },
+        { name: "Cart", href: "/cart" },
+        { name: "Orders", href: "/orders" },
+        { name: "Profile", href: "/profile" }
     ];
 
     const socialLinks = [
-        { icon: FiInstagram, href: "https://instagram.com/horologium", label: "Instagram" },
-        { icon: FiLinkedin, href: "https://linkedin.com/company/horologium", label: "LinkedIn" },
-        { icon: FiTwitter, href: "https://twitter.com/horologium", label: "Twitter" },
-        { icon: FiFacebook, href: "https://facebook.com/horologium", label: "Facebook" }
+        { icon: FiGithub, href: "https://github.com/Vimal4043", label: "GitHub" },
+        { icon: FiLinkedin, href: "https://www.linkedin.com/in/vimal-kumar-bb3258218", label: "LinkedIn" },
+        { icon: FiInstagram, href: "https://www.instagram.com/vimal_.kr/", label: "Instagram" }
     ];
 
     return (
         <footer className="relative bg-dark-elevated/30 border-t border-dark-border overflow-hidden">
             {/* Background Effects */}
             <div className="absolute inset-0 z-0">
-                <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full bg-accent/3 blur-[100px]" />
+                <div className="absolute bottom-0 left-1/4 w-125 h-125 rounded-full bg-accent/3 blur-[100px]" />
             </div>
 
             <div className="relative z-10">
                 {/* Main Footer */}
                 <div className="container-lux py-16">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                         {/* Brand Column */}
                         <motion.div
-                            className="lg:col-span-2"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
                             transition={{ duration: 0.6 }}
                         >
-                            {/* Luxury Logo */}
+                            {/* Logo */}
                             <Link to="/" className="inline-block mb-6">
                                 <h2 className="typo-h3 text-white mb-2">HOROLOGIUM</h2>
                                 <div className="divider-gold" />
@@ -59,50 +48,24 @@ export default function LuxuryFooter() {
 
                             {/* About Brand */}
                             <p className="typo-body-sm text-text-muted mb-8 leading-relaxed">
-                                Crafting exceptional timepieces since 1923. Each watch represents
-                                the pinnacle of Swiss horological excellence, designed for those
-                                who appreciate the finer things in life.
+                                Curated luxury timepieces where timeless design meets modern precision.
                             </p>
-
-                            {/* Social Media */}
-                            <div className="flex gap-3">
-                                {socialLinks.map((social, index) => {
-                                    const Icon = social.icon;
-                                    return (
-                                        <motion.a
-                                            key={index}
-                                            href={social.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-10 h-10 rounded-full bg-dark-card border border-dark-border flex items-center justify-center text-text-muted hover:text-accent hover:border-accent/30 transition-all"
-                                            whileHover={{ scale: 1.1, y: -2 }}
-                                            whileTap={{ scale: 0.95 }}
-                                        >
-                                            <Icon size={18} />
-                                        </motion.a>
-                                    );
-                                })}
-                            </div>
                         </motion.div>
 
-                        {/* Collections */}
+                        {/* Explore */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
                             transition={{ duration: 0.6, delay: 0.1 }}
                         >
-                            <h3 className="typo-label text-white mb-6">Collections</h3>
+                            <h3 className="typo-label text-white mb-6">Explore</h3>
                             <ul className="space-y-3">
-                                {collections.map((item) => (
+                                {exploreLinks.map((item) => (
                                     <li key={item.name}>
                                         <Link
                                             to={item.href}
                                             className="text-sm text-text-muted hover:text-accent transition-colors flex items-center gap-2 group"
                                         >
-                                            <FiArrowRight
-                                                className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
-                                                size={14}
-                                            />
                                             {item.name}
                                         </Link>
                                     </li>
@@ -110,69 +73,65 @@ export default function LuxuryFooter() {
                             </ul>
                         </motion.div>
 
-                        {/* Customer Service */}
+                        {/* Connect With Us */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
-                            <h3 className="typo-label text-white mb-6">Customer Service</h3>
+                            <h3 className="typo-label text-white mb-6">Connect With Us</h3>
                             <ul className="space-y-3">
-                                {customerService.map((item) => (
-                                    <li key={item.name}>
-                                        <Link
-                                            to={item.href}
-                                            className="text-sm text-text-muted hover:text-accent transition-colors flex items-center gap-2 group"
-                                        >
-                                            <FiArrowRight
-                                                className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
-                                                size={14}
-                                            />
-                                            {item.name}
-                                        </Link>
-                                    </li>
-                                ))}
+                                {socialLinks.map((social) => {
+                                    const Icon = social.icon;
+                                    return (
+                                        <li key={social.label}>
+                                            <a
+                                                href={social.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-sm text-text-muted hover:text-accent transition-colors flex items-center gap-2 group"
+                                            >
+                                                <Icon size={16} />
+                                                <span>{social.label}</span>
+                                            </a>
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         </motion.div>
 
-                        {/* Newsletter */}
+                        {/* Get in Touch */}
                         <motion.div
-                            className="lg:col-span-2"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
                             transition={{ duration: 0.6, delay: 0.3 }}
                         >
-                            <h3 className="typo-label text-white mb-6">Newsletter</h3>
-                            <p className="typo-body-sm text-text-muted mb-4">
-                                Subscribe for exclusive previews of new timepieces, invitations to private events, and horological insights.
-                            </p>
-                            <form className="flex gap-2 mb-6" onSubmit={(e) => e.preventDefault()}>
-                                <input
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    className="input flex-1 py-3 rounded-xl"
-                                    required
-                                />
-                                <button type="submit" className="btn btn-primary px-6 rounded-xl">
-                                    <FiMail size={18} />
-                                </button>
-                            </form>
-
-                            {/* Contact Information */}
-                            <div className="space-y-3">
+                            <h3 className="typo-label text-white mb-6">Get in Touch</h3>
+                            <div className="space-y-3 mb-6">
                                 <div className="flex items-center gap-3 text-sm text-text-muted">
-                                    <FiMapPin className="text-accent" size={16} />
-                                    <span>123 Luxury Avenue, Geneva, Switzerland</span>
+                                    <FiMail className="text-accent" size={16} />
+                                    <a
+                                        href="mailto:support@shopverse.com"
+                                        className="hover:text-accent transition-colors"
+                                    >
+                                        support@shopverse.com
+                                    </a>
                                 </div>
                                 <div className="flex items-center gap-3 text-sm text-text-muted">
                                     <FiPhone className="text-accent" size={16} />
-                                    <span>+41 123 456 7890</span>
-                                </div>
-                                <div className="flex items-center gap-3 text-sm text-text-muted">
-                                    <FiClock className="text-accent" size={16} />
-                                    <span>Mon - Fri: 9:00 AM - 6:00 PM CET</span>
+                                    <span>+91 12345 67890</span>
                                 </div>
                             </div>
+
+                            <a
+                                href="https://github.com/Vimal4043/E-Commerce-mern"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn btn-primary px-4 py-2 rounded-xl inline-flex items-center gap-2"
+                            >
+                                <FiGithub size={18} />
+                                View Code
+                            </a>
                         </motion.div>
                     </div>
                 </div>
@@ -190,45 +149,16 @@ export default function LuxuryFooter() {
                             animate={{ opacity: mounted ? 1 : 0 }}
                             transition={{ duration: 0.6, delay: 0.5 }}
                         >
-                            © {new Date().getFullYear()} Horologium. All rights reserved.
+                            © {new Date().getFullYear()} HOROLOGIUM • Designed & Developed by{" "}
+                            <a
+                                href="https://github.com/Vimal4043"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-accent hover:underline"
+                            >
+                                Vimal Kumar
+                            </a>
                         </motion.p>
-
-                        {/* Legal Links */}
-                        <motion.div
-                            className="flex flex-wrap items-center gap-6"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: mounted ? 1 : 0 }}
-                            transition={{ duration: 0.6, delay: 0.6 }}
-                        >
-                            <Link to="#" className="text-sm text-text-muted hover:text-accent transition-colors">
-                                Privacy Policy
-                            </Link>
-                            <Link to="#" className="text-sm text-text-muted hover:text-accent transition-colors">
-                                Terms of Service
-                            </Link>
-                            <Link to="#" className="text-sm text-text-muted hover:text-accent transition-colors">
-                                Cookie Policy
-                            </Link>
-                        </motion.div>
-
-                        {/* Certifications */}
-                        <motion.div
-                            className="flex items-center gap-2"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: mounted ? 1 : 0 }}
-                            transition={{ duration: 0.6, delay: 0.7 }}
-                        >
-                            <div className="px-3 py-1 rounded-full border border-accent/20 bg-accent/5">
-                                <span className="text-xs text-accent tracking-wider uppercase">
-                                    Swiss Made
-                                </span>
-                            </div>
-                            <div className="px-3 py-1 rounded-full border border-accent/20 bg-accent/5">
-                                <span className="text-xs text-accent tracking-wider uppercase">
-                                    COSC
-                                </span>
-                            </div>
-                        </motion.div>
                     </div>
                 </div>
             </div>

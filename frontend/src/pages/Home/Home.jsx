@@ -11,6 +11,7 @@ export default function Home() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
   const batchSize = 24;
   const [page, setPage] = useState(1);
   const [hasMoreProducts, setHasMoreProducts] = useState(false);
@@ -76,6 +77,19 @@ export default function Home() {
     }, 250);
     return () => window.clearTimeout(timeoutId);
   }, [loadProducts]);
+
+  // Fetch distinct categories that actually exist in the database
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await api.get("/products/categories");
+        setCategories(res.data || []);
+      } catch (error) {
+        console.error("Failed to load categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     const container = gridRef.current;
@@ -143,6 +157,7 @@ export default function Home() {
             setSearch={setSearch}
             category={category}
             setCategory={setCategory}
+            categories={categories}
           />
 
           {/* Products Grid */}
@@ -162,6 +177,7 @@ export default function Home() {
            )}
         </div>
       </section>
+
     </div>
   );
 }

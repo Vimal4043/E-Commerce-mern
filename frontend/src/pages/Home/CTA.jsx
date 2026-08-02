@@ -1,6 +1,8 @@
 import { FiSearch, FiSliders } from "react-icons/fi";
 
-const CTA = ({ search, setSearch, category, setCategory }) => {
+const CTA = ({ search, setSearch, category, setCategory, categories }) => {
+    const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
     return (
         <div className="mb-10 flex flex-col md:flex-row gap-4 items-stretch md:items-center">
             {/* Search Input */}
@@ -19,7 +21,7 @@ const CTA = ({ search, setSearch, category, setCategory }) => {
             </div>
 
             {/* Category Filter */}
-            <div className="relative min-w-[180px]">
+            <div className="relative min-w-45">
                 <FiSliders
                     size={14}
                     className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none"
@@ -30,12 +32,11 @@ const CTA = ({ search, setSearch, category, setCategory }) => {
                     className="input select pl-11 pr-10"
                 >
                     <option value="">All Collections</option>
-                    <option value="classic">Classic</option>
-                    <option value="dress">Dress</option>
-                    <option value="diver">Diver</option>
-                    <option value="chronograph">Chronograph</option>
-                    <option value="limited">Limited Edition</option>
-                    <option value="accessories">Luxury Accessories</option>
+                    {categories.map((cat) => (
+                        <option key={cat} value={cat}>
+                            {capitalize(cat)}
+                        </option>
+                    ))}
                 </select>
             </div>
         </div>
