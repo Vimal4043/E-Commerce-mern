@@ -71,7 +71,7 @@ const Contact = () => {
                         transition={{ duration: 0.6, ease: [0.165, 0.84, 0.44, 1] }}
                     >
                         <span className="typo-label-gold mb-4 block">Contact Us</span>
-                        <h1 className="typo-h1 text-white mb-4">We're here to help</h1>
+                        <h1 className="typo-h2 text-white mb-4">We're here to help</h1>
                         <motion.div
                             className="divider-gold"
                             variants={goldLineAnimation}

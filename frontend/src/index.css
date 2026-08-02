@@ -17,12 +17,10 @@
 
   --color-accent: #C8A45D;
   --color-accent-alt: #D4B87C;
-  --color-accent-dim: #A08040;
 
   --color-text-primary: #FFFFFF;
   --color-text-secondary: #B0B0B0;
   --color-text-muted: #707070;
-  --color-text-accent: #C8A45D;
   --color-error: #EF4444;
 
   --font-display: "Playfair Display", serif;
@@ -36,7 +34,6 @@
 
   --z-navbar: 1000;
   --z-modal: 1100;
-  --z-overlay: 1200;
   --z-toast: 1300;
 }
 
@@ -90,19 +87,9 @@
    3. ANIMATIONS
    ============================================================ */
 @layer utilities {
-  @keyframes fade-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
   @keyframes fade-in-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
   @keyframes fade-in-scale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: none; } }
-  @keyframes slide-in-right { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: none; } }
   @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-
-  .animate-fade-in { animation: fade-in 500ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
-  .animate-fade-in-up { animation: fade-in-up 800ms cubic-bezier(0.19, 1, 0.22, 1) forwards; }
-  .animate-fade-in-scale { animation: fade-in-scale 500ms cubic-bezier(0.19, 1, 0.22, 1) forwards; }
-  .animate-slide-in-right { animation: slide-in-right 500ms cubic-bezier(0.19, 1, 0.22, 1) forwards; }
-  .animate-shimmer { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent); background-size: 200% 100%; animation: shimmer 2s infinite; }
-  .animate-float { animation: float 4s ease-in-out infinite; }
 
   .stagger-children > * {
     opacity: 0;
@@ -119,6 +106,7 @@
 
   .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   .hide-scrollbar::-webkit-scrollbar { display: none; }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -128,6 +116,7 @@
     transition-duration: 0.01ms !important;
   }
   .stagger-children > * { opacity: 1; }
+  .product-reveal-item { opacity: 1; transform: none; filter: none; transition: none; }
 }
 
 /* ============================================================
@@ -137,7 +126,7 @@
   .typo-hero {
     font-family: var(--font-display);
     font-weight: 200;
-    font-size: clamp(3rem, 8vw, 7rem);
+    font-size: clamp(2.5rem, 7vw, 6rem);
     line-height: 1.05;
     letter-spacing: -0.03em;
     color: var(--color-text-primary);
@@ -185,7 +174,7 @@
     color: var(--color-text-primary);
   }
 
-  .typo-category, .typo-number {
+  .typo-category {
     font-family: var(--font-label);
     font-size: 0.625rem;
     font-weight: 600;
@@ -193,7 +182,6 @@
     text-transform: uppercase;
   }
   .typo-category { color: var(--color-text-muted); }
-  .typo-number { color: var(--color-text-primary); font-family: var(--font-mono); }
 
   .typo-quote {
     font-family: var(--font-display-alt);
@@ -220,11 +208,6 @@
     backdrop-filter: blur(20px) saturate(1.5);
     border: 1px solid rgba(255, 255, 255, 0.06);
   }
-}
-
-/* Glass border color utility */
-.border-glass-border {
-  border-color: rgba(255, 255, 255, 0.06);
 }
 
 /* ============================================================
@@ -311,20 +294,6 @@
     box-shadow: var(--shadow-glow), 0 8px 32px rgba(0,0,0,0.6);
   }
 
-  .card-product {
-    background: var(--color-dark-card);
-    border: 1px solid var(--color-dark-border);
-    border-radius: 1rem;
-    overflow: hidden;
-    transition: all 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
-  .card-product:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6), var(--shadow-glow);
-    border-color: rgba(200, 164, 93, 0.12);
-  }
-  .card-product .card-image img { transition: transform 800ms cubic-bezier(0.165, 0.84, 0.44, 1); }
-  .card-product:hover .card-image img { transform: scale(1.05); }
 }
 
 /* ============================================================
@@ -387,8 +356,6 @@
     border-radius: var(--radius-full);
     white-space: nowrap;
   }
-  .badge-gold { background: rgba(200, 164, 93, 0.08); color: var(--color-accent); border: 1px solid rgba(200, 164, 93, 0.15); }
-  .badge-dark { background: var(--color-dark-card); color: var(--color-text-secondary); border: 1px solid var(--color-dark-border); }
 
   .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--color-dark-border) 15%, var(--color-dark-border) 85%, transparent); }
   .divider-gold { width: 3rem; height: 2px; background: var(--color-accent); border-radius: var(--radius-full); }
@@ -451,35 +418,6 @@
 }
 
 /* ============================================================
-   12. PRODUCT
-   ============================================================ */
-@layer components {
-  .product-price {
-    font-family: var(--font-display-alt);
-    font-size: 1.25rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    color: var(--color-accent);
-  }
-
-  .product-name {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: 1rem;
-    color: var(--color-text-primary);
-  }
-
-  .product-category {
-    font-family: var(--font-label);
-    font-size: 0.625rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-  }
-}
-
-/* ============================================================
    13. SKELETON
    ============================================================ */
 @layer components {
@@ -488,31 +426,6 @@
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
     border-radius: 0.5rem;
-  }
-}
-
-/* ============================================================
-   14. TOAST
-   ============================================================ */
-@layer components {
-  .toast {
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    z-index: var(--z-toast);
-    padding: 1rem 1.5rem;
-    background: var(--color-dark-elevated);
-    border: 1px solid var(--color-dark-border);
-    border-radius: 1rem;
-    box-shadow: 0 16px 48px rgba(0,0,0,0.7);
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    color: var(--color-text-primary);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    animation: slide-in-right 500ms cubic-bezier(0.19, 1, 0.22, 1) forwards;
-    min-width: 280px;
   }
 }
 
@@ -545,35 +458,6 @@
 @layer components {
   /* Dropdown */
   .dropdown { position: relative; width: 100%; }
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    margin-top: 0.5rem;
-    background: var(--color-dark-card);
-    border: 1px solid var(--color-dark-border);
-    border-radius: 1rem;
-    box-shadow: 0 16px 48px rgba(0,0,0,0.7);
-    z-index: var(--z-modal);
-    overflow: hidden;
-    animation: fade-in-scale 300ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-  }
-  .dropdown-item {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background: transparent;
-    border: none;
-    color: var(--color-text-secondary);
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 150ms;
-    text-align: left;
-  }
-  .dropdown-item:hover { background: var(--color-dark-hover, #1F1F23); color: var(--color-text-primary); }
-  .dropdown-item.selected { color: var(--color-accent); }
-
   /* Radio */
   .radio {
     appearance: none;
@@ -594,63 +478,6 @@
 
   /* Pagination */
   .pagination { display: flex; align-items: center; gap: 0.5rem; }
-  .pagination-btn {
-    min-width: 2.5rem;
-    height: 2.5rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 0.75rem;
-    background: transparent;
-    border: 1px solid var(--color-dark-border);
-    border-radius: 0.75rem;
-    color: var(--color-text-muted);
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 150ms;
-  }
-  .pagination-btn:hover:not(:disabled) { border-color: var(--color-accent); color: var(--color-accent); background: rgba(200,164,93,0.05); }
-  .pagination-btn.active { background: var(--color-accent); color: #0B0B0D; border-color: var(--color-accent); }
-  .pagination-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  /* Table */
-  .table-luxury { width: 100%; border-collapse: collapse; }
-  .table-luxury th {
-    text-align: left;
-    padding: 1rem 1.25rem;
-    font-family: var(--font-label);
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    border-bottom: 1px solid var(--color-dark-border);
-  }
-  .table-luxury td { padding: 1.25rem; font-size: 0.875rem; color: var(--color-text-secondary); border-bottom: 1px solid var(--color-dark-border); }
-  .table-luxury tbody tr { transition: background 150ms; }
-  .table-luxury tbody tr:hover { background: var(--color-dark-hover, #1F1F23); }
-
-  /* Images */
-  .img-responsive { max-width: 100%; height: auto; display: block; }
-  .aspect-watch { aspect-ratio: 1; background: linear-gradient(135deg, var(--color-dark-elevated), var(--color-dark-card)); }
-
-  /* Underline Animation */
-  .underline-anim { position: relative; display: inline-block; }
-  .underline-anim::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    height: 2px;
-    width: 100%;
-    background: white;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 220ms ease;
-  }
-  .underline-anim:hover::after, .underline-anim:focus::after { transform: scaleX(1); }
-
   /* Product Reveal */
   .product-reveal-item {
     opacity: 0;
@@ -660,10 +487,4 @@
     will-change: opacity, transform, filter;
   }
   .product-reveal-item.is-visible { opacity: 1; transform: none; filter: none; }
-}
-
-/* Legacy */
-@media (prefers-reduced-motion: reduce) {
-  .product-reveal-item { opacity: 1; transform: none; filter: none; transition: none; }
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }

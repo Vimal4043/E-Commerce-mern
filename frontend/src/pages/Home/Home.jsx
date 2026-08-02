@@ -138,7 +138,7 @@ export default function Home() {
       <PremiumFeatures />
 
       {/* Products Section */}
-      <section className="relative z-10 bg-dark section-padding-sm">
+      <section id="products" className="relative z-10 bg-dark section-padding-sm">
         <div className="container-lux">
           {/* Section Header */}
           <div className="flex flex-col items-center text-center mb-12">

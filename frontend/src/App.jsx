@@ -115,7 +115,7 @@ const router = createBrowserRouter([
       { path: "/product/:id", element: <ProductDetails /> },
       // { path: "/shop", element: <LuxuryShop /> },
       { path: "/cart", element: <Cart /> },
-      { path: "/wishlist", element: <ProtectedRoute><Wishlist /></ProtectedRoute> },
+      { path: "/wishlist", element: <Wishlist /> },
       { path: "/contact-us", element: <Contact /> },
 
       {

@@ -100,33 +100,37 @@ export default function Hero() {
                             variants={fadeInUp}
                             custom={0.55}
                         >
-                            <Link
-                                to="/"
+                            <button
+                                onClick={() =>
+                                    document.getElementById("products")?.scrollIntoView({
+                                        behavior: "smooth",
+                                    })
+                                }
                                 className="btn btn-primary btn-lg group"
                                 aria-label="Explore our collection of luxury watches"
                             >
                                 Explore Collection
                                 <FiArrowRight className="group-hover:translate-x-1 transition-transform duration-300" size={16} />
-                            </Link>
+                            </button>
                             <Link
-                                to="/"
+                                to="/contact-us"
                                 className="btn btn-outline btn-lg"
                                 aria-label="Visit our virtual showroom"
                             >
-                                Virtual Showroom
+                                Contact Us
                             </Link>
                         </motion.div>
                     </motion.div>
 
-                        {/* Right: Watch Image */}
-                        <motion.div
-                            className="flex-1 flex items-center justify-center relative"
-                            style={{ y: heroY, opacity: heroOpacity }}
-                            initial="hidden"
-                            animate="visible"
-                            variants={fadeInScale}
-                            custom={0.3}
-                        >
+                    {/* Right: Watch Image */}
+                    <motion.div
+                        className="flex-1 flex items-center justify-center relative"
+                        style={{ y: heroY, opacity: heroOpacity }}
+                        initial="hidden"
+                        animate="visible"
+                        variants={fadeInScale}
+                        custom={0.3}
+                    >
                         {/* Glass ring decoration */}
                         <div className="absolute w-105 h-105 md:w-130 md:h-130 rounded-full border border-accent/10 glass-card" />
 
@@ -158,7 +162,7 @@ export default function Hero() {
                         {/* Floating specs on the right side of the image */}
                         <motion.div
                             ref={specsRef}
-                            className="absolute -right-4 md:-right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3"
+                            className="absolute -right-4 md:-right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10"
                             initial="hidden"
                             animate={isSpecsInView ? "visible" : "hidden"}
                             variants={staggerContainer}
@@ -166,7 +170,7 @@ export default function Hero() {
                             {specs.map((spec, i) => (
                                 <motion.div
                                     key={spec.label}
-                                    className="glass-strong rounded-xl px-4 py-3 min-w-40 flex items-center gap-3 border border-glass-border"
+                                    className="glass-strong rounded-xl px-4 py-3 min-w-40 flex items-center gap-3 border border-white/[0.06]"
                                     variants={{
                                         hidden: { opacity: 0, x: 20, scale: 0.9 },
                                         visible: {

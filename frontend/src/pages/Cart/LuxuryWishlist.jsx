@@ -1,9 +1,10 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import api from "../../api/axios";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiHeart, FiX, FiShoppingBag, FiSearch } from "react-icons/fi";
 import { fadeInUp, goldLineAnimation, buttonHover, imageZoom, cardHover } from "../../utils/animations";
+import NoWishlist from "./NoWishlist";
 
 export default function LuxuryWishlist() {
     const userId = localStorage.getItem("userId");
@@ -54,8 +55,7 @@ export default function LuxuryWishlist() {
     const validItems = (wishlist?.items || []).filter((i) => i?.productId?._id);
 
     if (!userId) {
-        navigate("/login");
-        return null;
+        return <NoWishlist />;
     }
 
     if (loading) {

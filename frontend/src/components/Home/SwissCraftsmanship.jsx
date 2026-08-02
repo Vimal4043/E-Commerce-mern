@@ -47,7 +47,7 @@ export default function SwissCraftsmanship() {
                         <span className="typo-label-gold mb-4 block">
                             Uncompromising Quality
                         </span>
-                        <h2 className="typo-h1 text-white mb-6">
+                        <h2 className="typo-h2 text-white mb-6">
                             Swiss Craftsmanship
                         </h2>
                         <div className="divider-gold mx-auto lg:mx-0 mb-8" />

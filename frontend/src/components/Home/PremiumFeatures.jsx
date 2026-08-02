@@ -37,13 +37,13 @@ export default function PremiumFeatures() {
             <div className="container-lux relative z-10">
                 {/* Section Header */}
                 <motion.div
-                    className="text-center mb-20"
+                    className="text-center mb-10"
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
                 >
                     <span className="typo-label-gold mb-4 block">Beyond Time</span>
-                    <h2 className="typo-h1 text-white mb-4">Premium Features</h2>
+                    <h2 className="typo-h2 text-white mb-4">Premium Features</h2>
                     <div className="divider-gold mx-auto mb-6" />
                     <p className="typo-body-sm max-w-2xl mx-auto">
                         Every Horologium timepiece comes with an elevated ownership experience,

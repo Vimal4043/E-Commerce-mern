@@ -154,7 +154,7 @@ export default function Header() {
                             animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : -10 }}
                             transition={{ duration: 0.5, delay: 0.3 }}
                         >
-                            {["Collections", "Contact"].map((item, index) => (
+                            {["Home", "Contact"].map((item, index) => (
                                 <motion.div
                                     key={item}
                                     {...navLinkHover}
