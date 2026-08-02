@@ -176,7 +176,7 @@ const Contact = () => {
                                         value={form.message}
                                         onChange={handleChange}
                                         placeholder="Tell us how we can help"
-                                        className="input w-full py-3.5 pl-12 pr-4 rounded-xl min-h-[140px] resize-y"
+                                        className="input w-full py-3.5 pl-12 pr-4 rounded-xl min-h-35 resize-y"
                                         required
                                     />
                                 </div>

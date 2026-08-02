@@ -170,7 +170,7 @@ export default function Hero() {
                             {specs.map((spec, i) => (
                                 <motion.div
                                     key={spec.label}
-                                    className="glass-strong rounded-xl px-4 py-3 min-w-40 flex items-center gap-3 border border-white/[0.06]"
+                                    className="glass-strong rounded-xl px-4 py-3 min-w-40 flex items-center gap-3 border border-white/6"
                                     variants={{
                                         hidden: { opacity: 0, x: 20, scale: 0.9 },
                                         visible: {
