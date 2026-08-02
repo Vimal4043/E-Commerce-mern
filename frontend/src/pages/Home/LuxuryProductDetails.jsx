@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+﻿import { useEffect, useState, useRef } from "react";
 import api from "../../api/axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -126,9 +126,13 @@ export default function LuxuryProductDetails() {
                             transition={{ duration: 0.4 }}
                         >
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-accent/20 bg-accent/5 flex items-center justify-center">
-                                    <span className="text-8xl md:text-9xl">⌚</span>
-                                </div>
+                                {productImages[selectedImage] ? (
+                                    <img src={productImages[selectedImage]} alt={product.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                                ) : (
+                                    <div className="w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-accent/20 bg-accent/5 flex items-center justify-center">
+                                        <span className="text-8xl md:text-9xl">⌚</span>
+                                    </div>
+                                )}
                             </div>
 
                             {/* Badges */}
@@ -169,7 +173,11 @@ export default function LuxuryProductDetails() {
                                     whileTap={{ scale: 0.95 }}
                                 >
                                     <div className="w-full h-full flex items-center justify-center">
-                                        <span className="text-3xl">⌚</span>
+                                        {productImages[index] ? (
+                                            <img src={productImages[index]} alt={product.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                                        ) : (
+                                            <span className="text-3xl">⌚</span>
+                                        )}
                                     </div>
                                 </motion.button>
                             ))}
@@ -208,15 +216,15 @@ export default function LuxuryProductDetails() {
                         {/* Price */}
                         <div className="flex items-end gap-4 pb-8 border-b border-dark-border">
                             <span className="font-display text-4xl font-light text-accent">
-                                ${product.price}
+                                ₹ {product.price}
                             </span>
                             {product.oldPrice && (
                                 <>
                                     <span className="text-xl text-text-muted line-through mb-1">
-                                        ${product.oldPrice}
+                                        ₹ {product.oldPrice}
                                     </span>
                                     <span className="px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs tracking-wider uppercase mb-1">
-                                        Save ${product.oldPrice - product.price}
+                                        Save ₹{product.oldPrice - product.price}
                                     </span>
                                 </>
                             )}
@@ -250,15 +258,15 @@ export default function LuxuryProductDetails() {
                         {/* Trust Badges */}
                         <div className="grid grid-cols-3 gap-4 pt-8 border-t border-dark-border">
                             <div className="text-center">
-                                <div className="text-2xl mb-2">📦</div>
+                                <div className="text-2xl mb-2">{"\uD83D\uDCE6"}</div>
                                 <p className="text-xs text-text-muted">Free Shipping</p>
                             </div>
                             <div className="text-center">
-                                <div className="text-2xl mb-2">🛡️</div>
+                                <div className="text-2xl mb-2">{"\uD83D\uDEE1\uFE0F"}</div>
                                 <p className="text-xs text-text-muted">5-Year Warranty</p>
                             </div>
                             <div className="text-center">
-                                <div className="text-2xl mb-2">↩️</div>
+                                <div className="text-2xl mb-2">{"\u21A9\uFE0F"}</div>
                                 <p className="text-xs text-text-muted">Easy Returns</p>
                             </div>
                         </div>
@@ -343,19 +351,19 @@ export default function LuxuryProductDetails() {
                                     <h3 className="typo-h3 text-white mb-8">Shipping & Warranty</h3>
                                     <div className="space-y-6">
                                         <div className="bg-dark-card border border-dark-border rounded-2xl p-6">
-                                            <h4 className="typo-h4 text-white mb-3">🚚 Shipping Information</h4>
+                                            <h4 className="typo-h4 text-white mb-3">{"\uD83D\uDE9A"} Shipping Information</h4>
                                             <p className="typo-body-sm text-text-secondary mb-4">
                                                 Complimentary worldwide shipping with premium packaging and full insurance coverage. Delivery within 3-5 business days.
                                             </p>
                                             <ul className="space-y-2 text-sm text-text-muted">
-                                                <li>• Express delivery available</li>
-                                                <li>• Secure packaging with authentication certificate</li>
-                                                <li>• Real-time tracking</li>
-                                                <li>• Signature required upon delivery</li>
+                                                <li>{"\u2022"} Express delivery available</li>
+                                                <li>{"\u2022"} Secure packaging with authentication certificate</li>
+                                                <li>{"\u2022"} Real-time tracking</li>
+                                                <li>{"\u2022"} Signature required upon delivery</li>
                                             </ul>
                                         </div>
                                         <div className="bg-dark-card border border-dark-border rounded-2xl p-6">
-                                            <h4 className="typo-h4 text-white mb-3">🛡️ Warranty</h4>
+                                            <h4 className="typo-h4 text-white mb-3">{"\uD83D\uDEE1\uFE0F"} Warranty</h4>
                                             <p className="typo-body-sm text-text-secondary mb-4">
                                                 Comprehensive 5-year international warranty covering manufacturing defects. Includes complimentary servicing and maintenance.
                                             </p>
@@ -418,15 +426,19 @@ export default function LuxuryProductDetails() {
                                     onClick={() => navigate(`/product/${relatedProduct._id}`)}
                                     className="group cursor-pointer bg-dark-card border border-dark-border rounded-2xl overflow-hidden card-hover"
                                 >
-                                    <div className="aspect-square bg-gradient-to-br from-dark-elevated to-dark-card flex items-center justify-center">
-                                        <span className="text-6xl group-hover:scale-110 transition-transform duration-500">⌚</span>
+                                    <div className="aspect-square bg-gradient-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
+                                        {relatedProduct.image ? (
+                                            <img src={relatedProduct.image} alt={relatedProduct.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                                        ) : (
+                                            <span className="text-6xl group-hover:scale-110 transition-transform duration-500">⌚</span>
+                                        )}
                                     </div>
                                     <div className="p-6">
                                         <p className="text-xs text-accent uppercase tracking-wider mb-2">{relatedProduct.category}</p>
                                         <h3 className="typo-h4 text-white mb-3 group-hover:text-accent transition-colors">
                                             {relatedProduct.title}
                                         </h3>
-                                        <p className="typo-price">${relatedProduct.price}</p>
+                                        <p className="typo-price">₹ {relatedProduct.price}</p>
                                     </div>
                                 </div>
                             </motion.div>

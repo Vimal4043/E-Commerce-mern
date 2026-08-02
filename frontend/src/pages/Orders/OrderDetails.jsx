@@ -1,21 +1,21 @@
-import React, { use, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router';
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+import { motion } from 'framer-motion'
 import api from '../../api/axios';
 import { formatDistanceToNow } from 'date-fns';
 import OrderDetailsSkeleton from '../../loadingSkeleton/OrderDetailsSkeleton';
+import { goldLineAnimation, fadeInUp } from '../../utils/animations';
 
 const OrderDetails = () => {
-
     const { orderId } = useParams();
-    const [order, setorder] = useState(null);
+    const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const loadOrderDetails = async () => {
         try {
             const res = await api.get(`/orders/${orderId}`);
-            // console.log("Order details:", res.data);
-            setorder(res.data);
+            setOrder(res.data);
         } catch (error) {
             console.error("Error fetching order details:", error);
         } finally {
@@ -35,135 +35,182 @@ const OrderDetails = () => {
         (acc, item) => acc + item.quantity,
         0
     );
-    // console.log("Total items in order:", totalItems);
+
+    const statusColors = {
+        placed: "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20",
+        processing: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
+        shipped: "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20",
+        delivered: "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
+        cancelled: "bg-red-500/10 text-red-400 border border-red-500/20",
+    };
+
+    const getStatusClass = (status) => {
+        if (!status) return statusColors.placed;
+        return statusColors[status.toLowerCase()] || statusColors.placed;
+    };
 
     return (
-        <div className="bg-gray-50 min-h-screen py-6">
-            <div className="max-w-6xl mx-auto px-4">
-
-                <button
-                    onClick={() => navigate("/orders")}
-                    className="flex items-center gap-1 text-lg text-gray-500 hover:text-black mb-2"
-                >
-                    ← Back to Orders
-                </button>
-
-                {/* 🔹 Header */}
-                <div className="flex justify-between items-start mb-6">
-                    <div>
-                        <h1 className="text-2xl font-bold">
+        <div className="min-h-screen bg-dark">
+            {/* Banner */}
+            <div className="bg-dark-elevated/30 border-b border-dark-border">
+                <div className="container-lux py-12">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.165, 0.84, 0.44, 1] }}
+                    >
+                        <span className="typo-label-gold mb-4 block">Order Details</span>
+                        <h1 className="typo-h1 text-white mb-4">
                             Order #{order._id.slice(-6).toUpperCase()}
                         </h1>
-                        <p className="text-gray-500 text-sm">
-                            {new Date(order.createdAt).toLocaleDateString("en-GB", {
-                                day: "numeric",
-                                month: "short",
-                                year: "numeric",
-                            })}
-                            {" • "}
-                            {formatDistanceToNow(new Date(order.createdAt), {
-                                addSuffix: true,
-                            })}
-                        </p>
-                    </div>
-                </div>
-
-                {/* GRID (Adjusted Width Ratio) */}
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-
-                    {/* 🔹 LEFT (Shorter Width) */}
-                    <div className="md:col-span-3 space-y-6">
-
-                        {/* 🛒 Items */}
-                        <div className="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
-                            <h2 className="font-semibold text-lg">Items</h2>
-                            <span className="text-sm text-gray-500 mb-4 block">
-                                {totalItems} item{totalItems > 1 ? "s" : ""}
+                        <div className="flex items-center gap-4">
+                            <p className="typo-body-sm text-text-secondary">
+                                Placed on{' '}
+                                {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                                    day: "numeric",
+                                    month: "short",
+                                    year: "numeric",
+                                })}
+                                {' • '}
+                                {formatDistanceToNow(new Date(order.createdAt), { addSuffix: true })}
+                            </p>
+                            <span className={`badge ${getStatusClass(order.status)}`}>
+                                {order.status || "Placed"}
                             </span>
+                        </div>
+                        <motion.div
+                            className="divider-gold mt-4"
+                            variants={goldLineAnimation}
+                            initial="initial"
+                            animate="animate"
+                        />
+                    </motion.div>
+                </div>
+            </div>
+
+            {/* Content */}
+            <div className="container-lux section-padding-sm">
+                <motion.button
+                    onClick={() => navigate("/orders")}
+                    className="flex items-center gap-1 text-sm text-text-muted hover:text-accent mb-6 transition-colors"
+                    whileHover={{ x: -2 }}
+                >
+                    ← Back to Orders
+                </motion.button>
+
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                    {/* LEFT: Items & Payment */}
+                    <div className="lg:col-span-3 space-y-6">
+                        {/* Items */}
+                        <motion.div
+                            className="bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                        >
+                            <h2 className="typo-h3 text-white mb-1">Items</h2>
+                            <p className="text-sm text-text-muted mb-4">
+                                {totalItems} item{totalItems > 1 ? 's' : ''}
+                            </p>
 
                             <div className="space-y-4">
                                 {order.items.map((item, i) => (
-                                    <div
+                                    <motion.div
                                         key={i}
-                                        className="pt-4 first:pt-0 grid grid-cols-[auto_1fr_auto] items-center gap-4"
+                                        className="flex items-center gap-4"
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.4, delay: 0.1 + i * 0.05 }}
                                     >
-                                        <img
-                                            src={item.productId?.image}
-                                            alt={item.productId?.title}
-                                            className="w-16 h-16 rounded-lg object-cover border"
-                                        />
-
-                                        <div>
-                                            <p className="font-medium">
-                                                {item.productId?.title}
-                                            </p>
-                                            <p className="text-sm text-gray-500">
-                                                Qty: {item.quantity}
-                                            </p>
+                                        <div className="w-16 h-16 rounded-lg bg-dark-elevated border border-dark-border overflow-hidden flex items-center justify-center flex-shrink-0">
+                                            {item.productId?.image ? (
+                                                <img src={item.productId.image} alt={item.productId.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                                            ) : (
+                                                <span className="text-3xl">⌚</span>
+                                            )}
                                         </div>
-
-                                        <p className="font-semibold text-right">
+                                        <div className="flex-1">
+                                            <p className="font-medium text-white">{item.productId?.title}</p>
+                                            <p className="text-sm text-text-muted">Quantity: {item.quantity}</p>
+                                        </div>
+                                        <p className="text-right typo-price">
                                             ₹ {item.price * item.quantity}
                                         </p>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
-                        </div>
+                        </motion.div>
 
-                        {/* 💳 Payment Summary */}
-                        <div className="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
-                            <h2 className="font-semibold text-lg mb-4">
-                                Payment Summary
-                            </h2>
+                        {/* Payment Summary */}
+                        <motion.div
+                            className="bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                        >
+                            <h2 className="typo-h3 text-white mb-4">Payment Summary</h2>
 
-                            <div className="flex justify-between text-sm text-gray-600">
-                                <span>Payment Method</span>
-                                <span>{order.paymentMethod || "COD"}</span>
+                            <div className="space-y-3">
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-text-muted">Payment Method</span>
+                                    <span className="text-white">{order.paymentMethod || "COD"}</span>
+                                </div>
+                                <div className="divider-gold-thin my-2" />
+                                <div className="flex justify-between items-center pt-3 border-t border-dark-border font-semibold text-lg">
+                                    <span className="text-white">Total</span>
+                                    <span className="typo-price">₹ {order.totalAmount}</span>
+                                </div>
                             </div>
-
-                            <div className="flex justify-between mt-4 pt-3 border-t font-semibold text-lg">
-                                <span>Total</span>
-                                <span>₹ {order.totalAmount}</span>
-                            </div>
-                        </div>
+                        </motion.div>
                     </div>
 
-                    {/* 🔹 RIGHT (Bigger & Dominant) */}
-                    <div className="md:col-span-2 space-y-6">
+                    {/* RIGHT: Address & Status */}
+                    <div className="lg:col-span-2 space-y-6">
+                        {/* Delivery Address */}
+                        <motion.div
+                            className="bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                        >
+                            <h2 className="typo-h3 text-white mb-3">Delivery Address</h2>
 
-                        {/* 📍 Address */}
-                        <div className="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
-                            <h2 className="font-semibold text-lg mb-3">
-                                Delivery Address
-                            </h2>
+                            <div className="flex items-start gap-3 mb-4">
+                                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                                    <span className="text-lg">📍</span>
+                                </div>
+                                <div>
+                                    <p className="font-medium text-white">{order.address?.fullName}</p>
+                                    <p className="text-sm text-text-secondary">
+                                        {order.address?.addressLine}, {order.address?.city}
+                                    </p>
+                                    <p className="text-sm text-text-secondary">
+                                        {order.address?.state} - {order.address?.pincode}
+                                    </p>
+                                    <p className="text-sm text-text-secondary mt-1">
+                                        📞 {order.address?.phone}
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
 
-                            <p className="font-medium">{order.address?.fullName}</p>
-                            <p className="text-sm text-gray-500">
-                                {order.address?.addressLine}, {order.address?.city}
-                            </p>
-                            <p className="text-sm text-gray-500">
-                                {order.address?.state} - {order.address?.pincode}
-                            </p>
-                            <p className="mt-2 text-sm">
-                                📞 {order.address?.phone}
-                            </p>
-                        </div>
+                        {/* Order Status */}
+                        <motion.div
+                            className="bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.4 }}
+                        >
+                            <h2 className="typo-h3 text-white mb-3">Order Status</h2>
 
-                        {/* 🚚 Order Status */}
-                        <div className="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
-                            <h2 className="font-semibold text-lg mb-3">
-                                Order Status
-                            </h2>
-
-                            <span className="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-full">
+                            <span className={`badge ${getStatusClass(order.status)}`}>
                                 {order.status || "Placed"}
                             </span>
 
-                            <p className="text-sm text-gray-500 mt-3">
+                            <p className="typo-body-sm text-text-secondary mt-3">
                                 Your order has been placed successfully.
                             </p>
-                        </div>
-
+                        </motion.div>
                     </div>
                 </div>
             </div>
@@ -171,4 +218,4 @@ const OrderDetails = () => {
     )
 }
 
-export default OrderDetails
+export default OrderDetails;

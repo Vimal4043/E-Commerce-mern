@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+﻿import { useEffect, useState, useMemo } from "react";
 import api from "../../api/axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiGrid, FiList, FiSliders, FiX, FiSearch, FiChevronDown } from "react-icons/fi";
@@ -276,7 +276,7 @@ export default function LuxuryShop() {
                                         </div>
                                         <FilterSection
                                             title="Price Range"
-                                            options={["Under $5,000", "$5,000 - $10,000", "$10,000 - $20,000", "Over $20,000"]}
+                                            options={["Under ₹5,000", "₹5,000 - ₹10,000", "₹10,000 - ₹20,000", "Over ₹20,000"]}
                                             selected={selectedBrands}
                                             onToggle={(value) => toggleFilter(selectedBrands, value, setSelectedBrands)}
                                         />
@@ -386,8 +386,12 @@ export default function LuxuryShop() {
                                             transition={{ duration: 0.4, delay: index * 0.05 }}
                                         >
                                             <div className="group bg-dark-card border border-dark-border rounded-2xl overflow-hidden card-hover">
-                                                <div className="relative aspect-square bg-gradient-to-br from-dark-elevated to-dark-card flex items-center justify-center">
-                                                    <span className="text-6xl group-hover:scale-110 transition-transform duration-500">⌚</span>
+                                                <div className="relative aspect-square bg-gradient-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
+                                                    {product.image ? (
+                                                        <img src={product.image} alt={product.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                                                    ) : (
+                                                        <span className="text-6xl group-hover:scale-110 transition-transform duration-500">⌚</span>
+                                                    )}
                                                     {product.isNew && (
                                                         <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-accent text-dark text-[10px] tracking-[0.15em] uppercase font-medium">
                                                             New
@@ -400,9 +404,9 @@ export default function LuxuryShop() {
                                                         {product.title}
                                                     </h3>
                                                     <div className="flex items-center justify-between">
-                                                        <span className="typo-price">${product.price}</span>
+                                                        <span className="typo-price">₹ {product.price}</span>
                                                         {product.oldPrice && (
-                                                            <span className="text-sm text-text-muted line-through">${product.oldPrice}</span>
+                                                            <span className="text-sm text-text-muted line-through">₹ {product.oldPrice}</span>
                                                         )}
                                                     </div>
                                                 </div>
@@ -423,8 +427,12 @@ export default function LuxuryShop() {
                                             transition={{ duration: 0.4, delay: index * 0.05 }}
                                         >
                                             <div className="flex gap-6 bg-dark-card border border-dark-border rounded-2xl overflow-hidden card-hover">
-                                                <div className="w-48 h-48 flex-shrink-0 bg-gradient-to-br from-dark-elevated to-dark-card flex items-center justify-center">
-                                                    <span className="text-5xl">⌚</span>
+                                                <div className="w-48 h-48 flex-shrink-0 bg-gradient-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
+                                                    {product.image ? (
+                                                        <img src={product.image} alt={product.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                                                    ) : (
+                                                        <span className="text-5xl">⌚</span>
+                                                    )}
                                                 </div>
                                                 <div className="flex-1 p-6 flex flex-col justify-between">
                                                     <div>
@@ -436,9 +444,9 @@ export default function LuxuryShop() {
                                                     </div>
                                                     <div className="flex items-center justify-between mt-4">
                                                         <div>
-                                                            <span className="typo-price">${product.price}</span>
+                                                            <span className="typo-price">₹ {product.price}</span>
                                                             {product.oldPrice && (
-                                                                <span className="text-sm text-text-muted line-through ml-2">${product.oldPrice}</span>
+                                                                <span className="text-sm text-text-muted line-through ml-2">₹ {product.oldPrice}</span>
                                                             )}
                                                         </div>
                                                         <button className="btn btn-primary btn-sm">

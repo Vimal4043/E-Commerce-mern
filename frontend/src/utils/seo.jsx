@@ -23,7 +23,7 @@ export const structuredData = {
         "addressLocality": "Geneva",
         "addressCountry": "CH"
     },
-    "priceRange": "$$$$"
+    "priceRange": "₹₹₹₹"
 };
 
 export function SEO({ title, description, image, pathname, type = "website" }) {

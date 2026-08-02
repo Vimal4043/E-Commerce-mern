@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { cardHover, imageZoom } from "../../utils/animations";
 
 export default function LuxuryCard({
@@ -27,13 +27,7 @@ export function ProductCard({ product, onAddToCart, onToggleWishlist, isInWishli
         <LuxuryCard className="overflow-hidden group">
             {/* Image Container */}
             <div className="relative aspect-square overflow-hidden bg-dark-elevated mb-4">
-                <motion.img
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-full object-cover"
-                    variants={imageZoom}
-                    whileHover="hover"
-                />
+                <img src={product.image} alt={product.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
 
                 {/* Wishlist Button */}
                 <motion.button
@@ -76,7 +70,7 @@ export function ProductCard({ product, onAddToCart, onToggleWishlist, isInWishli
                 </p>
                 <div className="flex items-center justify-between">
                     <span className="text-xl font-bold text-white">
-                        ${product.price}
+                        ₹ {product.price}
                     </span>
                 </div>
             </div>

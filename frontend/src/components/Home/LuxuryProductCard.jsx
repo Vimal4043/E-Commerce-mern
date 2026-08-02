@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { buttonHover, imageZoom, wishlistAnimation, goldLineAnimation, cardHover } from "../../utils/animations";
@@ -76,9 +76,13 @@ const LuxuryProductCard = ({ product }) => {
                         variants={imageZoom}
                         whileHover="hover"
                     >
-                        <div className="w-48 h-48 md:w-56 md:h-56 rounded-full border-2 border-accent/20 bg-accent/5 flex items-center justify-center">
-                            <span className="text-7xl md:text-8xl">⌚</span>
-                        </div>
+                        {product.image ? (
+                            <img src={product.image} alt={product.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                        ) : (
+                            <div className="w-48 h-48 md:w-56 md:h-56 rounded-full border-2 border-accent/20 bg-accent/5 flex items-center justify-center">
+                                <span className="text-7xl md:text-8xl">⌚</span>
+                            </div>
+                        )}
                     </motion.div>
                 </Link>
 
@@ -207,11 +211,11 @@ const LuxuryProductCard = ({ product }) => {
                 <div className="flex items-center gap-3 mb-6">
                     {product.oldPrice && (
                         <span className="text-sm text-text-muted line-through">
-                            ${product.oldPrice}
+                            ₹ {product.oldPrice}
                         </span>
                     )}
                     <span className="font-display text-2xl font-light text-accent">
-                        ${product.price}
+                        ₹ {product.price}
                     </span>
                 </div>
 
@@ -223,7 +227,7 @@ const LuxuryProductCard = ({ product }) => {
                     onClick={handleAddToCart}
                     disabled={addingToCart || !userId}
                 >
-                    {cartAdded ? "Added to Cart ✓" : addingToCart ? "Adding..." : "Add to Cart"}
+                    {cartAdded ? "Added to Cart \u2713" : addingToCart ? "Adding..." : "Add to Cart"}
                 </LuxuryButton>
             </div>
 

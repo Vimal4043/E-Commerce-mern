@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import api from "../../api/axios";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -163,9 +163,13 @@ export default function LuxuryWishlist() {
                                             variants={imageZoom}
                                             whileHover="hover"
                                         >
-                                            <div className="w-40 h-40 rounded-full border-2 border-accent/20 bg-accent/5 flex items-center justify-center">
-                                                <span className="text-6xl">⌚</span>
-                                            </div>
+                                            {item.productId.image ? (
+                                                <img src={item.productId.image} alt={item.productId.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                                            ) : (
+                                                <div className="w-40 h-40 rounded-full border-2 border-accent/20 bg-accent/5 flex items-center justify-center">
+                                                    <span className="text-6xl">⌚</span>
+                                                </div>
+                                            )}
                                         </motion.div>
                                     </Link>
 
@@ -199,7 +203,7 @@ export default function LuxuryWishlist() {
                                     </Link>
                                     <div className="flex items-center gap-3 mb-6">
                                         <span className="font-display text-2xl font-light text-accent">
-                                            ${item.productId.price}
+                                            ₹ {item.productId.price}
                                         </span>
                                     </div>
 

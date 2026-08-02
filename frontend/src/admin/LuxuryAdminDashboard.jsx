@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FiPackage, FiShoppingBag, FiUsers, FiDollarSign, FiTrendingUp, FiActivity, FiPlus, FiEye, FiEdit, FiTrash2, FiSearch, FiBell, FiSettings, FiLogOut, FiMenu, FiX, FiChevronRight, FiArrowRight } from "react-icons/fi";
+import { FiPackage, FiShoppingBag, FiUsers, FiTrendingUp, FiActivity, FiPlus, FiEye, FiEdit, FiTrash2, FiSearch, FiBell, FiSettings, FiLogOut, FiMenu, FiX, FiChevronRight, FiArrowRight } from "react-icons/fi";
+import { FaRupeeSign } from "react-icons/fa";
 
 export default function LuxuryAdminDashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -204,7 +205,7 @@ export default function LuxuryAdminDashboard() {
                 <div className="p-6">
                     {/* Analytics Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
-                        <StatCard label="Total Revenue" value={`$${stats.revenue.toFixed(0)}`} icon={FiDollarSign} trend="+12.5%" delay={0.1} />
+                        <StatCard label="Total Revenue" value={`₹${stats.revenue.toFixed(0)}`} icon={FaRupeeSign} trend="+12.5%" delay={0.1} />
                         <StatCard label="Total Orders" value={stats.orders} icon={FiShoppingBag} trend="+8.2%" delay={0.2} />
                         <StatCard label="Total Customers" value={stats.users} icon={FiUsers} trend="+15.3%" delay={0.3} />
                         <StatCard label="Products" value={stats.products} icon={FiPackage} trend="+3.1%" delay={0.4} />
@@ -260,7 +261,7 @@ export default function LuxuryAdminDashboard() {
                                         <div className="w-2 h-2 rounded-full bg-accent mt-2" />
                                         <div className="flex-1">
                                             <p className="text-sm text-white">{activity.action}</p>
-                                            <p className="text-xs text-text-muted">{activity.user} • {activity.time}</p>
+                                            <p className="text-xs text-text-muted">{activity.user} {"\u2022"} {activity.time}</p>
                                         </div>
                                     </motion.div>
                                 ))}
@@ -343,8 +344,12 @@ export default function LuxuryAdminDashboard() {
                                             >
                                                 <td className="py-4">
                                                     <div className="flex items-center gap-3">
-                                                        <div className="w-10 h-10 rounded-lg bg-dark-elevated flex items-center justify-center">
-                                                            <span className="text-xl">⌚</span>
+                                                        <div className="w-10 h-10 rounded-lg bg-dark-elevated overflow-hidden flex items-center justify-center shrink-0">
+                                                            {product.image ? (
+                                                                <img src={product.image} alt={product.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                                                            ) : (
+                                                                <span className="text-xl">⌚</span>
+                                                            )}
                                                         </div>
                                                         <span className="text-sm text-white">{product.title}</span>
                                                     </div>
@@ -353,7 +358,7 @@ export default function LuxuryAdminDashboard() {
                                                     <span className="text-xs text-accent uppercase tracking-wider">{product.category}</span>
                                                 </td>
                                                 <td className="py-4">
-                                                    <span className="text-sm text-white">${product.price}</span>
+                                                    <span className="text-sm text-white">₹ {product.price}</span>
                                                 </td>
                                                 <td className="py-4">
                                                     <span className="px-2 py-1 rounded-full text-xs bg-green-500/10 text-green-400 border border-green-500/20">
@@ -417,7 +422,7 @@ export default function LuxuryAdminDashboard() {
                                                 <span className="text-sm text-text-muted">{new Date(order.createdAt).toLocaleDateString()}</span>
                                             </td>
                                             <td className="py-4">
-                                                <span className="text-sm text-white font-medium">${order.totalAmount?.toFixed(2)}</span>
+                                                <span className="text-sm text-white font-medium">₹ {order.totalAmount?.toFixed(2)}</span>
                                             </td>
                                             <td className="py-4">
                                                 <span className={`px-2 py-1 rounded-full text-xs ${

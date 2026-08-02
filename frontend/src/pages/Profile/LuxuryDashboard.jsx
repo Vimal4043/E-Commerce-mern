@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiUser, FiShoppingBag, FiHeart, FiMapPin, FiSettings, FiChevronRight, FiPackage, FiTruck, FiCheck, FiX, FiEye, FiEdit, FiTrash2, FiHome, FiBriefcase } from "react-icons/fi";
@@ -31,31 +31,37 @@ export default function LuxuryDashboard() {
 
     const loadDashboardData = async () => {
         try {
-            const [userRes, addressesRes, ordersRes] = await Promise.all([
+            const [userRes, addressesRes, ordersRes, wishlistRes] = await Promise.all([
                 api.get(`/user/${userId}`),
                 api.get(`/address`),
-                api.get(`/orders/user/${userId}`)
+                api.get(`/orders/user/${userId}`),
+                api.get(`/wishlist`).catch(() => ({ data: { items: [] } }))
             ]);
 
             setUser(userRes.data);
             setAddresses(addressesRes.data);
             setOrders(ordersRes.data || []);
 
+            // Real wishlist items (filter valid product refs)
+            const wishlistItems = (wishlistRes.data?.items || [])
+                .filter((i) => i?.productId?._id)
+                .map((i) => ({
+                    _id: i.productId._id,
+                    title: i.productId.title,
+                    price: i.productId.price,
+                    category: i.productId.category,
+                    image: i.productId.image
+                }));
+            setWishlist(wishlistItems);
+
             // Calculate stats
             const totalSpent = ordersRes.data?.reduce((sum, order) => sum + (order.totalAmount || 0), 0) || 0;
             setStats({
                 totalOrders: ordersRes.data?.length || 0,
                 totalSpent,
-                wishlistCount: 3, // Mock data
+                wishlistCount: wishlistItems.length,
                 addressesCount: addressesRes.data.length
             });
-
-            // Mock wishlist
-            setWishlist([
-                { _id: 1, title: "Chronograph Elite", price: 12500, image: "⌚" },
-                { _id: 2, title: "Perpetual Calendar", price: 18900, image: "⌚" },
-                { _id: 3, title: "Tourbillon Classic", price: 25000, image: "⌚" }
-            ]);
         } catch (error) {
             console.error("Failed to load dashboard:", error);
         } finally {
@@ -123,7 +129,7 @@ export default function LuxuryDashboard() {
                         <p className="text-xs text-accent uppercase tracking-wider mb-1">Order #{order._id.slice(-6)}</p>
                         <p className="text-sm text-text-muted">{new Date(order.createdAt).toLocaleDateString()}</p>
                     </div>
-                    <p className="typo-price">${order.totalAmount?.toFixed(2)}</p>
+                    <p className="typo-price">₹ {order.totalAmount?.toFixed(2)}</p>
                 </div>
 
                 {/* Timeline */}
@@ -239,7 +245,7 @@ export default function LuxuryDashboard() {
                                     {/* Stats Grid */}
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                                         <StatCard label="Total Orders" value={stats.totalOrders} icon={FiShoppingBag} delay={0.1} />
-                                        <StatCard label="Total Spent" value={`$${stats.totalSpent.toFixed(0)}`} icon={FiPackage} delay={0.2} />
+                                        <StatCard label="Total Spent" value={`\u20B9${stats.totalSpent.toFixed(0)}`} icon={FiPackage} delay={0.2} />
                                         <StatCard label="Wishlist" value={stats.wishlistCount} icon={FiHeart} delay={0.3} />
                                         <StatCard label="Addresses" value={stats.addressesCount} icon={FiMapPin} delay={0.4} />
                                     </div>
@@ -333,14 +339,18 @@ export default function LuxuryDashboard() {
                                                 transition={{ delay: index * 0.1 }}
                                                 className="bg-dark-card border border-dark-border rounded-2xl overflow-hidden card-hover group"
                                             >
-                                                <div className="aspect-square bg-linear-to-br from-dark-elevated to-dark-card flex items-center justify-center">
-                                                    <span className="text-6xl group-hover:scale-110 transition-transform duration-500">{item.image}</span>
+                                                <div className="aspect-square bg-linear-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
+                                                    {item.image ? (
+                                                        <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                                                    ) : (
+                                                        <span className="text-6xl group-hover:scale-110 transition-transform duration-500">⌚</span>
+                                                    )}
                                                 </div>
                                                 <div className="p-6">
                                                     <p className="text-xs text-accent uppercase tracking-wider mb-2">{item.category || "Luxury"}</p>
                                                     <h3 className="typo-h4 text-white mb-3">{item.title}</h3>
                                                     <div className="flex items-center justify-between">
-                                                        <span className="typo-price">${item.price}</span>
+                                                        <span className="typo-price">₹ {item.price}</span>
                                                         <button className="btn btn-primary btn-sm">
                                                             Add to Cart
                                                         </button>

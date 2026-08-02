@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import api from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -527,10 +527,10 @@ export default function LuxuryCheckout() {
                                                 {validItems.map((item) => (
                                                     <div key={item.productId._id} className="flex justify-between text-sm">
                                                         <span className="text-text-secondary">
-                                                            {item.productId.title} × {item.quantity}
+                                                            {item.productId.title} {"\u00D7"} {item.quantity}
                                                         </span>
                                                         <span className="text-white">
-                                                            ${(item.productId.price * item.quantity).toFixed(2)}
+                                                            ₹ {(item.productId.price * item.quantity).toFixed(2)}
                                                         </span>
                                                     </div>
                                                 ))}
@@ -552,7 +552,7 @@ export default function LuxuryCheckout() {
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                         >
-                                            {isProcessing ? "Processing..." : `Pay $${total.toFixed(2)}`}
+                                            {isProcessing ? "Processing..." : `Pay \u20B9${total.toFixed(2)}`}
                                         </motion.button>
                                     </div>
                                 </motion.div>
@@ -600,10 +600,10 @@ export default function LuxuryCheckout() {
                                     {validItems.map((item) => (
                                         <div key={item.productId._id} className="flex justify-between text-sm">
                                             <span className="text-text-secondary">
-                                                {item.productId.title} × {item.quantity}
+                                                {item.productId.title} {"\u00D7"} {item.quantity}
                                             </span>
                                             <span className="text-white">
-                                                ${(item.productId.price * item.quantity).toFixed(2)}
+                                                ₹ {(item.productId.price * item.quantity).toFixed(2)}
                                             </span>
                                         </div>
                                     ))}
@@ -615,7 +615,7 @@ export default function LuxuryCheckout() {
                                 <div className="space-y-3 mb-6">
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">Subtotal</span>
-                                        <span className="text-white">${subtotal.toFixed(2)}</span>
+                                        <span className="text-white">₹ {subtotal.toFixed(2)}</span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">Shipping</span>
@@ -623,18 +623,18 @@ export default function LuxuryCheckout() {
                                             {shipping === 0 ? (
                                                 <span className="text-green-400">FREE</span>
                                             ) : (
-                                                `$${shipping.toFixed(2)}`
+                                                `\u20B9${shipping.toFixed(2)}`
                                             )}
                                         </span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">Tax</span>
-                                        <span className="text-white">${tax.toFixed(2)}</span>
+                                        <span className="text-white">₹ {tax.toFixed(2)}</span>
                                     </div>
                                     <div className="divider-gold-thin my-4" />
                                     <div className="flex justify-between items-center">
                                         <span className="typo-h4 text-white">Total</span>
-                                        <span className="typo-price-lg">${total.toFixed(2)}</span>
+                                        <span className="typo-price-lg">₹ {total.toFixed(2)}</span>
                                     </div>
                                 </div>
 

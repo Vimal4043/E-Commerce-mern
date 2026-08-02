@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { FiMail, FiUser, FiMessageCircle, FiSend } from 'react-icons/fi'
 import api from '../../api/axios'
+import { goldLineAnimation } from '../../utils/animations'
 
 const initialForm = {
     name: '',
@@ -58,84 +61,179 @@ const Contact = () => {
     }
 
     return (
-        <div className="bg-linear-to-b from-slate-50 via-white to-slate-100">
-            <section className="mx-auto max-w-3xl px-4 py-12 md:px-8 md:py-16">
-                <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg md:p-8">
-                    <div className="mb-6">
-                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Send a message</p>
-                        <h2 className="mt-2 text-2xl font-bold text-slate-900">We're here to help</h2>
-                        <p className="mt-2 text-sm text-slate-600">Share a short message and we’ll get back to you.</p>
-                    </div>
-
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
-                            <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-700">Full name</label>
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                value={form.name}
-                                onChange={handleChange}
-                                placeholder="Enter your name"
-                                className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-slate-900 focus:bg-white"
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">Email address</label>
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                value={form.email}
-                                onChange={handleChange}
-                                placeholder="Enter your email"
-                                className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-slate-900 focus:bg-white"
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="message" className="mb-2 block text-sm font-medium text-slate-700">Message</label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                rows="6"
-                                value={form.message}
-                                onChange={handleChange}
-                                placeholder="Tell us how we can help"
-                                className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-slate-900 focus:bg-white"
-                                required
-                            />
-                        </div>
-
-                        {success ? (
-                            <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-                                {success}
-                            </div>
-                        ) : null}
-
-                        {error ? (
-                            <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
-                                {error}
-                            </div>
-                        ) : null}
-
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
-                        >
-                            {loading ? 'Sending...' : 'Send Message'}
-                        </button>
-
-                        <p className="text-center text-xs text-slate-500">
-                            Or go back to <Link to="/" className="font-medium text-slate-900 underline">home</Link> and continue browsing.
-                        </p>
-                    </form>
+        <div className="min-h-screen bg-dark">
+            {/* Banner */}
+            <div className="bg-dark-elevated/30 border-b border-dark-border">
+                <div className="container-lux py-12">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.165, 0.84, 0.44, 1] }}
+                    >
+                        <span className="typo-label-gold mb-4 block">Contact Us</span>
+                        <h1 className="typo-h1 text-white mb-4">We're here to help</h1>
+                        <motion.div
+                            className="divider-gold"
+                            variants={goldLineAnimation}
+                            initial="initial"
+                            animate="animate"
+                        />
+                    </motion.div>
                 </div>
-            </section>
+            </div>
+
+            {/* Form */}
+            <div className="container-lux section-padding-sm">
+                <motion.div
+                    className="max-w-3xl mx-auto"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2, ease: [0.165, 0.84, 0.44, 1] }}
+                >
+                    <motion.div
+                        className="bg-dark-card border border-dark-border rounded-3xl p-8 shadow-2xl"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                    >
+                        <div className="mb-8">
+                            <p className="typo-label text-text-muted mb-2">Send a message</p>
+                            <h2 className="typo-h2 text-white mb-2">
+                                We're here to help
+                            </h2>
+                            <p className="typo-body-sm text-text-secondary">
+                                Share a short message and we'll get back to you.
+                            </p>
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="space-y-6 stagger-children">
+                            {/* Name */}
+                            <motion.div
+                                className="flex flex-col"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.1 }}
+                            >
+                                <label className="block text-xs text-text-muted uppercase tracking-wider mb-2">
+                                    Full name
+                                </label>
+                                <div className="relative">
+                                    <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" size={18} />
+                                    <input
+                                        id="name"
+                                        name="name"
+                                        type="text"
+                                        value={form.name}
+                                        onChange={handleChange}
+                                        placeholder="Enter your name"
+                                        className="input w-full py-3.5 pl-12 pr-4 rounded-xl"
+                                        required
+                                    />
+                                </div>
+                            </motion.div>
+
+                            {/* Email */}
+                            <motion.div
+                                className="flex flex-col"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                            >
+                                <label className="block text-xs text-text-muted uppercase tracking-wider mb-2">
+                                    Email address
+                                </label>
+                                <div className="relative">
+                                    <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" size={18} />
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        value={form.email}
+                                        onChange={handleChange}
+                                        placeholder="Enter your email"
+                                        className="input w-full py-3.5 pl-12 pr-4 rounded-xl"
+                                        required
+                                    />
+                                </div>
+                            </motion.div>
+
+                            {/* Message */}
+                            <motion.div
+                                className="flex flex-col"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
+                            >
+                                <label className="block text-xs text-text-muted uppercase tracking-wider mb-2">
+                                    Message
+                                </label>
+                                <div className="relative">
+                                    <FiMessageCircle className="absolute left-4 top-4 text-text-muted" size={18} />
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        rows="6"
+                                        value={form.message}
+                                        onChange={handleChange}
+                                        placeholder="Tell us how we can help"
+                                        className="input w-full py-3.5 pl-12 pr-4 rounded-xl min-h-[140px] resize-y"
+                                        required
+                                    />
+                                </div>
+                            </motion.div>
+
+                            {/* Success Message */}
+                            {success ? (
+                                <motion.div
+                                    className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-sm text-emerald-300"
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                >
+                                    {success}
+                                </motion.div>
+                            ) : null}
+
+                            {/* Error Message */}
+                            {error ? (
+                                <motion.div
+                                    className="p-4 rounded-xl border border-rose-500/20 bg-rose-500/10 text-sm text-rose-300"
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                >
+                                    {error}
+                                </motion.div>
+                            ) : null}
+
+                            {/* Submit Button */}
+                            <motion.button
+                                type="submit"
+                                disabled={loading}
+                                className="btn btn-primary w-full group"
+                                whileHover={!loading ? "hover" : undefined}
+                                whileTap={!loading ? "tap" : undefined}
+                            >
+                                {loading ? 'Sending...' : (
+                                    <>
+                                        Send Message
+                                        <FiSend size={16} className="group-hover:translate-x-1 transition-transform" />
+                                    </>
+                                )}
+                            </motion.button>
+
+                            <p className="text-center text-xs text-text-muted">
+                                Or go back to{' '}
+                                <Link
+                                    to="/"
+                                    className="font-medium text-accent hover:text-accent-alt transition-colors"
+                                >
+                                    home
+                                </Link>{' '}
+                                and continue browsing.
+                            </p>
+                        </form>
+                    </motion.div>
+                </motion.div>
+            </div>
         </div>
     )
 }

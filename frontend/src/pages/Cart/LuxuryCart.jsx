@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import api from "../../api/axios";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -127,7 +127,11 @@ export default function LuxuryCart() {
                                     whileHover="hover"
                                     variants={imageZoom}
                                 >
-                                    <span className="text-5xl">⌚</span>
+                                    {item.productId.image ? (
+                                        <img src={item.productId.image} alt={item.productId.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                                    ) : (
+                                        <span className="text-5xl">⌚</span>
+                                    )}
                                 </motion.div>
                             </div>
                         </div>
@@ -143,7 +147,7 @@ export default function LuxuryCart() {
                                                         {item.productId.title}
                                                     </h3>
                                                 </Link>
-                                                <p className="typo-price">${item.productId.price}</p>
+                                                <p className="typo-price">₹ {item.productId.price}</p>
                                             </div>
                                             <div className="flex items-center gap-4 mt-4 md:mt-0">
                                                 <motion.button
@@ -180,10 +184,10 @@ export default function LuxuryCart() {
                                             </motion.button>
                                             <div className="text-right">
                                                 <p className="text-sm text-text-muted mb-1">
-                                                    ${item.productId.price} × {item.quantity}
+                                                    {"\u20B9"} {item.productId.price} {"\u00D7"} {item.quantity}
                                                 </p>
                                                 <p className="typo-price-lg">
-                                                    ${(item.productId.price * item.quantity).toFixed(2)}
+                                                    ₹ {(item.productId.price * item.quantity).toFixed(2)}
                                                 </p>
                                             </div>
                                         </div>
@@ -251,12 +255,12 @@ export default function LuxuryCart() {
                             <div className="space-y-3 mb-6">
                                 <div className="flex justify-between text-sm">
                                     <span className="text-text-muted">Subtotal</span>
-                                    <span className="text-white">${subtotal.toFixed(2)}</span>
+                                    <span className="text-white">₹ {subtotal.toFixed(2)}</span>
                                 </div>
                                 {discount > 0 && (
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">Discount (10%)</span>
-                                        <span className="text-green-400">-${(discount * subtotal).toFixed(2)}</span>
+                                        <span className="text-green-400">-₹${(discount * subtotal).toFixed(2)}</span>
                                     </div>
                                 )}
                                 <div className="flex justify-between text-sm">
@@ -265,13 +269,13 @@ export default function LuxuryCart() {
                                         {shippingCost === 0 ? (
                                             <span className="text-green-400">FREE</span>
                                         ) : (
-                                            `$${shippingCost.toFixed(2)}`
+                                            `\u20B9${shippingCost.toFixed(2)}`
                                         )}
                                     </span>
                                 </div>
                                 <div className="flex justify-between text-sm">
                                     <span className="text-text-muted">Tax (8%)</span>
-                                    <span className="text-white">${tax.toFixed(2)}</span>
+                                    <span className="text-white">₹ {tax.toFixed(2)}</span>
                                 </div>
                                 <div className="divider-gold-thin my-4" />
                                 <div className="flex justify-between items-center">
@@ -283,7 +287,7 @@ export default function LuxuryCart() {
                                         animate={{ scale: 1, color: "#FFFFFF" }}
                                         transition={{ duration: 0.3 }}
                                     >
-                                        ${total.toFixed(2)}
+                                        ₹ {total.toFixed(2)}
                                     </motion.span>
                                 </div>
                             </div>
@@ -292,7 +296,7 @@ export default function LuxuryCart() {
                             {shippingCost > 0 && (
                                 <div className="mb-6">
                                     <div className="flex justify-between text-xs mb-2">
-                                        <span className="text-text-muted">Add ${(5000 - subtotal).toFixed(2)} more for FREE shipping</span>
+                                        <span className="text-text-muted">Add ₹ ${(5000 - subtotal).toFixed(2)} more for FREE shipping</span>
                                     </div>
                                     <div className="h-2 bg-dark-elevated rounded-full overflow-hidden">
                                         <motion.div
@@ -319,15 +323,15 @@ export default function LuxuryCart() {
                             {/* Trust Badges */}
                             <div className="grid grid-cols-3 gap-2 pt-6 border-t border-dark-border">
                                 <div className="text-center">
-                                    <div className="text-lg mb-1">🔒</div>
+                                    <div className="text-lg mb-1">{"\uD83D\uDD12"}</div>
                                     <p className="text-[10px] text-text-muted">Secure</p>
                                 </div>
                                 <div className="text-center">
-                                    <div className="text-lg mb-1">🛡️</div>
+                                    <div className="text-lg mb-1">{"\uD83D\uDEE1\uFE0F"}</div>
                                     <p className="text-[10px] text-text-muted">Insured</p>
                                 </div>
                                 <div className="text-center">
-                                    <div className="text-lg mb-1">↩️</div>
+                                    <div className="text-lg mb-1">{"\u21A9\uFE0F"}</div>
                                     <p className="text-[10px] text-text-muted">Returns</p>
                                 </div>
                             </div>
@@ -338,7 +342,6 @@ export default function LuxuryCart() {
         </div>
     );
 }
-
 function LuxuryEmptyCart() {
     return (
         <div className="min-h-screen bg-dark flex items-center justify-center">
@@ -353,7 +356,7 @@ function LuxuryEmptyCart() {
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 >
-                    <span className="text-6xl">🛒</span>
+                    <span className="text-6xl">{"\uD83D\uDED2"}</span>
                 </motion.div>
                 <motion.h2
                     className="typo-h2 text-white mb-4"
