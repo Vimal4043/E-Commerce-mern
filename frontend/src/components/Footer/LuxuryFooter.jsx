@@ -42,7 +42,7 @@ export default function LuxuryFooter() {
                         >
                             {/* Logo */}
                             <Link to="/" className="inline-block mb-6">
-                                <h2 className="typo-h3 text-white mb-2">HOROLOGIUM</h2>
+                                <h2 className="typo-h4 text-white mb-2">HOROLOGIUM</h2>
                                 <div className="divider-gold" />
                             </Link>
 
@@ -111,16 +111,16 @@ export default function LuxuryFooter() {
                                 <div className="flex items-center gap-3 text-sm text-text-muted">
                                     <FiMail className="text-accent" size={16} />
                                     <a
-                                        href="mailto:support@shopverse.com"
+                                        href="mailto:vimalkumar40437@gmail.com"
                                         className="hover:text-accent transition-colors"
                                     >
-                                        support@shopverse.com
+                                        vimalkumar40437@gmail.com
                                     </a>
                                 </div>
-                                <div className="flex items-center gap-3 text-sm text-text-muted">
+                                {/* <div className="flex items-center gap-3 text-sm text-text-muted">
                                     <FiPhone className="text-accent" size={16} />
                                     <span>+91 12345 67890</span>
-                                </div>
+                                </div> */}
                             </div>
 
                             <a

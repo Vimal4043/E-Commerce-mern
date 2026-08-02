@@ -1,60 +1,8 @@
-const CartSkeleton = () => {
-    return (
-        <div className="bg-gray-50 min-h-screen py-6 animate-pulse">
-            <div className="max-w-4xl mx-auto px-4">
-
-                {/* Title */}
-                <div className="h-7 bg-gray-300 rounded w-32 mb-6"></div>
-
-                {/* Cart Items */}
-                {[...Array(2)].map((_, i) => (
-                    <div
-                        key={i}
-                        className="bg-white p-4 rounded-xl shadow-sm mb-4"
-                    >
-                        {/* TOP ROW */}
-                        <div className="flex items-center justify-between gap-3">
-
-                            {/* LEFT: Image + Info */}
-                            <div className="flex items-center gap-3">
-                                <div className="w-16 h-16 bg-gray-300 rounded-lg"></div>
-
-                                <div className="space-y-2">
-                                    <div className="h-4 bg-gray-300 rounded w-24"></div>
-                                    <div className="h-3 bg-gray-300 rounded w-16"></div>
-                                </div>
-                            </div>
-
-                            {/* RIGHT: Qty */}
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-gray-300 rounded"></div>
-                                <div className="w-5 h-4 bg-gray-300 rounded"></div>
-                                <div className="w-8 h-8 bg-gray-300 rounded"></div>
-                            </div>
-                        </div>
-
-                        {/* BOTTOM ROW */}
-                        <div className="flex justify-between items-center mt-3">
-                            <div className="h-4 bg-gray-300 rounded w-20"></div>
-                            <div className="h-3 bg-gray-300 rounded w-12"></div>
-                        </div>
-                    </div>
-                ))}
-
-                {/* Add More Button */}
-                <div className="h-10 bg-gray-300 rounded w-full mb-6"></div>
-
-                {/* Total */}
-                <div className="bg-white p-4 rounded-xl shadow-sm flex justify-between mb-4">
-                    <div className="h-4 bg-gray-300 rounded w-28"></div>
-                    <div className="h-4 bg-gray-300 rounded w-20"></div>
-                </div>
-
-                {/* Checkout */}
-                <div className="h-12 bg-gray-300 rounded w-full"></div>
-            </div>
-        </div>
-    );
-};
+const CartSkeleton = () => (
+  <div className="min-h-screen bg-dark animate-pulse">
+    <div className="bg-dark-elevated/30 border-b border-dark-border"><div className="container-lux py-12"><div className="h-3 w-24 bg-dark-elevated rounded mb-4" /><div className="h-10 w-48 bg-dark-elevated rounded mb-5" /><div className="h-px w-24 bg-accent/30" /></div></div>
+    <div className="container-lux section-padding-sm"><div className="grid lg:grid-cols-3 gap-8"><div className="lg:col-span-2 space-y-6">{[0, 1].map((item) => <div key={item} className="bg-dark-card border border-dark-border rounded-2xl p-6"><div className="grid md:grid-cols-12 gap-6"><div className="md:col-span-3 aspect-square bg-dark-elevated rounded-xl" /><div className="md:col-span-5 space-y-4"><div className="h-3 w-20 bg-dark-elevated rounded" /><div className="h-6 w-3/4 bg-dark-elevated rounded" /><div className="h-5 w-24 bg-dark-elevated rounded" /></div><div className="md:col-span-4 flex flex-col items-end gap-16"><div className="w-8 h-8 rounded-full bg-dark-elevated" /><div className="h-6 w-28 bg-dark-elevated rounded" /></div></div></div>)}<div className="h-12 w-48 bg-dark-elevated rounded-full" /></div><div className="bg-dark-card border border-dark-border rounded-2xl p-8 space-y-6"><div className="h-7 w-40 bg-dark-elevated rounded" /><div className="h-px bg-dark-elevated" />{[0, 1, 2].map((item) => <div key={item} className="flex justify-between"><div className="h-4 w-20 bg-dark-elevated rounded" /><div className="h-4 w-16 bg-dark-elevated rounded" /></div>)}<div className="h-14 bg-accent/20 rounded-full" /></div></div></div>
+  </div>
+);
 
 export default CartSkeleton;

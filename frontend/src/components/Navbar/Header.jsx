@@ -154,7 +154,7 @@ export default function Header() {
                             animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : -10 }}
                             transition={{ duration: 0.5, delay: 0.3 }}
                         >
-                            {["Collections", "New Arrivals", "Craftsmanship", "Contact"].map((item, index) => (
+                            {["Collections", "Contact"].map((item, index) => (
                                 <motion.div
                                     key={item}
                                     {...navLinkHover}
@@ -180,7 +180,7 @@ export default function Header() {
                     >
                         {/* Search */}
                         <div className="relative" ref={searchRef}>
-                            <motion.button
+                            {/* <motion.button
                                 {...iconHover}
                                 whileHover="hover"
                                 onClick={() => setSearchOpen(!searchOpen)}
@@ -188,7 +188,7 @@ export default function Header() {
                                 aria-label="Search"
                             >
                                 <FiSearch size={18} />
-                            </motion.button>
+                            </motion.button> */}
 
                             <AnimatePresence>
                                 {searchOpen && (

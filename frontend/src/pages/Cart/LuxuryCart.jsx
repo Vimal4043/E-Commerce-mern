@@ -1,9 +1,12 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import api from "../../api/axios";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSearch, FiSliders, FiPlus, FiMinus, FiX, FiChevronDown, FiHeart } from "react-icons/fi";
 import { fadeInUp, cartAddAnimation, buttonHover, imageZoom, goldLineAnimation } from "../../utils/animations";
+import NoCart from "./NoCart";
+import EmptyCart from "./EmptyCart";
+import CartSkeleton from "../../loadingSkeleton/CartSkeleton";
 
 export default function LuxuryCart() {
     const userId = localStorage.getItem("userId");
@@ -68,23 +71,17 @@ export default function LuxuryCart() {
     const total = subtotal - discount * subtotal + shippingCost + tax;
 
     if (!userId) {
-        navigate("/login");
-        return null;
+        return (
+            <NoCart />
+        )
     }
 
     if (loading) {
-        return (
-            <div className="min-h-screen bg-dark flex items-center justify-center">
-                <div className="text-center">
-                    <div className="w-16 h-16 border-2 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                    <p className="typo-body-sm text-text-muted">Loading your cart...</p>
-                </div>
-            </div>
-        );
+        return <CartSkeleton />;
     }
 
     if (validItems.length === 0) {
-        return <LuxuryEmptyCart />;
+        return <EmptyCart />;
     }
 
     return (

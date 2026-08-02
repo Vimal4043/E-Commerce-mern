@@ -62,11 +62,11 @@ export default function Luxury404() {
                             Back to Home
                         </LuxuryButton>
                     </Link>
-                    <Link to="/shop">
+                    {/* <Link to="/">
                         <LuxuryButton variant="outline">
                             Browse Collection
                         </LuxuryButton>
-                    </Link>
+                    </Link> */}
                 </motion.div>
 
                 {/* Decorative Element */}

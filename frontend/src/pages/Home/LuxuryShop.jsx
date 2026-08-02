@@ -126,7 +126,7 @@ export default function LuxuryShop() {
             {/* Collection Banner */}
             <div className="relative bg-dark-elevated/30 border-b border-dark-border">
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-accent/5 blur-[120px]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-100 rounded-full bg-accent/5 blur-[120px]" />
                 </div>
                 <div className="container-lux relative z-10 py-16">
                     <motion.div
@@ -149,7 +149,7 @@ export default function LuxuryShop() {
             <div className="container-lux section-padding-sm">
                 <div className="flex gap-8">
                     {/* Sidebar Filters - Desktop */}
-                    <aside className="hidden lg:block w-64 flex-shrink-0">
+                    <aside className="hidden lg:block w-64 shrink-0">
                         <div className="sticky top-24">
                             <div className="flex items-center justify-between mb-8">
                                 <h2 className="typo-h3 text-white">Filters</h2>
@@ -195,36 +195,36 @@ export default function LuxuryShop() {
                             </div>
 
                             {/* Brand Filter */}
-                            <FilterSection
+                            {/* <FilterSection
                                 title="Brand"
                                 options={brands}
                                 selected={selectedBrands}
                                 onToggle={(value) => toggleFilter(selectedBrands, value, setSelectedBrands)}
-                            />
+                            /> */}
 
                             {/* Case Material Filter */}
-                            <FilterSection
+                            {/* <FilterSection
                                 title="Case Material"
                                 options={materials}
                                 selected={selectedMaterials}
                                 onToggle={(value) => toggleFilter(selectedMaterials, value, setSelectedMaterials)}
-                            />
+                            /> */}
 
                             {/* Movement Filter */}
-                            <FilterSection
+                            {/* <FilterSection
                                 title="Movement"
                                 options={movements}
                                 selected={selectedMovements}
                                 onToggle={(value) => toggleFilter(selectedMovements, value, setSelectedMovements)}
-                            />
+                            /> */}
 
                             {/* Water Resistance Filter */}
-                            <FilterSection
+                            {/* <FilterSection
                                 title="Water Resistance"
                                 options={waterResistance}
                                 selected={selectedWaterResistance}
                                 onToggle={(value) => toggleFilter(selectedWaterResistance, value, setSelectedWaterResistance)}
-                            />
+                            /> */}
                         </div>
                     </aside>
 
@@ -386,7 +386,7 @@ export default function LuxuryShop() {
                                             transition={{ duration: 0.4, delay: index * 0.05 }}
                                         >
                                             <div className="group bg-dark-card border border-dark-border rounded-2xl overflow-hidden card-hover">
-                                                <div className="relative aspect-square bg-gradient-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
+                                                <div className="relative aspect-square bg-linear-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
                                                     {product.image ? (
                                                         <img src={product.image} alt={product.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
                                                     ) : (
@@ -427,7 +427,7 @@ export default function LuxuryShop() {
                                             transition={{ duration: 0.4, delay: index * 0.05 }}
                                         >
                                             <div className="flex gap-6 bg-dark-card border border-dark-border rounded-2xl overflow-hidden card-hover">
-                                                <div className="w-48 h-48 flex-shrink-0 bg-gradient-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
+                                                <div className="w-48 h-48 shrink-0 bg-linear-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
                                                     {product.image ? (
                                                         <img src={product.image} alt={product.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
                                                     ) : (

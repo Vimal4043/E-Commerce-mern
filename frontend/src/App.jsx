@@ -24,7 +24,7 @@ import AddAddress from "./pages/Address/AddAddress";
 import EditProfile from "./pages/Profile/EditProfile";
 import Orders from "./pages/Orders/Orders";
 import OrderDetails from "./pages/Orders/OrderDetails";
-import NotFound from "./pages/Utils/NotFound";
+import Luxury404 from "./pages/Utils/Luxury404";
 import Contact from "./pages/Contact/Contact";
 import { ProtectedRoute, PublicRoute } from "./components/Utils/RouteGuards";
 import { SEO } from "./utils/seo";
@@ -113,7 +113,7 @@ const router = createBrowserRouter([
       { path: "/orders/:orderId", element: <ProtectedRoute><OrderDetails /></ProtectedRoute> },
 
       { path: "/product/:id", element: <ProductDetails /> },
-      { path: "/shop", element: <LuxuryShop /> },
+      // { path: "/shop", element: <LuxuryShop /> },
       { path: "/cart", element: <Cart /> },
       { path: "/wishlist", element: <ProtectedRoute><Wishlist /></ProtectedRoute> },
       { path: "/contact-us", element: <Contact /> },
@@ -135,7 +135,7 @@ const router = createBrowserRouter([
       { path: "/checkout", element: <ProtectedRoute><Checkout /></ProtectedRoute> },
       { path: "/order-success/:id", element: <ProtectedRoute><OrderSuccess /></ProtectedRoute> },
 
-      { path: "*", element: <NotFound /> }
+      { path: "*", element: <Luxury404 /> }
     ]
   }
 ]);
