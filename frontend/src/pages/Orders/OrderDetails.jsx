@@ -122,7 +122,7 @@ const OrderDetails = () => {
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ duration: 0.4, delay: 0.1 + i * 0.05 }}
                                     >
-                                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg bg-dark-elevated border border-dark-border overflow-hidden flex items-center justify-center flex-shrink-0">
+                                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg bg-dark-elevated border border-dark-border overflow-hidden flex items-center justify-center shrink-0">
                                             {item.productId?.image ? (
                                                 <img src={item.productId.image} alt={item.productId.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
                                             ) : (
@@ -176,7 +176,7 @@ const OrderDetails = () => {
                             <h2 className="typo-h3 text-white mb-3">Delivery Address</h2>
 
                             <div className="flex items-start gap-3 mb-4">
-                                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
                                     <span className="text-lg">📍</span>
                                 </div>
                                 <div>

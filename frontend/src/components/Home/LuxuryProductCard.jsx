@@ -159,7 +159,7 @@ const LuxuryProductCard = ({ product }) => {
                         to={`/product/${product._id}`}
                         className="flex-1 min-w-0"
                     >
-                        <h3 className="font-display text-base sm:text-lg lg:text-xl font-light text-white hover:text-accent transition-colors line-clamp-2 md:line-clamp-1 break-words">
+                        <h3 className="font-display text-base sm:text-lg lg:text-xl font-light text-white hover:text-accent transition-colors line-clamp-2 md:line-clamp-1 wrap-break-word">
                             {product.title}
                         </h3>
                     </Link>

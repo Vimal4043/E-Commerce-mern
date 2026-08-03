@@ -120,7 +120,7 @@ export default function LuxuryProductDetails() {
                     <div className="lg:sticky lg:top-24 lg:self-start">
                         {/* Main Image */}
                         <motion.div
-                            className="relative aspect-square bg-gradient-to-br from-dark-card to-dark-elevated border border-dark-border rounded-3xl overflow-hidden mb-6 cursor-zoom-in"
+                            className="relative aspect-square bg-linear-to-br from-dark-card to-dark-elevated border border-dark-border rounded-3xl overflow-hidden mb-6 cursor-zoom-in"
                             onClick={() => setIsZoomed(!isZoomed)}
                             whileHover={{ scale: 1.02 }}
                             transition={{ duration: 0.4 }}
@@ -283,7 +283,7 @@ export default function LuxuryProductDetails() {
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`relative py-4 text-sm tracking-[0.1em] uppercase whitespace-nowrap transition-colors ${
+                                className={`relative py-4 text-sm tracking-widest uppercase whitespace-nowrap transition-colors ${
                                     activeTab === tab.id
                                         ? 'text-accent'
                                         : 'text-text-muted hover:text-white'
@@ -379,7 +379,7 @@ export default function LuxuryProductDetails() {
                                         {[1, 2, 3].map((review) => (
                                             <div key={review} className="bg-dark-card border border-dark-border rounded-2xl p-6">
                                                 <div className="flex items-center gap-3 mb-4">
-                                                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center">
+                                                    <div className="w-12 h-12 rounded-full bg-linear-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center">
                                                         <span className="text-accent font-display">JD</span>
                                                     </div>
                                                     <div>
@@ -426,7 +426,7 @@ export default function LuxuryProductDetails() {
                                     onClick={() => navigate(`/product/${relatedProduct._id}`)}
                                     className="group cursor-pointer bg-dark-card border border-dark-border rounded-2xl overflow-hidden card-hover"
                                 >
-                                    <div className="aspect-square bg-gradient-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
+                                    <div className="aspect-square bg-linear-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
                                         {relatedProduct.image ? (
                                             <img src={relatedProduct.image} alt={relatedProduct.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
                                         ) : (
