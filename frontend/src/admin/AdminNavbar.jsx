@@ -36,17 +36,17 @@ const AdminNavbar = () => {
       <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 md:px-8">
         <div>
           <p className="text-xs uppercase tracking-wide text-slate-500">Control Center</p>
-          <h1 className="text-xl font-semibold text-slate-900">{pageTitle}</h1>
+          <h1 className="text-lg md:text-xl font-semibold text-slate-900">{pageTitle}</h1>
         </div>
 
         <div className="flex items-center gap-2">
-          {email ? <span className="text-sm text-slate-600">{email}</span> : null}
+          {email ? <span className="hidden md:inline text-sm text-slate-600">{email}</span> : null}
           <Link
             to="/"
             className="inline-flex items-center gap-2 rounded-lg border border-slate-400 px-3 py-2 text-sm font-medium text-slate-800 hover:bg-slate-100"
           >
             <FiHome />
-            View Site
+            <span className="hidden sm:inline">View Site</span>
           </Link>
           <button
             type="button"

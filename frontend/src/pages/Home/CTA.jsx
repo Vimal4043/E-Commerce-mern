@@ -6,7 +6,7 @@ const CTA = ({ search, setSearch, category, setCategory, categories }) => {
     return (
         <div className="mb-10 flex flex-col md:flex-row gap-4 items-stretch md:items-center">
             {/* Search Input */}
-            <div className="relative flex-1 max-w-md">
+            <div className="relative flex-1 w-full md:max-w-md">
                 <FiSearch
                     size={16}
                     className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none"
@@ -21,7 +21,7 @@ const CTA = ({ search, setSearch, category, setCategory, categories }) => {
             </div>
 
             {/* Category Filter */}
-            <div className="relative min-w-45">
+            <div className="relative w-full md:w-auto md:min-w-45">
                 <FiSliders
                     size={14}
                     className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none"

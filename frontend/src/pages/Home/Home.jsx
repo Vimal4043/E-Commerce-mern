@@ -121,6 +121,8 @@ export default function Home() {
     return (
       <>
         <Hero />
+        <SwissCraftsmanship />
+        <PremiumFeatures />
         <ProductListSkeleton />
       </>
     );
@@ -161,20 +163,20 @@ export default function Home() {
           />
 
           {/* Products Grid */}
-          <Products products={products} gridRef={gridRef} />
+        <Products products={products} gridRef={gridRef} />
 
-               {hasMoreProducts && (
-             <div className="mt-12 flex justify-center">
-               <button
-                 type="button"
-                 onClick={handleLoadMore}
-                 disabled={isLoadingMore || isInitialLoading}
-                 className="btn btn-outline btn-lg"
-               >
-                 {isLoadingMore ? "Loading..." : "View more Timepieces"}
-               </button>
-             </div>
-           )}
+          {hasMoreProducts && (
+            <div className="mt-12 flex justify-center">
+              <button
+                type="button"
+                onClick={handleLoadMore}
+                disabled={isLoadingMore || isInitialLoading}
+                className="btn btn-outline btn-lg"
+              >
+                {isLoadingMore ? "Loading..." : "View more Timepieces"}
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

@@ -124,9 +124,9 @@ export default function LuxuryShop() {
     return (
         <div className="min-h-screen bg-dark">
             {/* Collection Banner */}
-            <div className="relative bg-dark-elevated/30 border-b border-dark-border">
-                <div className="absolute inset-0 z-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-100 rounded-full bg-accent/5 blur-[120px]" />
+            <div className="relative bg-dark-elevated/30 border-b border-dark-border overflow-hidden">
+                <div className="absolute inset-0 z-0 overflow-hidden">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-100 h-50 sm:w-200 sm:h-100 rounded-full bg-accent/5 blur-[120px]" />
                 </div>
                 <div className="container-lux relative z-10 py-16">
                     <motion.div
@@ -299,17 +299,17 @@ export default function LuxuryShop() {
                     </AnimatePresence>
 
                     {/* Products Section */}
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                         {/* Toolbar */}
-                        <div className="flex items-center justify-between mb-8 pb-6 border-b border-dark-border">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-dark-border">
                             <div>
                                 <p className="text-sm text-text-muted">
                                     Showing {startIndex + 1}-{Math.min(startIndex + productsPerPage, filteredProducts.length)} of {filteredProducts.length} products
                                 </p>
                             </div>
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-4 w-full sm:w-auto">
                                 {/* Sort Dropdown */}
-                                <div className="relative">
+                                <div className="relative flex-1 sm:flex-none">
                                     <select
                                         value={sortBy}
                                         onChange={(e) => setSortBy(e.target.value)}
@@ -325,7 +325,7 @@ export default function LuxuryShop() {
                                 </div>
 
                                 {/* Grid/List Toggle */}
-                                <div className="flex items-center gap-2 bg-dark-card border border-dark-border rounded-xl p-1">
+                                <div className="flex items-center gap-2 bg-dark-card border border-dark-border rounded-xl p-1 shrink-0">
                                     <button
                                         onClick={() => setViewMode("grid")}
                                         className={`p-2 rounded-lg transition-all ${
@@ -426,15 +426,15 @@ export default function LuxuryShop() {
                                             exit={{ opacity: 0, x: 20 }}
                                             transition={{ duration: 0.4, delay: index * 0.05 }}
                                         >
-                                            <div className="flex gap-6 bg-dark-card border border-dark-border rounded-2xl overflow-hidden card-hover">
-                                                <div className="w-48 h-48 shrink-0 bg-linear-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
+                                            <div className="flex flex-col sm:flex-row gap-6 bg-dark-card border border-dark-border rounded-2xl overflow-hidden card-hover">
+                                                <div className="w-full sm:w-48 sm:h-48 shrink-0 bg-linear-to-br from-dark-elevated to-dark-card flex items-center justify-center overflow-hidden">
                                                     {product.image ? (
                                                         <img src={product.image} alt={product.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
                                                     ) : (
                                                         <span className="text-5xl">⌚</span>
                                                     )}
                                                 </div>
-                                                <div className="flex-1 p-6 flex flex-col justify-between">
+                                                <div className="flex-1 p-6 flex flex-col justify-between min-w-0">
                                                     <div>
                                                         <p className="text-xs text-accent uppercase tracking-wider mb-2">{product.category}</p>
                                                         <h3 className="typo-h4 text-white mb-2">{product.title}</h3>

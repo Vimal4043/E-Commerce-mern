@@ -62,8 +62,8 @@ export default function AddProduct() {
     }
 
     return(
-        <div className="max-w-lg mx-auto mt-10 bg-white p-6 shadow rounded">
-            <h2 className="text-2xl font-bold mb-6">Add New Product</h2>
+        <div className="max-w-lg mx-auto mt-6 md:mt-10 bg-white p-4 md:p-6 shadow rounded">
+            <h2 className="text-xl md:text-2xl font-bold mb-6">Add New Product</h2>
             <form onSubmit={handleSubmit} className="space-y-3">
                 {
                     Object.keys(form).map((key) => (

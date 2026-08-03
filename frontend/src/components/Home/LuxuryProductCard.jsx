@@ -44,7 +44,7 @@ const LuxuryProductCard = ({ product }) => {
     };
 
     const handleAddToCart = async () => {
-        if (!userId) return;
+        if (!userId) return alert("Please log in to add items to your cart.");
         setAddingToCart(true);
         try {
             await api.post(`/cart/add`, { productId: product._id });
@@ -79,22 +79,22 @@ const LuxuryProductCard = ({ product }) => {
                         {product.image ? (
                             <img src={product.image} alt={product.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
                         ) : (
-                            <div className="w-48 h-48 md:w-56 md:h-56 rounded-full border-2 border-accent/20 bg-accent/5 flex items-center justify-center">
-                                <span className="text-7xl md:text-8xl">⌚</span>
+                            <div className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full border-2 border-accent/20 bg-accent/5 flex items-center justify-center">
+                                <span className="text-6xl sm:text-7xl md:text-8xl">⌚</span>
                             </div>
                         )}
                     </motion.div>
                 </Link>
 
                 {/* Badges */}
-                <motion.div 
+                <motion.div
                     className="absolute top-4 left-4 flex flex-col gap-2"
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
                 >
                     {product.isNew && (
-                        <motion.span 
+                        <motion.span
                             className="px-3 py-1.5 rounded-full bg-accent text-dark text-[10px] tracking-[0.15em] uppercase font-medium shadow-lg"
                             whileHover={{ scale: 1.05 }}
                         >
@@ -102,7 +102,7 @@ const LuxuryProductCard = ({ product }) => {
                         </motion.span>
                     )}
                     {product.isLimited && (
-                        <motion.span 
+                        <motion.span
                             className="px-3 py-1.5 rounded-full border border-accent/30 bg-accent/10 text-accent text-[10px] tracking-[0.15em] uppercase font-medium backdrop-blur-sm"
                             whileHover={{ scale: 1.05 }}
                         >
@@ -137,34 +137,6 @@ const LuxuryProductCard = ({ product }) => {
                             />
                         </motion.svg>
                     </motion.button>
-
-                    {/* Quick View */}
-                    <motion.button
-                        className="w-10 h-10 rounded-full bg-dark/60 backdrop-blur-md border border-dark-border flex items-center justify-center hover:border-accent/30 transition-all"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        aria-label="Quick view"
-                    >
-                        <svg
-                            className="w-4 h-4 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={1.5}
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={1.5}
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                            />
-                        </svg>
-                    </motion.button>
                 </div>
 
                 {/* Gold Accent Line */}
@@ -181,51 +153,38 @@ const LuxuryProductCard = ({ product }) => {
                     {product.category}
                 </p>
 
-                {/* Title */}
-                <Link to={`/product/${product._id}`}>
-                    <h3 className="font-display text-lg font-light text-white mb-3 hover:text-accent transition-colors line-clamp-1">
-                        {product.title}
-                    </h3>
-                </Link>
+                <div className="mb-4 flex flex-col gap-3 sm:gap-2 md:flex-row md:items-start md:justify-between">
+                    {/* Title */}
+                    <Link
+                        to={`/product/${product._id}`}
+                        className="flex-1 min-w-0"
+                    >
+                        <h3 className="font-display text-base sm:text-lg lg:text-xl font-light text-white hover:text-accent transition-colors line-clamp-2 md:line-clamp-1 break-words">
+                            {product.title}
+                        </h3>
+                    </Link>
 
-                {/* Rating */}
-                {product.rating && (
-                    <div className="flex items-center gap-2 mb-4">
-                        <div className="flex gap-0.5">
-                            {[...Array(5)].map((_, i) => (
-                                <svg
-                                    key={i}
-                                    className={`w-3.5 h-3.5 ${i < Math.floor(product.rating) ? 'text-accent' : 'text-dark-border'}`}
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                            ))}
-                        </div>
-                        <span className="text-xs text-text-muted">({product.reviewCount || 128})</span>
-                    </div>
-                )}
+                    {/* Price */}
+                    <div className="flex flex-wrap items-center gap-2 md:flex-col md:items-end md:text-right shrink-0">
+                        {product.oldPrice && (
+                            <span className="text-xs sm:text-sm text-text-muted line-through">
+                                ₹ {product.oldPrice}
+                            </span>
+                        )}
 
-                {/* Price */}
-                <div className="flex items-center gap-3 mb-6">
-                    {product.oldPrice && (
-                        <span className="text-sm text-text-muted line-through">
-                            ₹ {product.oldPrice}
+                        <span className="font-display text-xl sm:text-2xl lg:text-3xl font-light text-accent whitespace-nowrap">
+                            ₹ {product.price}
                         </span>
-                    )}
-                    <span className="font-display text-2xl font-light text-accent">
-                        ₹ {product.price}
-                    </span>
+                    </div>
                 </div>
 
                 {/* Add to Cart Button */}
                 <LuxuryButton
                     variant={cartAdded ? "primary" : "outline"}
-                    size="sm"
+                    size="xs"
                     className="w-full"
                     onClick={handleAddToCart}
-                    disabled={addingToCart || !userId}
+                    disabled={addingToCart}
                 >
                     {cartAdded ? "Added to Cart \u2713" : addingToCart ? "Adding..." : "Add to Cart"}
                 </LuxuryButton>

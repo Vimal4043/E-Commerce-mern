@@ -67,7 +67,7 @@ export default function ForgotPassword() {
             </div>
 
             {/* Right Side - Forgot Password Form */}
-            <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8">
                 <motion.div
                     className="w-full max-w-md"
                     initial={{ opacity: 0, y: 20 }}

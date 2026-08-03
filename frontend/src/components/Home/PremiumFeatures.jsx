@@ -29,9 +29,9 @@ export default function PremiumFeatures() {
     ];
 
     return (
-        <section ref={sectionRef} className="section-padding bg-dark">
+        <section ref={sectionRef} className="section-padding bg-dark relative overflow-hidden">
             <div className="absolute inset-0 z-0 overflow-hidden">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 rounded-full bg-accent/5 blur-[120px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-100 h-100 sm:w-200 sm:h-200 rounded-full bg-accent/5 blur-[120px]" />
             </div>
 
             <div className="container-lux relative z-10">
@@ -67,7 +67,7 @@ export default function PremiumFeatures() {
                     </motion.div> */}
 
                     {/* Feature Cards in Circle */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pt-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pt-10">
                         {features.map((feature, index) => {
                             const angles = [0, 90, 180, 270];
                             const delay = 0.4 + index * 0.15;
@@ -86,7 +86,7 @@ export default function PremiumFeatures() {
                                 >
                                     <div className="group text-center">
                                         {/* Icon Circle */}
-                                        <div className="relative w-24 h-24 mx-auto mb-6 rounded-full bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-accent/30 transition-all duration-500 group-hover:scale-110">
+                                        <div className="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 rounded-full bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-accent/30 transition-all duration-500 group-hover:scale-110">
                                             <div className="absolute inset-0 rounded-full bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                                             <span className="text-4xl relative z-10">{feature.icon}</span>
                                         </div>

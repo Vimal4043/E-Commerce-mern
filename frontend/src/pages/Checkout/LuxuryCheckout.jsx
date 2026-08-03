@@ -127,9 +127,9 @@ export default function LuxuryCheckout() {
                                 <div key={step.id} className="flex-1">
                                     <div className="flex items-center">
                                         <div className="flex-1">
-                                            <div className="flex items-center gap-4">
+                                            <div className="flex items-center gap-2 sm:gap-4">
                                                 <motion.div
-                                                    className={`w-12 h-12 rounded-full flex items-center justify-center border-2 ${
+                                                    className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border-2 ${
                                                         isCompleted
                                                             ? "bg-accent border-accent text-dark"
                                                             : isActive
@@ -139,9 +139,9 @@ export default function LuxuryCheckout() {
                                                     whileHover={{ scale: 1.1 }}
                                                 >
                                                     {isCompleted ? (
-                                                        <FiCheck size={20} />
+                                                        <FiCheck size={18} />
                                                     ) : (
-                                                        <Icon size={20} />
+                                                        <Icon size={18} />
                                                     )}
                                                 </motion.div>
                                                 <div className="hidden md:block">
@@ -152,7 +152,7 @@ export default function LuxuryCheckout() {
                                             </div>
                                         </div>
                                         {index < steps.length - 1 && (
-                                            <div className="flex-1 mx-4">
+                                            <div className="flex-1 mx-2 sm:mx-4">
                                                 <div className="h-0.5 bg-dark-border relative">
                                                     <motion.div
                                                         className="h-full bg-accent"
@@ -239,7 +239,7 @@ export default function LuxuryCheckout() {
                                                 placeholder="123 Main Street"
                                             />
                                         </div>
-                                        <div className="grid grid-cols-2 gap-4">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             <div>
                                                 <label className="block text-sm text-text-muted mb-2">City</label>
                                                 <input
@@ -263,7 +263,7 @@ export default function LuxuryCheckout() {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="grid grid-cols-2 gap-4">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             <div>
                                                 <label className="block text-sm text-text-muted mb-2">Pincode</label>
                                                 <input
@@ -419,7 +419,7 @@ export default function LuxuryCheckout() {
                                                 placeholder="JOHN DOE"
                                             />
                                         </div>
-                                        <div className="grid grid-cols-2 gap-4">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             <div>
                                                 <label className="block text-sm text-text-muted mb-2">Expiry Date</label>
                                                 <input

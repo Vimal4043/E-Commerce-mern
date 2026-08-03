@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiUser, FiShoppingBag, FiHeart, FiMapPin, FiSettings, FiChevronRight, FiPackage, FiTruck, FiCheck, FiX, FiEye, FiEdit, FiTrash2, FiHome, FiBriefcase } from "react-icons/fi";
 import api from "../../api/axios";
+import AccountSettings from "./AccountSettings";
 
 export default function LuxuryDashboard() {
     const navigate = useNavigate();
@@ -142,14 +143,14 @@ export default function LuxuryDashboard() {
                         return (
                             <div key={step.status} className="flex-1">
                                 <div className="flex flex-col items-center gap-2">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ${
                                         isCompleted
                                             ? "bg-accent text-dark"
                                             : "bg-dark-elevated text-text-muted"
                                     }`}>
-                                        <Icon size={18} />
+                                        <Icon size={16} />
                                     </div>
-                                    <span className="text-xs text-text-muted hidden md:block">{step.label}</span>
+                                    <span className="text-[10px] sm:text-xs text-text-muted hidden sm:block">{step.label}</span>
                                 </div>
                                 {index < steps.length - 1 && (
                                     <div className="h-0.5 bg-dark-border mt-2 mx-2">
@@ -203,7 +204,7 @@ export default function LuxuryDashboard() {
                 <div className="grid lg:grid-cols-4 gap-8">
                     {/* Sidebar */}
                     <div className="lg:col-span-1">
-                        <div className="sticky top-24 space-y-2">
+                        <div className="lg:sticky lg:top-24 space-y-2 flex lg:flex-col gap-2 overflow-x-auto hide-scrollbar pb-2 lg:pb-0">
                             {menuItems.map((item) => {
                                 const Icon = item.icon;
                                 const isActive = activeSection === item.id;
@@ -430,50 +431,7 @@ export default function LuxuryDashboard() {
 
                             {/* Settings Section */}
                             {activeSection === "settings" && (
-                                <motion.div
-                                    key="settings"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -20 }}
-                                    transition={{ duration: 0.4 }}
-                                    className="space-y-6"
-                                >
-                                    <h2 className="typo-h3 text-white mb-6">Account Settings</h2>
-                                    <div className="bg-dark-card border border-dark-border rounded-2xl p-8">
-                                        <div className="space-y-6">
-                                            <div className="flex items-center justify-between py-4 border-b border-dark-border">
-                                                <div>
-                                                    <p className="text-white font-medium mb-1">Email Notifications</p>
-                                                    <p className="text-sm text-text-muted">Receive updates about orders and promotions</p>
-                                                </div>
-                                                <label className="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" className="sr-only peer" defaultChecked />
-                                                    <div className="w-11 h-6 bg-dark-elevated peer-fill-accent rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center justify-between py-4 border-b border-dark-border">
-                                                <div>
-                                                    <p className="text-white font-medium mb-1">Two-Factor Authentication</p>
-                                                    <p className="text-sm text-text-muted">Add an extra layer of security</p>
-                                                </div>
-                                                <label className="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" className="sr-only peer" />
-                                                    <div className="w-11 h-6 bg-dark-elevated peer-fill-accent rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center justify-between py-4">
-                                                <div>
-                                                    <p className="text-white font-medium mb-1">Marketing Emails</p>
-                                                    <p className="text-sm text-text-muted">Receive news and special offers</p>
-                                                </div>
-                                                <label className="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" className="sr-only peer" />
-                                                    <div className="w-11 h-6 bg-dark-elevated peer-fill-accent rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </motion.div>
+                                <AccountSettings />
                             )}
                         </AnimatePresence>
                     </div>

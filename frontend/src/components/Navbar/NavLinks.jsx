@@ -64,34 +64,6 @@ const NavLinks = ({ logout, closeMenu }) => {
       variants={menuVariants}
       className="flex flex-col"
     >
-      {/* Mobile-only home link */}
-      <motion.div variants={staggerItem}>
-        <Link to="/" onClick={closeMenu} className={`${linkClass} md:hidden`}>
-          <FiHome size={16} className={iconClass} />
-          <span>Home</span>
-        </Link>
-      </motion.div>
-
-      {/* Collections (mobile) */}
-      <motion.div variants={staggerItem}>
-        <Link to="/" onClick={closeMenu} className={`${linkClass} md:hidden`}>
-          <FiGrid size={16} className={iconClass} />
-          <span>Collections</span>
-        </Link>
-      </motion.div>
-
-      {/* Contact Us (mobile only, non-admin) */}
-      {!isAdmin && (
-        <motion.div variants={staggerItem}>
-          <motion.div {...navLinkHover} whileHover="hover">
-            <Link to="/contact-us" onClick={closeMenu} className={`${linkClass} md:hidden`}>
-              <FiHeadphones size={16} className={iconClass} />
-              <span>Contact Us</span>
-            </Link>
-          </motion.div>
-        </motion.div>
-      )}
-
       {isLoggedIn ? (
         <>
           {/* Admin Dashboard (admin only) */}
@@ -126,15 +98,27 @@ const NavLinks = ({ logout, closeMenu }) => {
             </motion.div>
           </motion.div>
 
-           {/* Wishlist */}
-           <motion.div variants={staggerItem}>
-             <motion.div {...navLinkHover} whileHover="hover">
-               <Link to="/wishlist" onClick={closeMenu} className={linkClass}>
-                 <FiHeart size={16} className={iconClass} />
-                 <span>Wishlist</span>
-               </Link>
-             </motion.div>
-           </motion.div>
+          {/* Wishlist */}
+          <motion.div variants={staggerItem}>
+            <motion.div {...navLinkHover} whileHover="hover">
+              <Link to="/wishlist" onClick={closeMenu} className={linkClass}>
+                <FiHeart size={16} className={iconClass} />
+                <span>Wishlist</span>
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Contact Us (mobile only, non-admin) */}
+          {!isAdmin && (
+            <motion.div variants={staggerItem}>
+              <motion.div {...navLinkHover} whileHover="hover">
+                <Link to="/contact-us" onClick={closeMenu} className={`${linkClass} md:hidden`}>
+                  <FiHeadphones size={16} className={iconClass} />
+                  <span>Contact Us</span>
+                </Link>
+              </motion.div>
+            </motion.div>
+          )}
 
           {/* Logout */}
           <motion.div variants={staggerItem}>

@@ -3,6 +3,7 @@ import { lazy, Suspense, useState, useEffect } from "react";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Auth/LuxuryLogin";
 import Signup from "./pages/Auth/LuxurySignup";
+import ChangePassword from "./pages/Auth/ChangePassword";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import ProductDetails from "./pages/Home/LuxuryProductDetails";
 import LuxuryShop from "./pages/Home/LuxuryShop";
@@ -105,6 +106,7 @@ const router = createBrowserRouter([
       { path: "/login", element: <PublicRoute><Login /></PublicRoute> },
       { path: "/signup", element: <PublicRoute><Signup /></PublicRoute> },
       { path: "/forgot-password", element: <PublicRoute><ForgotPassword /></PublicRoute> },
+      { path: "/change-password", element: <ProtectedRoute><ChangePassword /></ProtectedRoute> },
 
       { path: "/profile", element: <ProtectedRoute><Profile /></ProtectedRoute> },
       { path: "/add-address", element: <ProtectedRoute><AddAddress /></ProtectedRoute> },

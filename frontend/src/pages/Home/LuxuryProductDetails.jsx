@@ -214,13 +214,13 @@ export default function LuxuryProductDetails() {
                         </div>
 
                         {/* Price */}
-                        <div className="flex items-end gap-4 pb-8 border-b border-dark-border">
-                            <span className="font-display text-4xl font-light text-accent">
+                        <div className="flex flex-wrap items-end gap-3 sm:gap-4 pb-8 border-b border-dark-border">
+                            <span className="font-display text-3xl sm:text-4xl font-light text-accent">
                                 ₹ {product.price}
                             </span>
                             {product.oldPrice && (
                                 <>
-                                    <span className="text-xl text-text-muted line-through mb-1">
+                                    <span className="text-lg sm:text-xl text-text-muted line-through mb-1">
                                         ₹ {product.oldPrice}
                                     </span>
                                     <span className="px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs tracking-wider uppercase mb-1">
@@ -236,10 +236,10 @@ export default function LuxuryProductDetails() {
                         </p>
 
                         {/* Action Buttons */}
-                        <div className="flex gap-4">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                             <motion.button
                                 onClick={addToCart}
-                                className="flex-1 py-4 rounded-full border border-accent text-accent hover:bg-accent hover:text-dark transition-all duration-300 text-sm tracking-[0.15em] uppercase font-medium"
+                                className="flex-1 py-4 px-4 rounded-full border border-accent text-accent hover:bg-accent hover:text-dark transition-all duration-300 text-sm tracking-[0.15em] uppercase font-medium"
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                             >
@@ -247,7 +247,7 @@ export default function LuxuryProductDetails() {
                             </motion.button>
                             <motion.button
                                 onClick={buy}
-                                className="flex-1 py-4 rounded-full bg-accent text-dark hover:bg-accent-alt transition-all duration-300 text-sm tracking-[0.15em] uppercase font-medium shadow-lg"
+                                className="flex-1 py-4 px-4 rounded-full bg-accent text-dark hover:bg-accent-alt transition-all duration-300 text-sm tracking-[0.15em] uppercase font-medium shadow-lg"
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                             >
@@ -256,18 +256,18 @@ export default function LuxuryProductDetails() {
                         </div>
 
                         {/* Trust Badges */}
-                        <div className="grid grid-cols-3 gap-4 pt-8 border-t border-dark-border">
+                        <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-8 border-t border-dark-border">
                             <div className="text-center">
                                 <div className="text-2xl mb-2">{"\uD83D\uDCE6"}</div>
-                                <p className="text-xs text-text-muted">Free Shipping</p>
+                                <p className="text-[10px] sm:text-xs text-text-muted">Free Shipping</p>
                             </div>
                             <div className="text-center">
                                 <div className="text-2xl mb-2">{"\uD83D\uDEE1\uFE0F"}</div>
-                                <p className="text-xs text-text-muted">5-Year Warranty</p>
+                                <p className="text-[10px] sm:text-xs text-text-muted">5-Year Warranty</p>
                             </div>
                             <div className="text-center">
                                 <div className="text-2xl mb-2">{"\u21A9\uFE0F"}</div>
-                                <p className="text-xs text-text-muted">Easy Returns</p>
+                                <p className="text-[10px] sm:text-xs text-text-muted">Easy Returns</p>
                             </div>
                         </div>
                     </div>

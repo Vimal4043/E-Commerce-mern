@@ -63,7 +63,7 @@ const OrderDetails = () => {
                         <h1 className="typo-h1 text-white mb-4">
                             Order #{order._id.slice(-6).toUpperCase()}
                         </h1>
-                        <div className="flex items-center gap-4">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                             <p className="typo-body-sm text-text-secondary">
                                 Placed on{' '}
                                 {new Date(order.createdAt).toLocaleDateString("en-GB", {
@@ -117,23 +117,23 @@ const OrderDetails = () => {
                                 {order.items.map((item, i) => (
                                     <motion.div
                                         key={i}
-                                        className="flex items-center gap-4"
+                                        className="flex items-center gap-3 sm:gap-4"
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ duration: 0.4, delay: 0.1 + i * 0.05 }}
                                     >
-                                        <div className="w-16 h-16 rounded-lg bg-dark-elevated border border-dark-border overflow-hidden flex items-center justify-center flex-shrink-0">
+                                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg bg-dark-elevated border border-dark-border overflow-hidden flex items-center justify-center flex-shrink-0">
                                             {item.productId?.image ? (
                                                 <img src={item.productId.image} alt={item.productId.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
                                             ) : (
-                                                <span className="text-3xl">⌚</span>
+                                                <span className="text-2xl sm:text-3xl">⌚</span>
                                             )}
                                         </div>
-                                        <div className="flex-1">
-                                            <p className="font-medium text-white">{item.productId?.title}</p>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="font-medium text-white truncate">{item.productId?.title}</p>
                                             <p className="text-sm text-text-muted">Quantity: {item.quantity}</p>
                                         </div>
-                                        <p className="text-right typo-price">
+                                        <p className="text-right typo-price shrink-0">
                                             ₹ {item.price * item.quantity}
                                         </p>
                                     </motion.div>

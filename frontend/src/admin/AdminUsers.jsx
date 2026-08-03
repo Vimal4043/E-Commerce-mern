@@ -23,19 +23,19 @@ const AdminUsers = () => {
   }, [users, query])
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold">Users</h2>
+    <div className="max-w-5xl mx-auto px-4">
+      <div className="flex flex-col md:flex-row md:items-center gap-3 md:justify-between mb-4">
+        <h2 className="text-xl md:text-2xl font-bold">Users</h2>
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search users by name or email"
-          className="px-3 py-2 border rounded w-72"
+          className="px-3 py-2 border rounded w-full md:w-72"
         />
       </div>
 
-      <div className="overflow-hidden rounded-lg border bg-white">
+      <div className="overflow-x-auto rounded-lg border bg-white">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>

@@ -55,8 +55,8 @@ export default function LuxuryLogin() {
             {/* Left Side - Luxury Watch Image */}
             <div className="hidden lg:flex lg:w-1/2 relative bg-dark-elevated/30 border-r border-dark-border">
                 {/* Background Effects */}
-                <div className="absolute inset-0 z-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 rounded-full bg-accent/5 blur-[120px]" />
+                <div className="absolute inset-0 z-0 overflow-hidden">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-75 h-75 lg:w-150 lg:h-150 rounded-full bg-accent/5 blur-[120px]" />
                 </div>
 
                 <div className="relative z-10 flex flex-col justify-center items-center p-12 text-center">
@@ -98,7 +98,7 @@ export default function LuxuryLogin() {
             </div>
 
             {/* Right Side - Login Form */}
-            <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8">
                 <motion.div
                     className="w-full max-w-md"
                     initial={{ opacity: 0, y: 20 }}
@@ -117,8 +117,8 @@ export default function LuxuryLogin() {
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 className={`mb-6 p-4 rounded-xl text-sm text-center ${msg.includes("successful")
-                                        ? "bg-green-500/10 text-green-400 border border-green-500/20"
-                                        : "bg-red-500/10 text-red-400 border border-red-500/20"
+                                    ? "bg-green-500/10 text-green-400 border border-green-500/20"
+                                    : "bg-red-500/10 text-red-400 border border-red-500/20"
                                     }`}
                             >
                                 {msg}
@@ -178,9 +178,14 @@ export default function LuxuryLogin() {
                                     />
                                     <span className="text-sm text-text-muted">Remember me</span>
                                 </label>
-                                <Link to="/forgot-password" className="text-sm text-accent hover:text-accent-alt transition-colors">
+                                <button
+                                    type="button"
+                                    disabled
+                                    title="Will be available soon"
+                                    className="text-sm text-accent transition-colors cursor-not-allowed opacity-50"
+                                >
                                     Forgot password?
-                                </Link>
+                                </button>
                             </div>
 
                             {/* Login Button */}

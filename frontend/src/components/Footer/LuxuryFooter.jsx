@@ -26,8 +26,8 @@ export default function LuxuryFooter() {
     return (
         <footer className="relative bg-dark-elevated/30 border-t border-dark-border overflow-hidden">
             {/* Background Effects */}
-            <div className="absolute inset-0 z-0">
-                <div className="absolute bottom-0 left-1/4 w-125 h-125 rounded-full bg-accent/3 blur-[100px]" />
+            <div className="absolute inset-0 z-0 overflow-hidden">
+                <div className="absolute bottom-0 left-1/4 w-60 h-60 sm:w-125 sm:h-125 rounded-full bg-accent/3 blur-[100px]" />
             </div>
 
             <div className="relative z-10">

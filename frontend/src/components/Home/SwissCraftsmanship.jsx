@@ -29,10 +29,10 @@ export default function SwissCraftsmanship() {
     ];
 
     return (
-        <section ref={sectionRef} className="section-padding bg-dark">
-            <div className="absolute inset-0 z-0">
-                <div className="absolute top-0 left-1/4 w-150 h-150 rounded-full bg-accent/3 blur-[100px]" />
-                <div className="absolute bottom-0 right-1/4 w-125 h-125 rounded-full bg-accent/2 blur-[80px]" />
+        <section ref={sectionRef} className="section-padding bg-dark overflow-hidden">
+            <div className="absolute inset-0 z-0 overflow-hidden">
+                <div className="absolute top-0 left-1/4 w-75 h-75 sm:w-150 sm:h-150 rounded-full bg-accent/3 blur-[100px]" />
+                <div className="absolute bottom-0 right-1/4 w-60 h-60 sm:w-125 sm:h-125 rounded-full bg-accent/2 blur-[80px]" />
             </div>
 
             <div className="container-lux relative z-10">
@@ -87,7 +87,7 @@ export default function SwissCraftsmanship() {
 
                     {/* Right: Visual - Centered Watch */}
                     <motion.div
-                        className="order-1 lg:order-2 flex items-center justify-center"
+                        className="hidden lg:flex order-2 items-center justify-center"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ duration: 1, ease: [0.165, 0.84, 0.44, 1] }}
@@ -95,17 +95,17 @@ export default function SwissCraftsmanship() {
                         <div className="relative">
                             {/* Concentric Circles */}
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-75 h-75 md:w-100 md:h-100 rounded-full border border-accent/5" />
+                                <div className="w-56 h-56 sm:w-75 sm:h-75 md:w-100 md:h-100 rounded-full border border-accent/5" />
                             </div>
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-62 h-62 md:w-82 md:h-82 rounded-full border border-accent/10" />
+                                <div className="w-44 h-44 sm:w-62 sm:h-62 md:w-82 md:h-82 rounded-full border border-accent/10" />
                             </div>
 
                             {/* Main Circle */}
-                            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-linear-to-br from-dark-card to-dark-elevated border border-dark-border shadow-2xl flex items-center justify-center">
+                            <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full bg-linear-to-br from-dark-card to-dark-elevated border border-dark-border shadow-2xl flex items-center justify-center">
                                 <div className="text-center">
-                                    <div className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full border-2 border-accent/30 bg-accent/5 flex items-center justify-center mb-4">
-                                        <span className="text-7xl md:text-8xl">⌚</span>
+                                    <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 mx-auto rounded-full border-2 border-accent/30 bg-accent/5 flex items-center justify-center mb-4">
+                                        <span className="text-5xl sm:text-7xl md:text-8xl">⌚</span>
                                     </div>
                                     <p className="typo-category">Swiss Made</p>
                                 </div>
@@ -115,11 +115,11 @@ export default function SwissCraftsmanship() {
                             {[...Array(8)].map((_, i) => (
                                 <div
                                     key={i}
-                                    className="absolute w-2 h-2 rounded-full bg-accent/40"
+                                    className="hidden sm:block absolute w-2 h-2 rounded-full bg-accent/40"
                                     style={{
                                         top: '50%',
                                         left: '50%',
-                                        transform: `rotate(${i * 45}deg) translateX(${i % 2 === 0 ? '180px' : '200px'}) translateY(-50%)`
+                                        transform: `rotate(${i * 45}deg) translateX(${i % 2 === 0 ? '130px' : '150px'}) translateY(-50%)`
                                     }}
                                 />
                             ))}

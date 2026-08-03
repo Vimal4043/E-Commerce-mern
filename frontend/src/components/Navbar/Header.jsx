@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import api from "../../api/axios";
 import Nav from "./Nav";
-import { FiSearch, FiHeart, FiShoppingBag, FiUser } from "react-icons/fi";
+import { FiSearch, FiHome, FiShoppingBag, FiUser } from "react-icons/fi";
 import { badgeBounce, fadeInUp, iconHover, navLinkHover } from "../../utils/animations";
 
 export default function Header() {
@@ -178,53 +178,11 @@ export default function Header() {
                         animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : 20 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
                     >
-                        {/* Search */}
-                        <div className="relative" ref={searchRef}>
-                            {/* <motion.button
-                                {...iconHover}
-                                whileHover="hover"
-                                onClick={() => setSearchOpen(!searchOpen)}
-                                className="btn-icon"
-                                aria-label="Search"
-                            >
-                                <FiSearch size={18} />
-                            </motion.button> */}
-
-                            <AnimatePresence>
-                                {searchOpen && (
-                                    <motion.form
-                                        onSubmit={handleSearch}
-                                        className="absolute right-0 top-full mt-2 w-72 glass-strong rounded-lg p-3"
-                                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                                        transition={{ duration: 0.2, ease: [0.165, 0.84, 0.44, 1] }}
-                                    >
-                                        <div className="relative">
-                                            <input
-                                                type="text"
-                                                value={searchQuery}
-                                                onChange={(e) => setSearchQuery(e.target.value)}
-                                                placeholder="Search timepieces..."
-                                                className="input pr-10 text-sm"
-                                                autoFocus
-                                            />
-                                            <button
-                                                type="submit"
-                                                className="absolute right-2 top-1/2 -translate-y-1/2 text-text-muted hover:text-accent transition-colors"
-                                            >
-                                                <FiSearch size={16} />
-                                            </button>
-                                        </div>
-                                    </motion.form>
-                                )}
-                            </AnimatePresence>
-                        </div>
 
                         {/* Wishlist */}
                         <motion.div {...iconHover} whileHover="hover">
-                            <Link to="/wishlist" className="btn-icon relative" aria-label="Wishlist">
-                                <FiHeart size={18} />
+                            <Link to="/" className="btn-icon relative" aria-label="Wishlist">
+                                <FiHome size={18} />
                             </Link>
                         </motion.div>
 
@@ -275,7 +233,13 @@ export default function Header() {
                         )}
 
                         {/* Hamburger Menu (dropdown below hamburger) */}
-                        <Nav logout={logout} />
+                        {userId ? (
+                            <Nav logout={logout} />
+                        ) : (
+                            <div className="md:hidden">
+                                <Nav logout={logout} />
+                            </div>
+                        )}
                     </motion.div>
                 </div>
             </div>

@@ -27,13 +27,13 @@ const OrderCard = ({ order }) => {
             transition={{ duration: 0.3, ease: [0.165, 0.84, 0.44, 1] }}
         >
             {/* Top: Order Info & Status */}
-            <div className="flex justify-between items-start">
-                <div>
+            <div className="flex flex-wrap justify-between items-start gap-3">
+                <div className="min-w-0">
                     <p className="text-xs text-text-muted uppercase tracking-wider mb-1">
                         Order #{order._id.slice(-6).toUpperCase()}
                     </p>
-                    <div className="flex items-center gap-2 text-sm text-text-secondary">
-                        <FiCalendar size={14} className="text-text-muted" />
+                    <div className="flex flex-wrap items-center gap-2 text-sm text-text-secondary">
+                        <FiCalendar size={14} className="text-text-muted shrink-0" />
                         <span>
                             {new Date(order.createdAt).toLocaleDateString("en-GB", {
                                 day: "numeric",
@@ -41,7 +41,7 @@ const OrderCard = ({ order }) => {
                                 year: "numeric",
                             })}
                         </span>
-                        <span className="w-1 h-1 bg-text-muted rounded-full" />
+                        <span className="w-1 h-1 bg-text-muted rounded-full shrink-0" />
                         <span>
                             {formatDistanceToNow(new Date(order.createdAt), {
                                 addSuffix: true,
@@ -50,7 +50,7 @@ const OrderCard = ({ order }) => {
                     </div>
                 </div>
 
-                <span className={`text-xs font-medium px-3 py-1 rounded-full ${getStatusClass(order.status)}`}>
+                <span className={`text-xs font-medium px-3 py-1 rounded-full shrink-0 ${getStatusClass(order.status)}`}>
                     {order.status || "Placed"}
                 </span>
             </div>
@@ -60,9 +60,9 @@ const OrderCard = ({ order }) => {
             {/* Products with price */}
             <div className="mt-4 space-y-3">
                 {order.items.map((item, i) => (
-                    <div key={i} className="flex justify-between items-center">
+                    <div key={i} className="flex justify-between items-center gap-3">
                         {/* LEFT */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 min-w-0">
                             <div className="w-8 h-8 rounded-lg bg-dark-elevated border border-dark-border overflow-hidden flex items-center justify-center text-lg shrink-0">
                                 {item.productId?.image ? (
                                     <img src={item.productId.image} alt={item.productId?.title || "Product"} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
@@ -70,8 +70,8 @@ const OrderCard = ({ order }) => {
                                     <span>⌚</span>
                                 )}
                             </div>
-                            <p className="font-medium text-sm text-white">
-                                <span className="inline-flex items-center justify-center w-5 h-5 text-xs text-text-muted bg-dark-elevated rounded-full mr-2">
+                            <p className="font-medium text-sm text-white truncate">
+                                <span className="inline-flex items-center justify-center w-5 h-5 text-xs text-text-muted bg-dark-elevated rounded-full mr-2 shrink-0">
                                     {item.quantity}×
                                 </span>
                                 {item.productId?.title || "Product"}
@@ -79,7 +79,7 @@ const OrderCard = ({ order }) => {
                         </div>
 
                         {/* RIGHT */}
-                        <p className="typo-price">
+                        <p className="typo-price shrink-0">
                             ₹ {item.price * item.quantity}
                         </p>
                     </div>

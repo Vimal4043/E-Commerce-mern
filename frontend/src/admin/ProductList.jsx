@@ -41,10 +41,10 @@ export default function ProductList() {
     }, []);
 
     return (
-        <div className="max-w-4xl mx-auto mt-10 mb-10">
-            <h2 className="text-2xl font-bold">Product List</h2>
-            <div className="flex justify-between items-center mb-6">
-                <div className="flex justify-between space-x-4 w-2/3">
+        <div className="max-w-4xl mx-auto mt-6 md:mt-10 mb-10 px-4">
+            <h2 className="text-xl md:text-2xl font-bold">Product List</h2>
+            <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center mb-6">
+                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-2/3">
                     {/* Search Input */}
                     <input
                         type="text"
@@ -58,7 +58,7 @@ export default function ProductList() {
                     <select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
-                        className="w-1/3 border border-gray-300 px-4 py-2 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                        className="w-full sm:w-1/3 border border-gray-300 px-4 py-2 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                     >
                         <option value="">All Categories</option>
                         {categories.map((cat) => (
@@ -68,40 +68,42 @@ export default function ProductList() {
                         ))}
                     </select>
                 </div>
-                <Link to="/admin/products/add" className="bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600">
+                <Link to="/admin/products/add" className="bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 text-center">
                     Add New Product
                 </Link>
             </div>
 
-            <table className="w-full table-auto border-collapse border border-gray-200">
-                <thead>
-                    <tr className="bg-gray-100">
-                        <th className="border border-gray-200 px-4 py-2">Title</th>
-                        <th className="border border-gray-200 px-4 py-2">Price</th>
-                        <th className="border border-gray-200 px-4 py-2">Stock</th>
-                        <th className="border border-gray-200 px-4 py-2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {products.map((product) => (
-                        <tr key={product._id} className="text-center">
-                            <td className="border border-gray-200 px-4 py-2">{product.title}</td>
-                            <td className="border border-gray-200 px-4 py-2">₹{product.price}</td>
-                            <td className="border border-gray-200 px-4 py-2">{product.stock}</td>
-                            <td className="border border-gray-200 px-4 py-2">
-                                <Link to={`/admin/products/update/${product._id}`} className="text-blue-500 hover:underline mr-4">
-                                    Edit
-                                </Link>
-                                <button
-                                    onClick={() => deletedProduct(product._id)}
-                                    className="text-red-500 hover:underline">
-                                    Delete
-                                </button>
-                            </td>
+            <div className="overflow-x-auto">
+                <table className="w-full table-auto border-collapse border border-gray-200">
+                    <thead>
+                        <tr className="bg-gray-100">
+                            <th className="border border-gray-200 px-4 py-2">Title</th>
+                            <th className="border border-gray-200 px-4 py-2">Price</th>
+                            <th className="border border-gray-200 px-4 py-2">Stock</th>
+                            <th className="border border-gray-200 px-4 py-2">Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {products.map((product) => (
+                            <tr key={product._id} className="text-center">
+                                <td className="border border-gray-200 px-4 py-2">{product.title}</td>
+                                <td className="border border-gray-200 px-4 py-2">₹{product.price}</td>
+                                <td className="border border-gray-200 px-4 py-2">{product.stock}</td>
+                                <td className="border border-gray-200 px-4 py-2">
+                                    <Link to={`/admin/products/update/${product._id}`} className="text-blue-500 hover:underline mr-4">
+                                        Edit
+                                    </Link>
+                                    <button
+                                        onClick={() => deletedProduct(product._id)}
+                                        className="text-red-500 hover:underline">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

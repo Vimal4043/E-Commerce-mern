@@ -115,26 +115,26 @@ export default function LuxuryCart() {
                                     transition={{ duration: 0.4, delay: index * 0.1 }}
                                     className="bg-dark-card border border-dark-border rounded-2xl p-6 card-hover"
                                 >
-                                    <div className="grid md:grid-cols-12 gap-6">
-                        {/* Product Image */}
-                        <div className="md:col-span-3">
-                            <div className="aspect-square bg-linear-to-br from-dark-elevated to-dark-card rounded-xl overflow-hidden border border-dark-border">
-                                <motion.div
-                                    className="w-full h-full flex items-center justify-center"
-                                    whileHover="hover"
-                                    variants={imageZoom}
-                                >
-                                    {item.productId.image ? (
-                                        <img src={item.productId.image} alt={item.productId.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
-                                    ) : (
-                                        <span className="text-5xl">⌚</span>
-                                    )}
-                                </motion.div>
-                            </div>
-                        </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-6">
+                                        {/* Product Image */}
+                                        <div className="sm:col-span-3">
+                                            <div className="aspect-square bg-linear-to-br from-dark-elevated to-dark-card rounded-xl overflow-hidden border border-dark-border">
+                                                <motion.div
+                                                    className="w-full h-full flex items-center justify-center"
+                                                    whileHover="hover"
+                                                    variants={imageZoom}
+                                                >
+                                                    {item.productId.image ? (
+                                                        <img src={item.productId.image} alt={item.productId.title} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.alt = ""; event.currentTarget.style.display = "none"; }} />
+                                                    ) : (
+                                                        <span className="text-5xl">⌚</span>
+                                                    )}
+                                                </motion.div>
+                                            </div>
+                                        </div>
 
                                         {/* Product Details */}
-                                        <div className="md:col-span-5 flex flex-col justify-between">
+                                        <div className="sm:col-span-5 flex flex-col justify-between">
                                             <div>
                                                 <p className="text-xs text-accent uppercase tracking-wider mb-2">
                                                     {item.productId.category}
@@ -146,10 +146,10 @@ export default function LuxuryCart() {
                                                 </Link>
                                                 <p className="typo-price">₹ {item.productId.price}</p>
                                             </div>
-                                            <div className="flex items-center gap-4 mt-4 md:mt-0">
+                                            <div className="flex items-center gap-4 mt-4 sm:mt-0">
                                                 <motion.button
                                                     onClick={() => updateQty(item.productId._id, item.quantity - 1)}
-                                                    className="w-8 h-8 rounded-full border border-dark-border flex items-center justify-center hover:border-accent transition-colors"
+                                                    className="w-10 h-10 rounded-full border border-dark-border flex items-center justify-center hover:border-accent transition-colors"
                                                     whileHover={{ scale: 1.1 }}
                                                     whileTap={{ scale: 0.9 }}
                                                 >
@@ -160,7 +160,7 @@ export default function LuxuryCart() {
                                                 </span>
                                                 <motion.button
                                                     onClick={() => updateQty(item.productId._id, item.quantity + 1)}
-                                                    className="w-8 h-8 rounded-full border border-dark-border flex items-center justify-center hover:border-accent transition-colors"
+                                                    className="w-10 h-10 rounded-full border border-dark-border flex items-center justify-center hover:border-accent transition-colors"
                                                     whileHover={{ scale: 1.1 }}
                                                     whileTap={{ scale: 0.9 }}
                                                 >
@@ -170,10 +170,10 @@ export default function LuxuryCart() {
                                         </div>
 
                                         {/* Price & Actions */}
-                                        <div className="md:col-span-4 flex flex-col justify-between items-end">
+                                        <div className="sm:col-span-4 flex flex-row sm:flex-col justify-between items-center sm:items-end">
                                             <motion.button
                                                 onClick={() => removeItem(item.productId._id)}
-                                                className="w-8 h-8 rounded-full border border-dark-border flex items-center justify-center hover:border-red-500/30 hover:text-red-400 transition-colors"
+                                                className="w-10 h-10 rounded-full border border-dark-border flex items-center justify-center hover:border-red-500/30 hover:text-red-400 transition-colors"
                                                 whileHover={{ scale: 1.1 }}
                                                 whileTap={{ scale: 0.9 }}
                                             >
@@ -194,7 +194,7 @@ export default function LuxuryCart() {
                         </AnimatePresence>
 
                         {/* Continue Shopping */}
-                        <Link to="/shop">
+                        <Link to="/">
                             <motion.button
                                 className="btn btn-outline w-full md:w-auto group"
                                 whileHover={{ scale: 1.02 }}
@@ -227,7 +227,7 @@ export default function LuxuryCart() {
                                         Add Coupon Code
                                     </button>
                                 ) : (
-                                    <div className="flex gap-2">
+                                    <div className="flex flex-col sm:flex-row gap-2">
                                         <input
                                             type="text"
                                             value={couponCode}
@@ -293,7 +293,7 @@ export default function LuxuryCart() {
                             {shippingCost > 0 && (
                                 <div className="mb-6">
                                     <div className="flex justify-between text-xs mb-2">
-                                        <span className="text-text-muted">Add ₹ ${(5000 - subtotal).toFixed(2)} more for FREE shipping</span>
+                                        <span className="text-text-muted">Add ₹ {(5000 - subtotal).toFixed(2)} more for FREE shipping</span>
                                     </div>
                                     <div className="h-2 bg-dark-elevated rounded-full overflow-hidden">
                                         <motion.div
